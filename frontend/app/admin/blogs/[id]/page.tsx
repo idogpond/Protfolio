@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import axios from "axios";
 import BlogForm from "@/components/admin/BlogForm";
 import adminApi from "@/lib/adminApi";
 import type { Blog } from "@/types";
@@ -21,8 +22,17 @@ export default function EditBlogPage() {
   }, [id]);
 
   async function handleSubmit(data: BlogFormValues) {
-    await adminApi.put(`/admin/blogs/${id}`, data);
-    router.push("/admin/blogs");
+    try {
+      await adminApi.put(`/admin/blogs/${id}`, data);
+      router.push("/admin/blogs");
+    } catch (err: unknown) {
+      const message =
+        axios.isAxiosError(err) && err.response?.data?.message
+          ? err.response.data.message
+          : "Something went wrong. Please try again.";
+      console.error(err);
+      throw new Error(message);
+    }
   }
 
   if (loading) return <div className="text-dark-500 p-8">Loading…</div>;
