@@ -96,27 +96,32 @@ export default function Contact() {
           {/* Right — Form */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-3">
-            <form onSubmit={handleSubmit} noValidate className="card p-8 space-y-6">
+            <form onSubmit={handleSubmit} noValidate className="card p-7 space-y-5">
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-dark-300 text-sm font-medium">ชื่อ <span className="text-red-400">*</span></label>
                 <input id="name" name="name" type="text" value={form.name} onChange={handleChange} placeholder="Your Name"
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-xl text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.name ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.name ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
                 {errors.name && <p className="text-red-400 text-xs">{errors.name}</p>}
               </div>
               <div className="space-y-2">
                 <label htmlFor="email" className="block text-dark-300 text-sm font-medium">อีเมล <span className="text-red-400">*</span></label>
                 <input id="email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-xl text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
                 {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
               </div>
               <div className="space-y-2">
                 <label htmlFor="message" className="block text-dark-300 text-sm font-medium">ข้อความ <span className="text-red-400">*</span></label>
                 <textarea id="message" name="message" rows={5} value={form.message} onChange={handleChange} placeholder="สวัสดีครับ ผมสนใจ..."
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-xl text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                  maxLength={2000}
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
                 <div className="flex justify-between">
                   {errors.message ? <p className="text-red-400 text-xs">{errors.message}</p> : <span />}
-                  <span className="text-dark-600 text-xs">{form.message.length}/2000</span>
                 </div>
+                <p className={`text-xs font-mono text-right transition-colors ${
+                  form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"
+                }`}>
+                  {form.message.length}/2000
+                </p>
               </div>
               {serverMessage && (
                 <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
