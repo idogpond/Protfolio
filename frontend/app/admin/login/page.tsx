@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,8 +15,9 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [serverError, setServerError] = useState("");
 
   const {
@@ -34,7 +35,9 @@ export default function AdminLoginPage() {
         { headers: { "Content-Type": "application/json", Accept: "application/json" } }
       );
       Cookies.set("admin_token", res.data.token, { expires: 7, sameSite: "strict" });
-      router.push("/admin/dashboard");
+      const from = searchParams.get("from");
+      const redirectTo = from?.startsWith("/admin/") ? from : "/admin/dashboard";
+      router.push(redirectTo);
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setServerError(err.response?.data?.message ?? "Login failed");
@@ -115,5 +118,13 @@ export default function AdminLoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }
