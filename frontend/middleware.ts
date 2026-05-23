@@ -1,0 +1,28 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const token    = request.cookies.get("admin_token")?.value;
+  const pathname = request.nextUrl.pathname;
+
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isLoginPage  = pathname === "/admin/login";
+
+  // ไม่มี token และพยายามเข้า /admin/* → redirect ไป login
+  if (isAdminRoute && !isLoginPage && !token) {
+    const loginUrl = new URL("/admin/login", request.url);
+    loginUrl.searchParams.set("from", pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // มี token แล้ว แต่พยายามเข้า /admin/login → redirect ไป dashboard
+  if (isLoginPage && token) {
+    return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};

@@ -1,0 +1,144 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import adminApi from "@/lib/adminApi";
+import type { AdminContact } from "@/types/admin";
+import { cn } from "@/lib/utils";
+
+export default function AdminContactsPage() {
+  const [contacts, setContacts] = useState<AdminContact[]>([]);
+  const [loading, setLoading]   = useState(true);
+  const [marking, setMarking]   = useState<number | null>(null);
+
+  useEffect(() => { fetchContacts(); }, []);
+
+  async function fetchContacts() {
+    try {
+      const res = await adminApi.get<{ data: AdminContact[] }>("/admin/contacts");
+      setContacts(res.data.data);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleMarkRead(id: number) {
+    setMarking(id);
+    try {
+      const res = await adminApi.patch<{ data: AdminContact }>(`/admin/contacts/${id}/read`);
+      setContacts((prev) =>
+        prev.map((c) => (c.id === id ? res.data.data : c))
+      );
+    } finally {
+      setMarking(null);
+    }
+  }
+
+  const unread = contacts.filter((c) => !c.is_read).length;
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Contact Messages</h1>
+          <p className="text-dark-500 text-sm mt-1">
+            {contacts.length} total
+            {unread > 0 && (
+              <span className="ml-2 text-orange-400 font-medium">{unread} unread</span>
+            )}
+          </p>
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="card p-8 text-center text-dark-500">Loading…</div>
+      ) : contacts.length === 0 ? (
+        <div className="card p-8 text-center text-dark-500">No messages yet.</div>
+      ) : (
+        <div className="space-y-3">
+          {contacts.map((contact) => (
+            <div
+              key={contact.id}
+              className={cn(
+                "card p-5 transition-all duration-200",
+                !contact.is_read && "border-primary-500/30 bg-primary-500/5"
+              )}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  {/* Header */}
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className="text-white font-semibold">{contact.name}</span>
+                    {!contact.is_read && (
+                      <span className="text-xs bg-primary-500/20 text-primary-400
+                                       px-2 py-0.5 rounded-full font-medium">
+                        New
+                      </span>
+                    )}
+                    <span className="text-dark-500 text-xs ml-auto shrink-0">
+                      {new Date(contact.created_at).toLocaleDateString("th-TH", {
+                        year: "numeric", month: "short", day: "numeric",
+                        hour: "2-digit", minute: "2-digit",
+                      })}
+                    </span>
+                  </div>
+
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="text-primary-400 text-sm hover:underline"
+                  >
+                    {contact.email}
+                  </a>
+
+                  <p className="text-dark-300 text-sm mt-3 leading-relaxed whitespace-pre-wrap">
+                    {contact.message}
+                  </p>
+                </div>
+              </div>
+
+              {/* Actions */}
+              {!contact.is_read && (
+                <div className="flex justify-end mt-4 pt-4 border-t border-dark-800">
+                  <button
+                    onClick={() => handleMarkRead(contact.id)}
+                    disabled={marking === contact.id}
+                    className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
+                               hover:border-green-500 hover:text-green-400 transition-colors
+                               flex items-center gap-2 disabled:opacity-50"
+                  >
+                    {marking === contact.id ? (
+                      <>
+                        <svg className="animate-spin w-3 h-3" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+                          <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Marking…
+                      </>
+                    ) : (
+                      <>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        Mark as Read
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+
+              {contact.is_read && (
+                <div className="flex justify-end mt-3">
+                  <span className="text-xs text-dark-600 flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    Read
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

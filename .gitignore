@@ -1,0 +1,43 @@
+# ─── Environment ────────────────────────────────────────────
+.env
+!.env.example
+frontend/.env.local
+!frontend/.env.local.example
+backend/.env
+!backend/.env.example
+
+# ─── Frontend (Next.js) ──────────────────────────────────────
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# ─── Backend (Laravel) ───────────────────────────────────────
+backend/vendor/
+backend/storage/logs/*.log
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+backend/bootstrap/cache/*.php
+backend/.phpunit.result.cache
+backend/coverage/
+
+# ─── Docker volumes ──────────────────────────────────────────
+docker/mysql/data/
+
+# ─── OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── IDE ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.user
+
+README.md
+SKILL.md
+CLAUDE.md
