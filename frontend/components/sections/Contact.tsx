@@ -114,14 +114,14 @@ export default function Contact() {
                 <textarea id="message" name="message" rows={5} value={form.message} onChange={handleChange} placeholder="สวัสดีครับ ผมสนใจ..."
                   maxLength={2000}
                   className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
-                <div className="flex justify-between">
+                <div className="flex justify-between items-start mt-1">
                   {errors.message ? <p className="text-red-400 text-xs">{errors.message}</p> : <span />}
+                  <p className={`text-xs font-mono transition-colors ${
+                    form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"
+                  }`}>
+                    {form.message.length}/2000
+                  </p>
                 </div>
-                <p className={`text-xs font-mono text-right transition-colors ${
-                  form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"
-                }`}>
-                  {form.message.length}/2000
-                </p>
               </div>
               {serverMessage && (
                 <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
