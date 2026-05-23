@@ -20,6 +20,7 @@ let cache: ProfileSettings | null = null;
 export function useProfile() {
   const [profile, setProfile] = useState<ProfileSettings>(cache ?? EMPTY);
   const [loading, setLoading] = useState(!cache);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (cache) { setProfile(cache); setLoading(false); return; }
@@ -27,8 +28,11 @@ export function useProfile() {
     api.get<ProfileSettings>("/profile").then((res) => {
       cache = res.data;
       setProfile(res.data);
+      setError(null);
+    }).catch(() => {
+      setError("Failed to load profile");
     }).finally(() => setLoading(false));
   }, []);
 
-  return { profile, loading };
+  return { profile, loading, error };
 }
