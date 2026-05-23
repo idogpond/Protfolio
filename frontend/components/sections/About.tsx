@@ -8,7 +8,7 @@ export default function About() {
   const { profile } = useProfile();
 
   const stats = [
-    { value: `${profile.years_of_experience ?? 3}+`, label: "Years Experience" },
+    { value: `${profile.years_of_experience || 3}+`, label: "Years Experience" },
     { value: "20+", label: "Projects Completed" },
     { value: "10+", label: "Happy Clients" },
     { value: "5+",  label: "Tech Stacks" },
@@ -32,7 +32,7 @@ export default function About() {
             transition={{ duration: 0.6 }} className="space-y-5 text-dark-300 leading-relaxed">
             {profile.about_me
               ? profile.about_me.split("\n\n").map((para, i) => <p key={i}>{para}</p>)
-              : <p>Full Stack Developer with {profile.years_of_experience ?? 3}+ years of experience building modern web applications.</p>}
+              : <p>Full Stack Developer with {profile.years_of_experience || 3}+ years of experience building modern web applications.</p>}
 
             {profile.location && (
               <p className="flex items-center gap-2 text-dark-400 text-sm">
