@@ -1,13 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fira+Code:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Fira+Code:wght@400;500&display=swap');
-
 @layer base {
   :root {
-    --background: #09090b;
-    --foreground: #f4f4f5;
+    --background:             oklch(0.1 0.003 264);   /* dark-950 #09090b */
+    --foreground:             oklch(0.97 0.002 264);   /* dark-100 #f4f4f5 */
+    --card:                   oklch(0.17 0.003 264);   /* dark-900 #18181b */
+    --card-foreground:        oklch(0.97 0.002 264);
+    --popover:                oklch(0.17 0.003 264);
+    --popover-foreground:     oklch(0.97 0.002 264);
+    --primary:                oklch(0.769 0.188 70);   /* amber #f59e0b */
+    --primary-foreground:     oklch(0.1 0.003 264);
+    --secondary:              oklch(0.23 0.003 264);   /* dark-800 #27272a */
+    --secondary-foreground:   oklch(0.97 0.002 264);
+    --muted:                  oklch(0.23 0.003 264);
+    --muted-foreground:       oklch(0.53 0.006 264);   /* dark-500 #71717a */
+    --accent:                 oklch(0.23 0.003 264);
+    --accent-foreground:      oklch(0.97 0.002 264);
+    --destructive:            oklch(0.637 0.237 25);   /* red-500 */
+    --border:                 oklch(0.33 0.006 264);   /* dark-700 #3f3f46 */
+    --input:                  oklch(0.33 0.006 264);
+    --ring:                   oklch(0.769 0.188 70);   /* amber */
+    --radius:                 0.75rem;
+    --sidebar:                oklch(0.17 0.003 264);
+    --sidebar-foreground:     oklch(0.97 0.002 264);
+    --sidebar-primary:        oklch(0.769 0.188 70);
+    --sidebar-primary-foreground: oklch(0.1 0.003 264);
+    --sidebar-accent:         oklch(0.23 0.003 264);
+    --sidebar-accent-foreground: oklch(0.97 0.002 264);
+    --sidebar-border:         oklch(0.33 0.006 264);
+    --sidebar-ring:           oklch(0.769 0.188 70);
   }
 
   * {
@@ -15,11 +40,11 @@
   }
 
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth font-sans;
   }
 
   body {
-    @apply bg-dark-950 text-dark-100 font-sans antialiased;
+    @apply font-sans antialiased bg-dark-950 text-dark-100;
   }
 
   ::selection {

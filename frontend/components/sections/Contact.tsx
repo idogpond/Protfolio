@@ -7,6 +7,10 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
 import { useProfile } from "@/lib/useProfile";
 import type { ContactFormData } from "@/types";
+import { Button }   from "@/components/ui/button";
+import { Input }    from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label }    from "@/components/ui/label";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -104,41 +108,41 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} noValidate className="card p-7 space-y-5">
               <div className="space-y-2">
-                <label htmlFor="name" className="block text-dark-300 text-sm font-medium">
+                <Label htmlFor="name" className="text-dark-300">
                   {t("form.name")} <span className="text-red-400">*</span>
-                </label>
-                <input
+                </Label>
+                <Input
                   id="name" name="name" type="text" value={form.name} onChange={handleChange}
                   placeholder={t("namePlaceholder")}
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.name ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                  className={errors.name ? "border-destructive" : ""}
                 />
-                {errors.name && <p className="text-red-400 text-xs">{errors.name}</p>}
+                {errors.name && <p className="text-destructive text-xs">{errors.name}</p>}
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-dark-300 text-sm font-medium">
+                <Label htmlFor="email" className="text-dark-300">
                   {t("form.email")} <span className="text-red-400">*</span>
-                </label>
-                <input
+                </Label>
+                <Input
                   id="email" name="email" type="email" value={form.email} onChange={handleChange}
                   placeholder={t("emailPlaceholder")}
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                  className={errors.email ? "border-destructive" : ""}
                 />
-                {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
+                {errors.email && <p className="text-destructive text-xs">{errors.email}</p>}
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="block text-dark-300 text-sm font-medium">
+                <Label htmlFor="message" className="text-dark-300">
                   {t("form.message")} <span className="text-red-400">*</span>
-                </label>
-                <textarea
+                </Label>
+                <Textarea
                   id="message" name="message" rows={5} value={form.message} onChange={handleChange}
                   placeholder={t("messagePlaceholder")}
                   maxLength={2000}
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                  className={`resize-none ${errors.message ? "border-destructive" : ""}`}
                 />
                 <div className="flex justify-between items-start mt-1">
-                  {errors.message ? <p className="text-red-400 text-xs">{errors.message}</p> : <span />}
+                  {errors.message ? <p className="text-destructive text-xs">{errors.message}</p> : <span />}
                   <p className={`text-xs font-mono transition-colors ${form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"}`}>
                     {form.message.length}/2000
                   </p>
@@ -154,9 +158,9 @@ export default function Contact() {
                 </motion.div>
               )}
 
-              <button
+              <Button
                 type="submit" disabled={state === "loading" || state === "success"}
-                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full flex items-center justify-center gap-2"
               >
                 {state === "loading" && (
                   <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -165,7 +169,7 @@ export default function Contact() {
                   </svg>
                 )}
                 {state === "loading" ? t("form.sending") : state === "success" ? t("form.sent") : t("form.submit")}
-              </button>
+              </Button>
             </form>
           </motion.div>
         </div>

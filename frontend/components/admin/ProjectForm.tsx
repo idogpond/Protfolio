@@ -2,22 +2,28 @@
 
 import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ProjectFormValues } from "@/types/admin";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Field } from "@/components/ui/field";
 
 // FormSchema is derived inside the component; keep a stable local type for useForm
 // by using the module-level shape. Runtime validation uses the useMemo schema.
 type FormSchema = {
-  title:       string;
+  title: string;
   description: string;
-  tech_stack:  string; // comma-separated input → split before submit
-  github_url:  string;
-  demo_url:    string;
-  image_url:   string;
+  tech_stack: string; // comma-separated input → split before submit
+  github_url: string;
+  demo_url: string;
+  image_url: string;
   is_featured: boolean;
-  order:       number;
+  order: number;
 };
 
 interface ProjectFormProps {
@@ -33,31 +39,32 @@ export default function ProjectForm({ defaultValues, onSubmit, submitLabel }: Pr
   const schema = useMemo(
     () =>
       z.object({
-        title:       z.string().min(1, t("form.required")),
+        title: z.string().min(1, t("form.required")),
         description: z.string().min(1, t("form.required")),
-        tech_stack:  z.string(), // comma-separated input → split before submit
-        github_url:  z.string().url(t("form.invalidUrl")).or(z.literal("")),
-        demo_url:    z.string().url(t("form.invalidUrl")).or(z.literal("")),
-        image_url:   z.string(),
+        tech_stack: z.string(), // comma-separated input → split before submit
+        github_url: z.string().url(t("form.invalidUrl")).or(z.literal("")),
+        demo_url: z.string().url(t("form.invalidUrl")).or(z.literal("")),
+        image_url: z.string(),
         is_featured: z.boolean(),
-        order:       z.coerce.number().int().min(0),
+        order: z.coerce.number().int().min(0),
       }),
     [t]
   );
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormSchema>({
+  const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<FormSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
-      title:       defaultValues?.title       ?? "",
+      title: defaultValues?.title ?? "",
       description: defaultValues?.description ?? "",
-      tech_stack:  (defaultValues?.tech_stack ?? []).join(", "),
-      github_url:  defaultValues?.github_url  ?? "",
-      demo_url:    defaultValues?.demo_url    ?? "",
-      image_url:   defaultValues?.image_url   ?? "",
+      tech_stack: (defaultValues?.tech_stack ?? []).join(", "),
+      github_url: defaultValues?.github_url ?? "",
+      demo_url: defaultValues?.demo_url ?? "",
+      image_url: defaultValues?.image_url ?? "",
       is_featured: defaultValues?.is_featured ?? false,
-      order:       defaultValues?.order       ?? 0,
+      order: defaultValues?.order ?? 0,
     },
   });
+
 
   async function handleFormSubmit(raw: FormSchema) {
     setServerError("");
@@ -65,7 +72,7 @@ export default function ProjectForm({ defaultValues, onSubmit, submitLabel }: Pr
       await onSubmit({
         ...raw,
         github_url: raw.github_url || "",
-        demo_url:   raw.demo_url   || "",
+        demo_url: raw.demo_url || "",
         tech_stack: raw.tech_stack
           .split(",")
           .map((s) => s.trim())
@@ -78,48 +85,55 @@ export default function ProjectForm({ defaultValues, onSubmit, submitLabel }: Pr
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
-      {/* Title */}
-      <Field label={t("projectForm.titleLabel")} error={errors.title?.message}>
-        <input {...register("title")} placeholder="My Project" className={inputCls(!!errors.title)} />
+      <Field label={t("projectForm.titleLabel")} error={errors.title?.message} htmlFor="title">
+        <Input id="title" {...register("title")} placeholder="My Project"
+          className={errors.title ? "border-destructive" : ""} />
       </Field>
 
-      {/* Description */}
-      <Field label={t("projectForm.descriptionLabel")} error={errors.description?.message}>
-        <textarea {...register("description")} rows={4} placeholder="Project description…"
-          className={inputCls(!!errors.description) + " resize-none"} />
+      <Field label={t("projectForm.descriptionLabel")} error={errors.description?.message} htmlFor="description">
+        <Textarea id="description" {...register("description")} rows={4}
+          placeholder="Project description…"
+          className={`resize-none ${errors.description ? "border-destructive" : ""}`} />
       </Field>
 
-      {/* Tech Stack */}
-      <Field label={t("projectForm.techStack")} hint={t("projectForm.techStackHint")}>
-        <input {...register("tech_stack")} placeholder="React, Laravel, MySQL" className={inputCls(false)} />
+      <Field label={t("projectForm.techStack")} hint={t("projectForm.techStackHint")} htmlFor="tech_stack">
+        <Input id="tech_stack" {...register("tech_stack")} placeholder="React, Laravel, MySQL" />
       </Field>
 
-      {/* URLs */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label={t("projectForm.githubUrl")} error={errors.github_url?.message}>
-          <input {...register("github_url")} placeholder="https://github.com/…" className={inputCls(!!errors.github_url)} />
+        <Field label={t("projectForm.githubUrl")} error={errors.github_url?.message} htmlFor="github_url">
+          <Input id="github_url" {...register("github_url")} placeholder="https://github.com/…"
+            className={errors.github_url ? "border-destructive" : ""} />
         </Field>
-        <Field label={t("projectForm.demoUrl")} error={errors.demo_url?.message}>
-          <input {...register("demo_url")} placeholder="https://demo.example.com" className={inputCls(!!errors.demo_url)} />
+        <Field label={t("projectForm.demoUrl")} error={errors.demo_url?.message} htmlFor="demo_url">
+          <Input id="demo_url" {...register("demo_url")} placeholder="https://demo.example.com"
+            className={errors.demo_url ? "border-destructive" : ""} />
         </Field>
       </div>
 
-      {/* Image URL */}
-      <Field label={t("projectForm.imageUrl")}>
-        <input {...register("image_url")} placeholder="https://…/image.png" className={inputCls(false)} />
+      <Field label={t("projectForm.imageUrl")} htmlFor="image_url">
+        <Input id="image_url" {...register("image_url")} placeholder="https://…/image.png" />
       </Field>
 
-      {/* Order + Featured */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label={t("projectForm.order")} error={errors.order?.message}>
-          <input type="number" {...register("order")} className={inputCls(!!errors.order)} />
+        <Field label={t("projectForm.order")} error={errors.order?.message} htmlFor="order">
+          <Input id="order" type="number" {...register("order")}
+            className={errors.order ? "border-destructive" : ""} />
         </Field>
         <div className="flex items-end pb-1">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" {...register("is_featured")}
-              className="w-4 h-4 accent-primary-500" />
-            <span className="text-dark-300 text-sm">{t("projectForm.isFeatured")}</span>
-          </label>
+          <Controller
+            name="is_featured"
+            control={control}
+            render={({ field }) => (
+              <Label className="flex items-center gap-3 cursor-pointer font-normal text-dark-300 text-sm">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                {t("projectForm.isFeatured")}
+              </Label>
+            )}
+          />
         </div>
       </div>
 
@@ -129,35 +143,15 @@ export default function ProjectForm({ defaultValues, onSubmit, submitLabel }: Pr
         </div>
       )}
 
-      <button type="submit" disabled={isSubmitting}
-        className="btn-primary flex items-center gap-2 disabled:opacity-50">
+      <Button type="submit" disabled={isSubmitting} className="flex items-center gap-2">
         {isSubmitting && <Spinner />}
         {isSubmitting ? t("form.saving") : (submitLabel ?? t("form.save"))}
-      </button>
+      </Button>
     </form>
   );
 }
 
 // ─── helpers ────────────────────────────────────────────────────────────────
-
-function inputCls(hasError: boolean) {
-  return `w-full px-4 py-2.5 bg-dark-800 border rounded-xl text-white placeholder-dark-600
-          outline-none transition-colors text-sm
-          ${hasError ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`;
-}
-
-function Field({ label, hint, error, children }: {
-  label: string; hint?: string; error?: string; children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <label className="block text-dark-300 text-sm font-medium">{label}</label>
-      {hint && <p className="text-dark-600 text-xs">{hint}</p>}
-      {children}
-      {error && <p className="text-red-400 text-xs">{error}</p>}
-    </div>
-  );
-}
 
 function Spinner() {
   return (

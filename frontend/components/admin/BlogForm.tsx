@@ -1,12 +1,17 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import type { BlogFormValues } from "@/types/admin";
+import { Button }   from "@/components/ui/button";
+import { Input }    from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label }    from "@/components/ui/label";
+import { Field }    from "@/components/ui/field";
 
 interface BlogFormProps {
   defaultValues?: Partial<BlogFormValues>;
@@ -34,7 +39,7 @@ export default function BlogForm({ defaultValues, onSubmit, submitLabel }: BlogF
 
   type FormSchema = z.infer<typeof schema>;
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormSchema>({
+  const { register, handleSubmit, control, formState: { errors, isSubmitting } } = useForm<FormSchema>({
     resolver: zodResolver(schema),
     defaultValues: {
       title:        defaultValues?.title        ?? "",
@@ -60,43 +65,49 @@ export default function BlogForm({ defaultValues, onSubmit, submitLabel }: BlogF
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
-      {/* Title */}
-      <Field label={t("blogForm.titleLabel")} error={errors.title?.message}>
-        <input {...register("title")} placeholder="My Blog Post" className={inputCls(!!errors.title)} />
+      <Field label={t("blogForm.titleLabel")} error={errors.title?.message} htmlFor="title">
+        <Input id="title" {...register("title")} placeholder="My Blog Post"
+          className={errors.title ? "border-destructive" : ""} />
       </Field>
 
-      {/* Slug */}
-      <Field label={t("blogForm.slug")} hint={t("blogForm.slugHint")}>
-        <input {...register("slug")} placeholder="my-blog-post" className={inputCls(false)} />
+      <Field label={t("blogForm.slug")} hint={t("blogForm.slugHint")} htmlFor="slug">
+        <Input id="slug" {...register("slug")} placeholder="my-blog-post" />
       </Field>
 
-      {/* Excerpt */}
-      <Field label={t("blogForm.excerpt")}>
-        <textarea {...register("excerpt")} rows={2} placeholder="Short description for preview…"
-          className={inputCls(false) + " resize-none"} />
+      <Field label={t("blogForm.excerpt")} htmlFor="excerpt">
+        <Textarea id="excerpt" {...register("excerpt")} rows={2}
+          placeholder="Short description for preview…" className="resize-none" />
       </Field>
 
-      {/* Content */}
-      <Field label={t("blogForm.content")} error={errors.content?.message}>
-        <textarea {...register("content")} rows={12} placeholder="Markdown content…"
-          className={`${inputCls(!!errors.content)} resize-y font-mono text-xs`} />
+      <Field label={t("blogForm.content")} error={errors.content?.message} htmlFor="content">
+        <Textarea id="content" {...register("content")} rows={12}
+          placeholder="Markdown content…"
+          className={`resize-y font-mono text-xs ${errors.content ? "border-destructive" : ""}`} />
       </Field>
 
-      {/* Cover Image */}
-      <Field label={t("blogForm.coverImage")} error={errors.cover_image?.message}>
-        <input {...register("cover_image")} placeholder="https://…/cover.jpg" className={inputCls(!!errors.cover_image)} />
+      <Field label={t("blogForm.coverImage")} error={errors.cover_image?.message} htmlFor="cover_image">
+        <Input id="cover_image" {...register("cover_image")} placeholder="https://…/cover.jpg"
+          className={errors.cover_image ? "border-destructive" : ""} />
       </Field>
 
-      {/* Published At + is_published */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label={t("blogForm.publishDate")}>
-          <input type="datetime-local" {...register("published_at")} className={inputCls(false)} />
+        <Field label={t("blogForm.publishDate")} htmlFor="published_at">
+          <Input id="published_at" type="datetime-local" {...register("published_at")} />
         </Field>
         <div className="flex items-end pb-1">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" {...register("is_published")} className="w-4 h-4 accent-primary-500" />
-            <span className="text-dark-300 text-sm">{t("blogForm.isPublished")}</span>
-          </label>
+          <Controller
+            name="is_published"
+            control={control}
+            render={({ field }) => (
+              <Label className="flex items-center gap-3 cursor-pointer font-normal text-dark-300 text-sm">
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                {t("blogForm.isPublished")}
+              </Label>
+            )}
+          />
         </div>
       </div>
 
@@ -106,31 +117,11 @@ export default function BlogForm({ defaultValues, onSubmit, submitLabel }: BlogF
         </div>
       )}
 
-      <button type="submit" disabled={isSubmitting}
-        className="btn-primary flex items-center gap-2 disabled:opacity-50">
+      <Button type="submit" disabled={isSubmitting} className="flex items-center gap-2">
         {isSubmitting && <Spinner />}
         {isSubmitting ? t("form.saving") : (submitLabel ?? t("form.save"))}
-      </button>
+      </Button>
     </form>
-  );
-}
-
-function inputCls(hasError: boolean) {
-  return `w-full px-4 py-2.5 bg-dark-800 border rounded-xl text-white placeholder-dark-600
-          outline-none transition-colors text-sm
-          ${hasError ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`;
-}
-
-function Field({ label, hint, error, children }: {
-  label: string; hint?: string; error?: string; children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <label className="block text-dark-300 text-sm font-medium">{label}</label>
-      {hint && <p className="text-dark-600 text-xs">{hint}</p>}
-      {children}
-      {error && <p className="text-red-400 text-xs">{error}</p>}
-    </div>
   );
 }
 

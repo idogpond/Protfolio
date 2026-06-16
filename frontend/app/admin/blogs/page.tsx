@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { Blog } from "@/types";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function AdminBlogsPage() {
   const t = useTranslations("admin.blogs");
@@ -54,7 +55,7 @@ export default function AdminBlogsPage() {
           <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
           <p className="text-dark-500 text-sm mt-1">{t("count", { count: blogs.length })}</p>
         </div>
-        <Link href="/admin/blogs/new" className="btn-primary text-sm">{t("newPost")}</Link>
+        <Link href="/admin/blogs/new" className={buttonVariants({ size: "sm" })}>{t("newPost")}</Link>
       </div>
 
       <div className="card overflow-hidden">
@@ -95,19 +96,18 @@ export default function AdminBlogsPage() {
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/blogs/${blog.id}`}
-                        className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
-                                   hover:border-primary-500 hover:text-primary-400 transition-colors"
+                        className={buttonVariants({ variant: "outline", size: "sm" })}
                       >
                         {t("edit")}
                       </Link>
-                      <button
+                      <Button
+                        variant="outline" size="sm"
                         onClick={() => handleDelete(blog.id)}
                         disabled={deleting === blog.id}
-                        className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
-                                   hover:border-red-500 hover:text-red-400 transition-colors disabled:opacity-50"
+                        className="text-dark-300 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
                       >
                         {deleting === blog.id ? t("deleting") : t("delete")}
-                      </button>
+                      </Button>
                     </div>
                   </td>
                 </tr>

@@ -9,7 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        background:  "var(--background)",
+        foreground:  "var(--foreground)",
+        card: {
+          DEFAULT:    "var(--card)",
+          foreground: "var(--card-foreground)",
+        },
+        popover: {
+          DEFAULT:    "var(--popover)",
+          foreground: "var(--popover-foreground)",
+        },
         primary: {
+          DEFAULT:    "var(--primary)",
+          foreground: "var(--primary-foreground)",
           50:  "#fffbeb",
           100: "#fef3c7",
           200: "#fde68a",
@@ -21,7 +33,17 @@ const config: Config = {
           800: "#92400e",
           900: "#78350f",
         },
+        secondary: {
+          DEFAULT:    "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        muted: {
+          DEFAULT:    "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
         accent: {
+          DEFAULT:    "var(--accent)",
+          foreground: "var(--accent-foreground)",
           50:  "#f0fdfa",
           100: "#ccfbf1",
           200: "#99f6e4",
@@ -33,6 +55,12 @@ const config: Config = {
           800: "#115e59",
           900: "#134e4a",
         },
+        destructive: {
+          DEFAULT: "var(--destructive)",
+        },
+        border: "var(--border)",
+        input:  "var(--input)",
+        ring:   "var(--ring)",
         dark: {
           50:  "#fafafa",
           100: "#f4f4f5",

@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { AdminContact } from "@/types/admin";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 export default function AdminContactsPage() {
   const t = useTranslations("admin.contacts");
@@ -115,12 +116,11 @@ export default function AdminContactsPage() {
               {/* Actions */}
               {!contact.is_read && (
                 <div className="flex justify-end mt-4 pt-4 border-t border-dark-800">
-                  <button
+                  <Button
+                    variant="outline" size="sm"
                     onClick={() => handleMarkRead(contact.id)}
                     disabled={marking === contact.id}
-                    className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
-                               hover:border-green-500 hover:text-green-400 transition-colors
-                               flex items-center gap-2 disabled:opacity-50"
+                    className="text-dark-300 hover:text-green-400 hover:border-green-500 flex items-center gap-2 disabled:opacity-50"
                   >
                     {marking === contact.id ? (
                       <>
@@ -138,7 +138,7 @@ export default function AdminContactsPage() {
                         {t("markAsRead")}
                       </>
                     )}
-                  </button>
+                  </Button>
                 </div>
               )}
 

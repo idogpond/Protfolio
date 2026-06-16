@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { Project } from "@/types";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function AdminProjectsPage() {
   const t = useTranslations("admin.projects");
@@ -44,7 +45,7 @@ export default function AdminProjectsPage() {
           <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
           <p className="text-dark-500 text-sm mt-1">{t("count", { count: projects.length })}</p>
         </div>
-        <Link href="/admin/projects/new" className="btn-primary text-sm">{t("newProject")}</Link>
+        <Link href="/admin/projects/new" className={buttonVariants({ size: "sm" })}>{t("newProject")}</Link>
       </div>
 
       <div className="card overflow-hidden">
@@ -92,19 +93,18 @@ export default function AdminProjectsPage() {
                     <div className="flex items-center justify-end gap-2">
                       <Link
                         href={`/admin/projects/${project.id}`}
-                        className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
-                                   hover:border-primary-500 hover:text-primary-400 transition-colors"
+                        className={buttonVariants({ variant: "outline", size: "sm" })}
                       >
                         {t("edit")}
                       </Link>
-                      <button
+                      <Button
+                        variant="outline" size="sm"
                         onClick={() => handleDelete(project.id)}
                         disabled={deleting === project.id}
-                        className="text-xs px-3 py-1.5 border border-dark-700 text-dark-300 rounded-lg
-                                   hover:border-red-500 hover:text-red-400 transition-colors disabled:opacity-50"
+                        className="text-dark-300 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
                       >
                         {deleting === project.id ? t("deleting") : t("delete")}
-                      </button>
+                      </Button>
                     </div>
                   </td>
                 </tr>

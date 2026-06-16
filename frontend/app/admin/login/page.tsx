@@ -8,6 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Input }  from "@/components/ui/input";
+import { Label }  from "@/components/ui/label";
 
 type FormValues = {
   email: string;
@@ -67,29 +70,27 @@ function LoginForm() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="block text-dark-300 text-sm font-medium">{t("emailLabel")}</label>
-              <input
-                type="email"
-                placeholder="admin@portfolio.com"
+              <Label htmlFor="email" className="text-dark-300">{t("emailLabel")}</Label>
+              <Input
+                id="email" type="email" placeholder="admin@portfolio.com"
                 {...register("email")}
-                className={`w-full px-4 py-3 bg-dark-800 border rounded-xl text-white placeholder-dark-600
-                            outline-none transition-colors text-sm
-                            ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                className={errors.email ? "border-destructive" : ""}
               />
-              {errors.email && <p className="text-red-400 text-xs">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-destructive text-xs">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-dark-300 text-sm font-medium">{t("passwordLabel")}</label>
-              <input
-                type="password"
-                placeholder="••••••••"
+              <Label htmlFor="password" className="text-dark-300">{t("passwordLabel")}</Label>
+              <Input
+                id="password" type="password" placeholder="••••••••"
                 {...register("password")}
-                className={`w-full px-4 py-3 bg-dark-800 border rounded-xl text-white placeholder-dark-600
-                            outline-none transition-colors text-sm
-                            ${errors.password ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                className={errors.password ? "border-destructive" : ""}
               />
-              {errors.password && <p className="text-red-400 text-xs">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-destructive text-xs">{errors.password.message}</p>
+              )}
             </div>
 
             {serverError && (
@@ -98,10 +99,9 @@ function LoginForm() {
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50"
+            <Button
+              type="submit" disabled={isSubmitting}
+              className="w-full flex items-center justify-center gap-2"
             >
               {isSubmitting && (
                 <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
@@ -110,7 +110,7 @@ function LoginForm() {
                 </svg>
               )}
               {isSubmitting ? t("submitting") : t("submit")}
-            </button>
+            </Button>
           </form>
         </div>
 

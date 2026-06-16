@@ -5,9 +5,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
+import { Controller } from "react-hook-form";
 import adminApi from "@/lib/adminApi";
 import Toast from "@/components/admin/Toast";
 import type { ProfileSettings } from "@/types/admin";
+import { Button }   from "@/components/ui/button";
+import { Input }    from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label }    from "@/components/ui/label";
+import { Field }    from "@/components/ui/field";
 
 // ─── Explicit FormValues type (schema moved inside component) ─────────────────
 type FormValues = {
@@ -41,26 +48,6 @@ type FormValues = {
 
 // ─── TabId ────────────────────────────────────────────────────────────────────
 type TabId = "personal" | "contact" | "social" | "resume" | "seo";
-
-// ─── Shared UI helpers ───────────────────────────────────────────────────────
-function Field({ label, hint, error, children }: {
-  label: string; hint?: string; error?: string; children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-1.5">
-      <label className="block text-dark-300 text-sm font-medium">{label}</label>
-      {hint && <p className="text-dark-600 text-xs">{hint}</p>}
-      {children}
-      {error && <p className="text-red-400 text-xs mt-1">{error}</p>}
-    </div>
-  );
-}
-
-function inputCls(hasError = false) {
-  return `w-full px-4 py-2.5 bg-dark-800 border rounded-xl text-white placeholder-dark-600
-          outline-none transition-colors text-sm
-          ${hasError ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`;
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function AdminProfilePage() {
@@ -113,7 +100,7 @@ export default function AdminProfilePage() {
     { id: "seo"      as TabId, label: t("tabs.seo")      },
   ];
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } =
+  const { register, handleSubmit, reset, control, formState: { errors, isSubmitting } } =
     useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const showToast = useCallback((message: string, type: "success" | "error") => {
@@ -185,9 +172,10 @@ export default function AdminProfilePage() {
       {/* Tabs */}
       <div className="flex gap-1 bg-dark-800/50 p-1 rounded-xl border border-dark-800 overflow-x-auto">
         {TABS.map((tab) => (
-          <button
+          <Button
             key={tab.id}
             type="button"
+            variant="ghost"
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all
                         ${activeTab === tab.id
@@ -195,7 +183,7 @@ export default function AdminProfilePage() {
                           : "text-dark-400 hover:text-white"}`}
           >
             {tab.label}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -206,42 +194,52 @@ export default function AdminProfilePage() {
         {activeTab === "personal" && (
           <>
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label={t("personal.fullName")} error={errors.name?.message}>
-                <input {...register("name")} placeholder="Your Name" className={inputCls(!!errors.name)} />
+              <Field label={t("personal.fullName")} error={errors.name?.message} htmlFor="name">
+                <Input id="name" {...register("name")} placeholder="Your Name"
+                  className={errors.name ? "border-destructive" : ""} />
               </Field>
-              <Field label={t("personal.nickname")}>
-                <input {...register("nickname")} placeholder="Dev" className={inputCls()} />
+              <Field label={t("personal.nickname")} htmlFor="nickname">
+                <Input id="nickname" {...register("nickname")} placeholder="Dev" />
               </Field>
             </div>
-            <Field label={t("personal.jobTitle")}>
-              <input {...register("job_title")} placeholder="Full Stack Developer" className={inputCls()} />
+            <Field label={t("personal.jobTitle")} htmlFor="job_title">
+              <Input id="job_title" {...register("job_title")} placeholder="Full Stack Developer" />
             </Field>
-            <Field label={t("personal.bio")}>
-              <textarea {...register("bio")} rows={3} placeholder="…" className={`${inputCls()} resize-none`} />
+            <Field label={t("personal.bio")} htmlFor="bio">
+              <Textarea id="bio" {...register("bio")} rows={3} placeholder="…" className="resize-none" />
             </Field>
-            <Field label={t("personal.aboutMe")}>
-              <textarea {...register("about_me")} rows={6} placeholder="…" className={`${inputCls()} resize-y`} />
+            <Field label={t("personal.aboutMe")} htmlFor="about_me">
+              <Textarea id="about_me" {...register("about_me")} rows={6} placeholder="…" className="resize-y" />
             </Field>
-            <Field label={t("personal.profileImage")}>
-              <input {...register("profile_image")} placeholder="https://…/avatar.jpg" className={inputCls()} />
+            <Field label={t("personal.profileImage")} htmlFor="profile_image">
+              <Input id="profile_image" {...register("profile_image")} placeholder="https://…/avatar.jpg" />
             </Field>
             <div className="grid sm:grid-cols-3 gap-4">
-              <Field label={t("personal.yearsOfExp")}>
-                <input {...register("years_of_experience")} placeholder="3" className={inputCls()} />
+              <Field label={t("personal.yearsOfExp")} htmlFor="years_of_experience">
+                <Input id="years_of_experience" {...register("years_of_experience")} placeholder="3" />
               </Field>
-              <Field label={t("personal.dateOfBirth")}>
-                <input type="date" {...register("date_of_birth")} className={inputCls()} />
+              <Field label={t("personal.dateOfBirth")} htmlFor="date_of_birth">
+                <Input id="date_of_birth" type="date" {...register("date_of_birth")} />
               </Field>
-              <Field label={t("personal.location")}>
-                <input {...register("location")} placeholder="Bangkok, Thailand" className={inputCls()} />
+              <Field label={t("personal.location")} htmlFor="location">
+                <Input id="location" {...register("location")} placeholder="Bangkok, Thailand" />
               </Field>
             </div>
             <div className="flex items-center gap-3 pt-1">
-              <input type="checkbox" id="available_for_hire" {...register("available_for_hire")}
-                className="w-4 h-4 accent-primary-500" />
-              <label htmlFor="available_for_hire" className="text-dark-300 text-sm cursor-pointer">
-                {t("personal.availableForHire")}
-              </label>
+              <Controller
+                name="available_for_hire"
+                control={control}
+                render={({ field }) => (
+                  <Label className="flex items-center gap-3 cursor-pointer font-normal text-dark-300 text-sm">
+                    <Checkbox
+                      id="available_for_hire"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    {t("personal.availableForHire")}
+                  </Label>
+                )}
+              />
             </div>
           </>
         )}
@@ -249,18 +247,19 @@ export default function AdminProfilePage() {
         {/* ── Tab: Contact ── */}
         {activeTab === "contact" && (
           <>
-            <Field label={t("contactTab.email")} error={errors.email?.message}>
-              <input type="email" {...register("email")} placeholder="your@email.com" className={inputCls(!!errors.email)} />
+            <Field label={t("contactTab.email")} error={errors.email?.message} htmlFor="profile_email">
+              <Input id="profile_email" type="email" {...register("email")} placeholder="your@email.com"
+                className={errors.email ? "border-destructive" : ""} />
             </Field>
-            <Field label={t("contactTab.phone")}>
-              <input {...register("phone")} placeholder="+66 8X-XXXX-XXXX" className={inputCls()} />
+            <Field label={t("contactTab.phone")} htmlFor="phone">
+              <Input id="phone" {...register("phone")} placeholder="+66 8X-XXXX-XXXX" />
             </Field>
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label={t("contactTab.lineId")}>
-                <input {...register("line_id")} placeholder="your_line_id" className={inputCls()} />
+              <Field label={t("contactTab.lineId")} htmlFor="line_id">
+                <Input id="line_id" {...register("line_id")} placeholder="your_line_id" />
               </Field>
-              <Field label={t("contactTab.whatsapp")}>
-                <input {...register("whatsapp")} placeholder="+66XXXXXXXXX" className={inputCls()} />
+              <Field label={t("contactTab.whatsapp")} htmlFor="whatsapp">
+                <Input id="whatsapp" {...register("whatsapp")} placeholder="+66XXXXXXXXX" />
               </Field>
             </div>
           </>
@@ -269,26 +268,26 @@ export default function AdminProfilePage() {
         {/* ── Tab: Social ── */}
         {activeTab === "social" && (
           <>
-            <Field label={t("social.github")}>
-              <input {...register("github_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.github")} htmlFor="github_url">
+              <Input id="github_url" {...register("github_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.linkedin")}>
-              <input {...register("linkedin_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.linkedin")} htmlFor="linkedin_url">
+              <Input id="linkedin_url" {...register("linkedin_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.facebook")}>
-              <input {...register("facebook_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.facebook")} htmlFor="facebook_url">
+              <Input id="facebook_url" {...register("facebook_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.twitter")}>
-              <input {...register("twitter_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.twitter")} htmlFor="twitter_url">
+              <Input id="twitter_url" {...register("twitter_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.instagram")}>
-              <input {...register("instagram_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.instagram")} htmlFor="instagram_url">
+              <Input id="instagram_url" {...register("instagram_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.youtube")}>
-              <input {...register("youtube_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.youtube")} htmlFor="youtube_url">
+              <Input id="youtube_url" {...register("youtube_url")} placeholder="https://…" />
             </Field>
-            <Field label={t("social.website")}>
-              <input {...register("website_url")} placeholder="https://…" className={inputCls()} />
+            <Field label={t("social.website")} htmlFor="website_url">
+              <Input id="website_url" {...register("website_url")} placeholder="https://…" />
             </Field>
           </>
         )}
@@ -296,11 +295,11 @@ export default function AdminProfilePage() {
         {/* ── Tab: Resume ── */}
         {activeTab === "resume" && (
           <>
-            <Field label={t("resume.url")} hint={t("resume.urlHint")}>
-              <input {...register("resume_url")} placeholder="/resume.pdf" className={inputCls()} />
+            <Field label={t("resume.url")} hint={t("resume.urlHint")} htmlFor="resume_url">
+              <Input id="resume_url" {...register("resume_url")} placeholder="/resume.pdf" />
             </Field>
-            <Field label={t("resume.label")}>
-              <input {...register("resume_label")} placeholder="Download CV" className={inputCls()} />
+            <Field label={t("resume.label")} htmlFor="resume_label">
+              <Input id="resume_label" {...register("resume_label")} placeholder="Download CV" />
             </Field>
           </>
         )}
@@ -308,23 +307,22 @@ export default function AdminProfilePage() {
         {/* ── Tab: SEO ── */}
         {activeTab === "seo" && (
           <>
-            <Field label={t("seo.metaTitle")}>
-              <input {...register("meta_title")} placeholder="Your Name | Full Stack Developer" className={inputCls()} />
+            <Field label={t("seo.metaTitle")} htmlFor="meta_title">
+              <Input id="meta_title" {...register("meta_title")} placeholder="Your Name | Full Stack Developer" />
             </Field>
-            <Field label={t("seo.metaDescription")} hint={t("seo.metaDescHint")}>
-              <textarea {...register("meta_description")} rows={3}
-                placeholder="Full Stack Web Developer with 3+ years…" className={`${inputCls()} resize-none`} />
+            <Field label={t("seo.metaDescription")} hint={t("seo.metaDescHint")} htmlFor="meta_description">
+              <Textarea id="meta_description" {...register("meta_description")} rows={3}
+                placeholder="Full Stack Web Developer with 3+ years…" className="resize-none" />
             </Field>
-            <Field label={t("seo.ogImage")} hint={t("seo.ogImageHint")}>
-              <input {...register("og_image")} placeholder="https://…/og-image.png" className={inputCls()} />
+            <Field label={t("seo.ogImage")} hint={t("seo.ogImageHint")} htmlFor="og_image">
+              <Input id="og_image" {...register("og_image")} placeholder="https://…/og-image.png" />
             </Field>
           </>
         )}
 
         {/* Save button */}
         <div className="flex justify-end pt-2 border-t border-dark-800">
-          <button type="submit" disabled={isSubmitting}
-            className="btn-primary flex items-center gap-2 disabled:opacity-50">
+          <Button type="submit" disabled={isSubmitting} className="flex items-center gap-2">
             {isSubmitting && (
               <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
@@ -332,7 +330,7 @@ export default function AdminProfilePage() {
               </svg>
             )}
             {isSubmitting ? t("saving") : t("save")}
-          </button>
+          </Button>
         </div>
       </form>
 

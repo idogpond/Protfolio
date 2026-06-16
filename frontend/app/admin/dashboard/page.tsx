@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { DashboardStats } from "@/types/admin";
+import { buttonVariants } from "@/components/ui/button";
 
 export default function DashboardPage() {
   const t = useTranslations("admin.dashboard");
@@ -102,9 +104,9 @@ export default function DashboardPage() {
       <div className="card p-6">
         <h2 className="text-white font-semibold mb-4">{t("quickActions")}</h2>
         <div className="flex flex-wrap gap-3">
-          <a href="/admin/projects/new" className="btn-primary text-sm">{t("newProject")}</a>
-          <a href="/admin/blogs/new"    className="btn-outline text-sm">{t("newBlog")}</a>
-          <a href="/admin/contacts"     className="btn-outline text-sm">{t("viewMessages")}</a>
+          <Link href="/admin/projects/new" className={buttonVariants()}>{t("newProject")}</Link>
+          <Link href="/admin/blogs/new"    className={buttonVariants({ variant: "outline" })}>{t("newBlog")}</Link>
+          <Link href="/admin/contacts"     className={buttonVariants({ variant: "outline" })}>{t("viewMessages")}</Link>
         </div>
       </div>
     </div>
