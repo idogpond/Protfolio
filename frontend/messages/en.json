@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "available": "Available for opportunities",
+    "notAvailable": "Not currently available",
+    "greeting": "Hi, I'm",
+    "viewWork": "View My Work",
+    "getInTouch": "Get In Touch",
+    "downloadCV": "Download CV",
+    "scroll": "SCROLL"
+  },
+  "about": {
+    "accent": "// about me",
+    "title": "About Me",
+    "subtitle": "A little background on who I am and what I do",
+    "fallbackBio": "Full Stack Developer with {years}+ years of experience building modern web applications.",
+    "cta": "Let's Work Together",
+    "stats": {
+      "experience": "Years Experience",
+      "projects": "Projects Completed",
+      "clients": "Happy Clients",
+      "stacks": "Tech Stacks"
+    },
+    "highlights": {
+      "typescript": "TypeScript enthusiast — type safety first",
+      "api": "REST API design & documentation",
+      "agile": "Agile / Git workflow & Code Review",
+      "performance": "Performance optimization & SEO"
+    }
+  },
+  "skills": {
+    "accent": "// tech stack",
+    "title": "Skills & Technologies",
+    "subtitle": "Tools and technologies I work with regularly",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "devops": "DevOps",
+    "alsoFamiliarWith": "Also familiar with"
+  },
+  "experience": {
+    "accent": "// career",
+    "title": "Work Experience",
+    "subtitle": "My professional journey so far"
+  },
+  "projects": {
+    "accent": "// my work",
+    "title": "Featured Projects",
+    "subtitle": "A selection of things I've built",
+    "loadError": "Could not load projects",
+    "empty": "No projects yet.",
+    "viewMore": "View More on GitHub"
+  },
+  "blog": {
+    "accent": "// writing",
+    "title": "Latest Articles",
+    "subtitle": "Thoughts on web development, tools, and best practices",
+    "readMore": "Read more"
+  },
+  "contact": {
+    "accent": "// get in touch",
+    "title": "Contact Me",
+    "subtitle": "Have a project in mind? Let's talk!",
+    "connectTitle": "Let's connect",
+    "description": "Open to Freelance, Full-time, or interesting projects. Feel free to send a message.",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "Hello! I'm interested in...",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "sent": "Sent ✓"
+    },
+    "errors": {
+      "nameShort": "Name must be at least 2 characters",
+      "emailInvalid": "Please enter a valid email",
+      "messageShort": "Message must be at least 10 characters",
+      "serverError": "An error occurred. Please try again."
+    }
+  },
+  "footer": {
+    "built": "Built with Next.js & Laravel",
+    "backToTop": "Back to top"
+  },
+  "admin": {
+    "layout": {
+      "openMenu": "Open menu",
+      "headerTitle": "Portfolio Admin"
+    },
+    "sidebar": {
+      "nav": {
+        "dashboard": "Dashboard",
+        "profile": "Profile",
+        "projects": "Projects",
+        "blogs": "Blogs",
+        "contacts": "Contacts"
+      },
+      "viewPublicSite": "View Public Site",
+      "logout": "Logout",
+      "loggingOut": "Logging out…"
+    },
+    "login": {
+      "panelTitle": "Portfolio Admin Panel",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Login",
+      "submitting": "Logging in…",
+      "backToPortfolio": "← Back to Portfolio",
+      "errors": {
+        "emailInvalid": "Invalid email format",
+        "passwordRequired": "Password is required"
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "overview": "Portfolio overview",
+      "stats": {
+        "projects": "Projects",
+        "blogs": "Blog Posts",
+        "contacts": "Messages",
+        "unread": "Unread Messages"
+      },
+      "quickActions": "Quick Actions",
+      "newProject": "+ New Project",
+      "newBlog": "+ New Blog Post",
+      "viewMessages": "View Messages"
+    },
+    "projects": {
+      "title": "Projects",
+      "count": "{count} projects",
+      "newProject": "+ New Project",
+      "loading": "Loading…",
+      "empty": "No projects yet.",
+      "colTitle": "Title",
+      "colTechStack": "Tech Stack",
+      "colFeatured": "Featured",
+      "colActions": "Actions",
+      "featuredYes": "Yes",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleting": "…",
+      "confirmDelete": "Confirm delete this project?",
+      "newTitle": "New Project",
+      "editTitle": "Edit Project",
+      "backToList": "← Back to Projects",
+      "notFound": "Project not found.",
+      "createLabel": "Create Project",
+      "updateLabel": "Update Project",
+      "serverError": "Something went wrong. Please try again."
+    },
+    "blogs": {
+      "title": "Blog Posts",
+      "count": "{count} posts",
+      "newPost": "+ New Post",
+      "loading": "Loading…",
+      "empty": "No blog posts yet.",
+      "colTitle": "Title",
+      "colStatus": "Status",
+      "colPublished": "Published",
+      "colActions": "Actions",
+      "published": "Published",
+      "draft": "Draft",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleting": "…",
+      "confirmDelete": "Confirm delete this blog post?",
+      "newTitle": "New Blog Post",
+      "editTitle": "Edit Blog Post",
+      "backToList": "← Back to Blogs",
+      "notFound": "Blog post not found.",
+      "createLabel": "Create Post",
+      "updateLabel": "Update Post",
+      "serverError": "Something went wrong. Please try again."
+    },
+    "contacts": {
+      "title": "Contact Messages",
+      "count": "{count} total",
+      "unread": "{count} unread",
+      "loading": "Loading…",
+      "empty": "No messages yet.",
+      "newBadge": "New",
+      "markAsRead": "Mark as Read",
+      "marking": "Marking…",
+      "read": "Read",
+      "error": "Something went wrong. Please try again."
+    },
+    "profile": {
+      "title": "Profile Settings",
+      "subtitle": "Personal info displayed on the public website",
+      "tabs": {
+        "personal": "Personal Info",
+        "contact": "Contact Channels",
+        "social": "Social Links",
+        "resume": "Resume / CV",
+        "seo": "SEO & Meta"
+      },
+      "personal": {
+        "fullName": "Full Name *",
+        "nickname": "Nickname",
+        "jobTitle": "Job Title",
+        "bio": "Bio (short — shown in Hero)",
+        "aboutMe": "About Me (long — shown in About section)",
+        "profileImage": "Profile Image URL",
+        "yearsOfExp": "Years of Experience",
+        "dateOfBirth": "Date of Birth",
+        "location": "Location / City",
+        "availableForHire": "Available for hire"
+      },
+      "contactTab": {
+        "email": "Email",
+        "phone": "Phone",
+        "lineId": "Line ID",
+        "whatsapp": "WhatsApp"
+      },
+      "social": {
+        "github": "GitHub URL",
+        "linkedin": "LinkedIn URL",
+        "facebook": "Facebook URL",
+        "twitter": "Twitter / X URL",
+        "instagram": "Instagram URL",
+        "youtube": "YouTube URL",
+        "website": "Website URL"
+      },
+      "resume": {
+        "url": "Resume / CV URL",
+        "urlHint": "Path or URL for download, e.g. /resume.pdf",
+        "label": "Download Button Label"
+      },
+      "seo": {
+        "metaTitle": "Meta Title",
+        "metaDescription": "Meta Description",
+        "metaDescHint": "Recommended 150-160 characters",
+        "ogImage": "OG Image URL",
+        "ogImageHint": "Image shown when sharing on Social"
+      },
+      "save": "Save Changes",
+      "saving": "Saving…",
+      "saveSuccess": "Profile saved successfully",
+      "saveError": "An error occurred. Please try again.",
+      "errors": {
+        "required": "Required",
+        "emailInvalid": "Invalid email"
+      }
+    },
+    "form": {
+      "required": "Required",
+      "invalidUrl": "Invalid URL",
+      "serverError": "Something went wrong",
+      "saving": "Saving…",
+      "save": "Save"
+    },
+    "projectForm": {
+      "titleLabel": "Title *",
+      "descriptionLabel": "Description *",
+      "techStack": "Tech Stack",
+      "techStackHint": "comma-separated e.g. React, Laravel, Docker",
+      "githubUrl": "GitHub URL",
+      "demoUrl": "Demo URL",
+      "imageUrl": "Image URL",
+      "order": "Display Order",
+      "isFeatured": "Featured project"
+    },
+    "blogForm": {
+      "titleLabel": "Title *",
+      "slug": "Slug",
+      "slugHint": "Leave empty to auto-generate from title",
+      "excerpt": "Excerpt",
+      "content": "Content *",
+      "coverImage": "Cover Image URL",
+      "publishDate": "Publish Date",
+      "isPublished": "Published"
+    }
+  }
+}

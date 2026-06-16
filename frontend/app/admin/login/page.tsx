@@ -1,24 +1,33 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 import axios from "axios";
 
-const schema = z.object({
-  email:    z.string().email("รูปแบบอีเมลไม่ถูกต้อง"),
-  password: z.string().min(1, "กรุณากรอกรหัสผ่าน"),
-});
-
-type FormValues = z.infer<typeof schema>;
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 function LoginForm() {
-  const router = useRouter();
+  const router       = useRouter();
   const searchParams = useSearchParams();
+  const t            = useTranslations("admin.login");
   const [serverError, setServerError] = useState("");
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        email:    z.string().email(t("errors.emailInvalid")),
+        password: z.string().min(1, t("errors.passwordRequired")),
+      }),
+    [t]
+  );
 
   const {
     register,
@@ -50,17 +59,15 @@ function LoginForm() {
   return (
     <div className="min-h-screen bg-dark-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Card */}
         <div className="card p-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold gradient-text mb-1">&lt;Admin /&gt;</h1>
-            <p className="text-dark-500 text-sm">Portfolio Admin Panel</p>
+            <p className="text-dark-500 text-sm">{t("panelTitle")}</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* Email */}
             <div className="space-y-1.5">
-              <label className="block text-dark-300 text-sm font-medium">Email</label>
+              <label className="block text-dark-300 text-sm font-medium">{t("emailLabel")}</label>
               <input
                 type="email"
                 placeholder="admin@portfolio.com"
@@ -69,14 +76,11 @@ function LoginForm() {
                             outline-none transition-colors text-sm
                             ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
               />
-              {errors.email && (
-                <p className="text-red-400 text-xs">{errors.email.message}</p>
-              )}
+              {errors.email && <p className="text-red-400 text-xs">{errors.email.message}</p>}
             </div>
 
-            {/* Password */}
             <div className="space-y-1.5">
-              <label className="block text-dark-300 text-sm font-medium">Password</label>
+              <label className="block text-dark-300 text-sm font-medium">{t("passwordLabel")}</label>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -85,12 +89,9 @@ function LoginForm() {
                             outline-none transition-colors text-sm
                             ${errors.password ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
               />
-              {errors.password && (
-                <p className="text-red-400 text-xs">{errors.password.message}</p>
-              )}
+              {errors.password && <p className="text-red-400 text-xs">{errors.password.message}</p>}
             </div>
 
-            {/* Server error */}
             {serverError && (
               <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
                 {serverError}
@@ -108,13 +109,13 @@ function LoginForm() {
                   <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
               )}
-              {isSubmitting ? "Logging in…" : "Login"}
+              {isSubmitting ? t("submitting") : t("submit")}
             </button>
           </form>
         </div>
 
         <p className="text-center text-dark-600 text-xs mt-6">
-          <a href="/" className="hover:text-dark-400 transition-colors">← Back to Portfolio</a>
+          <a href="/" className="hover:text-dark-400 transition-colors">{t("backToPortfolio")}</a>
         </p>
       </div>
     </div>

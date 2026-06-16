@@ -1,112 +1,113 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { SKILLS } from "@/lib/data";
 import type { Skill } from "@/types";
 
-const categories: { key: Skill["category"]; label: string; color: string }[] = [
-  { key: "frontend", label: "Frontend",  color: "text-blue-400 border-blue-500/30 bg-blue-500/10"   },
-  { key: "backend",  label: "Backend",   color: "text-purple-400 border-purple-500/30 bg-purple-500/10" },
-  { key: "devops",   label: "DevOps",    color: "text-green-400 border-green-500/30 bg-green-500/10" },
-];
+type CategoryKey = Skill["category"];
 
-function SkillCard({ skill, index }: { skill: Skill; index: number }) {
+const CATEGORY_STYLES: Record<CategoryKey, string> = {
+  frontend: "text-primary-400 bg-primary-500/10 border-primary-500/25",
+  backend:  "text-accent-400 bg-accent-500/10 border-accent-500/25",
+  devops:   "text-emerald-400 bg-emerald-500/10 border-emerald-500/25",
+  other:    "text-dark-400 bg-dark-500/10 border-dark-500/25",
+};
+
+function DotRating({ level }: { level: number }) {
+  const filled = Math.round(level / 20);
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.07, duration: 0.4 }}
-      whileHover={{ scale: 1.03, y: -2 }}
-      className="card p-4 hover:border-primary-500/30 transition-all duration-300 group"
-    >
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <span className="text-2xl">{skill.icon}</span>
-          <span className="text-white font-medium text-sm group-hover:text-primary-300 transition-colors">
-            {skill.name}
-          </span>
-        </div>
-        <span className="text-dark-500 text-xs font-mono">{skill.level}%</span>
-      </div>
-
-      {/* Progress bar */}
-      <div className="w-full h-1.5 bg-dark-700 rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${skill.level}%` }}
-          viewport={{ once: true }}
-          transition={{ delay: index * 0.07 + 0.3, duration: 0.8, ease: "easeOut" }}
-          className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500"
+    <div className="flex gap-1 items-center">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span
+          key={i}
+          className={`w-1.5 h-1.5 rounded-full transition-colors ${i < filled ? "bg-primary-500" : "bg-dark-700"}`}
         />
-      </div>
-    </motion.div>
+      ))}
+    </div>
   );
 }
 
 export default function Skills() {
+  const t = useTranslations("skills");
+
+  const categories: { key: CategoryKey; label: string; color: string }[] = [
+    { key: "frontend", label: t("frontend"), color: CATEGORY_STYLES.frontend },
+    { key: "backend",  label: t("backend"),  color: CATEGORY_STYLES.backend  },
+    { key: "devops",   label: t("devops"),   color: CATEGORY_STYLES.devops   },
+  ];
+
   return (
-    <section id="skills" className="py-24 bg-dark-900/30">
+    <section id="skills" className="py-24 bg-dark-900/20">
       <div className="section-container">
         <SectionHeader
-          accent="// tech stack"
-          title="Skills & Technologies"
-          subtitle="Tools and technologies I work with regularly"
+          accent={t("accent")}
+          title={t("title")}
+          subtitle={t("subtitle")}
         />
 
-        <div className="space-y-12">
-          {categories.map((cat) => {
+        <div className="grid md:grid-cols-3 gap-10 mb-10">
+          {categories.map((cat, ci) => {
             const catSkills = SKILLS.filter((s) => s.category === cat.key);
             return (
-              <div key={cat.key}>
-                {/* Category badge */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  className="flex items-center gap-3 mb-6"
-                >
-                  <span
-                    className={`px-3 py-1 text-xs font-mono font-semibold rounded-full border ${cat.color}`}
-                  >
+              <motion.div
+                key={cat.key}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: ci * 0.12, duration: 0.5 }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <span className={`text-[10px] font-mono font-semibold tracking-widest uppercase px-2.5 py-1 rounded border ${cat.color}`}>
                     {cat.label}
                   </span>
                   <div className="flex-1 h-px bg-dark-800" />
-                </motion.div>
-
-                {/* Skill grid */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {catSkills.map((skill, i) => (
-                    <SkillCard key={skill.name} skill={skill} index={i} />
-                  ))}
                 </div>
-              </div>
+
+                <ul className="space-y-4">
+                  {catSkills.map((skill, i) => (
+                    <motion.li
+                      key={skill.name}
+                      initial={{ opacity: 0, x: -12 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: ci * 0.12 + i * 0.07, duration: 0.4 }}
+                      className="flex items-center justify-between group"
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-lg leading-none">{skill.icon}</span>
+                        <span className="text-dark-300 text-sm group-hover:text-white transition-colors">
+                          {skill.name}
+                        </span>
+                      </div>
+                      <DotRating level={skill.level} />
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* "Also familiar with" strip */}
+        {/* Also familiar with */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-14 card p-6"
+          className="card p-6"
         >
-          <p className="text-dark-400 text-sm font-mono mb-4">
-            // also familiar with
+          <p className="text-dark-500 text-[11px] font-mono tracking-[0.3em] uppercase mb-4">
+            {t("alsoFamiliarWith")}
           </p>
           <div className="flex flex-wrap gap-2">
-            {[
-              "Redis", "Nginx", "REST API", "GraphQL",
-              "Jest", "PHPUnit", "Figma", "Postman",
-              "GitHub Actions", "Vercel", "AWS S3",
-            ].map((tech) => (
+            {["Redis", "Nginx", "REST API", "GraphQL", "Jest", "PHPUnit", "Figma", "Postman", "GitHub Actions", "Vercel", "AWS S3"].map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1.5 text-sm text-dark-300 bg-dark-800 border border-dark-700
-                           rounded-lg hover:border-primary-500/40 hover:text-primary-300 transition-colors cursor-default"
+                className="px-3 py-1.5 text-sm text-dark-400 bg-dark-800/60 border border-dark-700
+                           rounded hover:border-primary-500/40 hover:text-primary-300
+                           transition-colors cursor-default"
               >
                 {tech}
               </span>

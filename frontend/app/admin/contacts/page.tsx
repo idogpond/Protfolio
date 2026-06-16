@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { AdminContact } from "@/types/admin";
 import { cn } from "@/lib/utils";
 
 export default function AdminContactsPage() {
+  const t = useTranslations("admin.contacts");
+  const locale = useLocale();
+
   const [contacts, setContacts] = useState<AdminContact[]>([]);
   const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState<string | null>(null);
   const [marking, setMarking]   = useState<number | null>(null);
 
   useEffect(() => { fetchContacts(); }, []);
@@ -16,6 +21,8 @@ export default function AdminContactsPage() {
     try {
       const res = await adminApi.get<{ data: AdminContact[] }>("/admin/contacts");
       setContacts(res.data.data);
+    } catch {
+      setError(t("error"));
     } finally {
       setLoading(false);
     }
@@ -28,31 +35,44 @@ export default function AdminContactsPage() {
       setContacts((prev) =>
         prev.map((c) => (c.id === id ? res.data.data : c))
       );
+    } catch {
+      console.error("Failed to mark contact as read");
     } finally {
       setMarking(null);
     }
   }
 
-  const unread = contacts.filter((c) => !c.is_read).length;
+  const unreadCount = contacts.filter((c) => !c.is_read).length;
+
+  function formatDate(dateStr: string) {
+    return new Date(dateStr).toLocaleDateString(
+      locale === "th" ? "th-TH" : "en-US",
+      { year: "numeric", month: "short", day: "numeric" }
+    );
+  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Contact Messages</h1>
+          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
           <p className="text-dark-500 text-sm mt-1">
-            {contacts.length} total
-            {unread > 0 && (
-              <span className="ml-2 text-orange-400 font-medium">{unread} unread</span>
+            {t("count", { count: contacts.length })}
+            {unreadCount > 0 && (
+              <span className="ml-2 text-orange-400 font-medium">
+                {t("unread", { count: unreadCount })}
+              </span>
             )}
           </p>
         </div>
       </div>
 
       {loading ? (
-        <div className="card p-8 text-center text-dark-500">Loading…</div>
+        <div className="card p-8 text-center text-dark-500">{t("loading")}</div>
+      ) : error ? (
+        <div className="card p-8 text-center text-red-400">{error}</div>
       ) : contacts.length === 0 ? (
-        <div className="card p-8 text-center text-dark-500">No messages yet.</div>
+        <div className="card p-8 text-center text-dark-500">{t("empty")}</div>
       ) : (
         <div className="space-y-3">
           {contacts.map((contact) => (
@@ -71,14 +91,11 @@ export default function AdminContactsPage() {
                     {!contact.is_read && (
                       <span className="text-xs bg-primary-500/20 text-primary-400
                                        px-2 py-0.5 rounded-full font-medium">
-                        New
+                        {t("newBadge")}
                       </span>
                     )}
                     <span className="text-dark-500 text-xs ml-auto shrink-0">
-                      {new Date(contact.created_at).toLocaleDateString("th-TH", {
-                        year: "numeric", month: "short", day: "numeric",
-                        hour: "2-digit", minute: "2-digit",
-                      })}
+                      {formatDate(contact.created_at)}
                     </span>
                   </div>
 
@@ -111,14 +128,14 @@ export default function AdminContactsPage() {
                           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
                           <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                         </svg>
-                        Marking…
+                        {t("marking")}
                       </>
                     ) : (
                       <>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
-                        Mark as Read
+                        {t("markAsRead")}
                       </>
                     )}
                   </button>
@@ -131,7 +148,7 @@ export default function AdminContactsPage() {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>
-                    Read
+                    {t("read")}
                   </span>
                 </div>
               )}

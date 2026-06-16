@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 import axios from "axios";
 import BlogForm from "@/components/admin/BlogForm";
 import adminApi from "@/lib/adminApi";
@@ -11,13 +13,16 @@ import type { BlogFormValues } from "@/types/admin";
 export default function EditBlogPage() {
   const { id }   = useParams<{ id: string }>();
   const router   = useRouter();
-  const [blog, setBlog]     = useState<Blog | null>(null);
-  const [loading, setLoading] = useState(true);
+  const t        = useTranslations("admin.blogs");
+  const [blog, setBlog]           = useState<Blog | null>(null);
+  const [loading, setLoading]     = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     adminApi
       .get<{ data: Blog }>(`/admin/blogs/${id}`)
       .then((res) => setBlog(res.data.data))
+      .catch(() => setFetchError(t("serverError")))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -29,36 +34,37 @@ export default function EditBlogPage() {
       const message =
         axios.isAxiosError(err) && err.response?.data?.message
           ? err.response.data.message
-          : "Something went wrong. Please try again.";
+          : t("serverError");
       console.error(err);
       throw new Error(message);
     }
   }
 
-  if (loading) return <div className="text-dark-500 p-8">Loading…</div>;
-  if (!blog)   return <div className="text-red-400 p-8">Blog not found.</div>;
+  if (loading)    return <div className="text-dark-500 p-8">{t("loading")}</div>;
+  if (fetchError) return <div className="text-red-400 p-8">{fetchError}</div>;
+  if (!blog)      return <div className="text-red-400 p-8">{t("notFound")}</div>;
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="max-w-2xl space-y-6">
       <div>
-        <a href="/admin/blogs" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
-          ← Back to Blogs
-        </a>
-        <h1 className="text-2xl font-bold text-white mt-2">Edit Blog Post</h1>
+        <Link href="/admin/blogs" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
+          {t("backToList")}
+        </Link>
+        <h1 className="text-2xl font-bold text-white mt-2">{t("editTitle")}</h1>
       </div>
       <div className="card p-6">
         <BlogForm
           defaultValues={{
             title:        blog.title,
             slug:         blog.slug,
-            content:      blog.content,
             excerpt:      blog.excerpt      ?? "",
+            content:      blog.content,
             cover_image:  blog.cover_image  ?? "",
-            is_published: blog.is_published,
             published_at: blog.published_at ?? "",
+            is_published: blog.is_published,
           }}
           onSubmit={handleSubmit}
-          submitLabel="Update Post"
+          submitLabel={t("updateLabel")}
         />
       </div>
     </div>

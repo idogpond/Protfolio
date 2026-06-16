@@ -1,22 +1,12 @@
 "use client";
 
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import type { BlogFormValues } from "@/types/admin";
-
-const schema = z.object({
-  title:        z.string().min(1, "Required"),
-  slug:         z.string(),
-  content:      z.string().min(1, "Required"),
-  excerpt:      z.string(),
-  cover_image:  z.string(),
-  is_published: z.boolean(),
-  published_at: z.string(),
-});
-
-type FormSchema = z.infer<typeof schema>;
 
 interface BlogFormProps {
   defaultValues?: Partial<BlogFormValues>;
@@ -24,8 +14,25 @@ interface BlogFormProps {
   submitLabel?: string;
 }
 
-export default function BlogForm({ defaultValues, onSubmit, submitLabel = "Save" }: BlogFormProps) {
+export default function BlogForm({ defaultValues, onSubmit, submitLabel }: BlogFormProps) {
+  const t = useTranslations("admin");
   const [serverError, setServerError] = useState("");
+
+  const schema = useMemo(
+    () =>
+      z.object({
+        title:        z.string().min(1, t("form.required")),
+        slug:         z.string().optional().default(""),
+        excerpt:      z.string().optional().default(""),
+        content:      z.string().min(1, t("form.required")),
+        cover_image:  z.string().url(t("form.invalidUrl")).optional().or(z.literal("")),
+        is_published: z.boolean().optional().default(false),
+        published_at: z.string().optional().default(""),
+      }),
+    [t]
+  );
+
+  type FormSchema = z.infer<typeof schema>;
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormSchema>({
     resolver: zodResolver(schema),
@@ -47,48 +54,48 @@ export default function BlogForm({ defaultValues, onSubmit, submitLabel = "Save"
     try {
       await onSubmit(raw as BlogFormValues);
     } catch (err: unknown) {
-      setServerError(err instanceof Error ? err.message : "Something went wrong");
+      setServerError(err instanceof Error ? err.message : t("form.serverError"));
     }
   }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">
       {/* Title */}
-      <Field label="Title *" error={errors.title?.message}>
+      <Field label={t("blogForm.titleLabel")} error={errors.title?.message}>
         <input {...register("title")} placeholder="My Blog Post" className={inputCls(!!errors.title)} />
       </Field>
 
       {/* Slug */}
-      <Field label="Slug" hint="Leave empty to auto-generate from title">
+      <Field label={t("blogForm.slug")} hint={t("blogForm.slugHint")}>
         <input {...register("slug")} placeholder="my-blog-post" className={inputCls(false)} />
       </Field>
 
       {/* Excerpt */}
-      <Field label="Excerpt">
+      <Field label={t("blogForm.excerpt")}>
         <textarea {...register("excerpt")} rows={2} placeholder="Short description for preview…"
           className={inputCls(false) + " resize-none"} />
       </Field>
 
       {/* Content */}
-      <Field label="Content *" error={errors.content?.message}>
+      <Field label={t("blogForm.content")} error={errors.content?.message}>
         <textarea {...register("content")} rows={12} placeholder="Markdown content…"
           className={`${inputCls(!!errors.content)} resize-y font-mono text-xs`} />
       </Field>
 
       {/* Cover Image */}
-      <Field label="Cover Image URL">
-        <input {...register("cover_image")} placeholder="https://…/cover.jpg" className={inputCls(false)} />
+      <Field label={t("blogForm.coverImage")} error={errors.cover_image?.message}>
+        <input {...register("cover_image")} placeholder="https://…/cover.jpg" className={inputCls(!!errors.cover_image)} />
       </Field>
 
       {/* Published At + is_published */}
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Publish Date">
+        <Field label={t("blogForm.publishDate")}>
           <input type="datetime-local" {...register("published_at")} className={inputCls(false)} />
         </Field>
         <div className="flex items-end pb-1">
           <label className="flex items-center gap-3 cursor-pointer">
             <input type="checkbox" {...register("is_published")} className="w-4 h-4 accent-primary-500" />
-            <span className="text-dark-300 text-sm">Published</span>
+            <span className="text-dark-300 text-sm">{t("blogForm.isPublished")}</span>
           </label>
         </div>
       </div>
@@ -102,7 +109,7 @@ export default function BlogForm({ defaultValues, onSubmit, submitLabel = "Save"
       <button type="submit" disabled={isSubmitting}
         className="btn-primary flex items-center gap-2 disabled:opacity-50">
         {isSubmitting && <Spinner />}
-        {isSubmitting ? "Saving…" : submitLabel}
+        {isSubmitting ? t("form.saving") : (submitLabel ?? t("form.save"))}
       </button>
     </form>
   );

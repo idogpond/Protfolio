@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { useProfile } from "@/lib/useProfile";
 
 const fadeUp = (delay: number) => ({
@@ -14,8 +15,12 @@ const fadeUp = (delay: number) => ({
 
 export default function Hero() {
   const { profile } = useProfile();
+  const t = useTranslations("hero");
   const nameParts =
     (profile.name as string | undefined)?.split(" ") ?? ["Your", "Name"];
+
+  const isAvailable =
+    profile.available_for_hire === true || profile.available_for_hire === "true";
 
   return (
     <section
@@ -31,34 +36,19 @@ export default function Hero() {
           backgroundSize: "32px 32px",
         }}
       />
-      {/* Amber glow — subtle, top-right */}
       <div className="absolute -top-32 right-0 w-[560px] h-[560px] rounded-full bg-primary-500/5 blur-3xl -z-10 pointer-events-none" />
-      {/* Teal glow — bottom-left */}
       <div className="absolute bottom-0 -left-40 w-[400px] h-[400px] rounded-full bg-accent-500/4 blur-3xl -z-10 pointer-events-none" />
 
       <div className="section-container w-full py-20 lg:py-28">
         {/* Available badge */}
-        <motion.div
-          variants={fadeUp(0)}
-          initial="hidden"
-          animate="show"
-          className="mb-10"
-        >
+        <motion.div variants={fadeUp(0)} initial="hidden" animate="show" className="mb-10">
           <span
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
                           border border-dark-800 bg-dark-900/60 text-dark-400
                           text-[11px] font-mono tracking-widest uppercase"
           >
-            <span
-              className={`w-1.5 h-1.5 rounded-full ${
-                profile.available_for_hire === true || profile.available_for_hire === "true"
-                  ? "bg-emerald-400 animate-pulse"
-                  : "bg-dark-600"
-              }`}
-            />
-            {profile.available_for_hire === true || profile.available_for_hire === "true"
-              ? "Available for opportunities"
-              : "Not currently available"}
+            <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? "bg-emerald-400 animate-pulse" : "bg-dark-600"}`} />
+            {isAvailable ? t("available") : t("notAvailable")}
           </span>
         </motion.div>
 
@@ -69,18 +59,13 @@ export default function Hero() {
           animate="show"
           className="text-dark-500 font-mono text-xs tracking-[0.25em] uppercase mb-6"
         >
-          Hi, I&apos;m
+          {t("greeting")}
         </motion.p>
 
-        {/* Name — large display type, left-aligned */}
+        {/* Name */}
         <div className="mb-7">
           {nameParts.map((part, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp(0.15 + i * 0.13)}
-              initial="hidden"
-              animate="show"
-            >
+            <motion.div key={i} variants={fadeUp(0.15 + i * 0.13)} initial="hidden" animate="show">
               <span
                 className={`block font-display font-extrabold leading-[0.88] tracking-tight ${
                   i === nameParts.length - 1 ? "gradient-text" : "text-white"
@@ -93,13 +78,7 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* Amber accent line */}
-        <motion.div
-          variants={fadeUp(0.52)}
-          initial="hidden"
-          animate="show"
-          className="w-16 h-0.5 bg-primary-500 mb-8"
-        />
+        <motion.div variants={fadeUp(0.52)} initial="hidden" animate="show" className="w-16 h-0.5 bg-primary-500 mb-8" />
 
         {/* Job title */}
         <motion.h2
@@ -108,8 +87,7 @@ export default function Hero() {
           animate="show"
           className="text-xl sm:text-2xl text-dark-300 font-medium mb-4 max-w-xl leading-relaxed"
         >
-          {(profile.job_title as string | undefined) ??
-            "Full Stack Web Developer"}
+          {(profile.job_title as string | undefined) ?? "Full Stack Web Developer"}
         </motion.h2>
 
         {/* Bio */}
@@ -130,12 +108,8 @@ export default function Hero() {
           animate="show"
           className="flex flex-wrap items-center gap-4 mb-12"
         >
-          <a href="#projects" className="btn-primary">
-            View My Work
-          </a>
-          <a href="#contact" className="btn-outline">
-            Get In Touch
-          </a>
+          <a href="#projects" className="btn-primary">{t("viewWork")}</a>
+          <a href="#contact" className="btn-outline">{t("getInTouch")}</a>
           {profile.resume_url && (
             <a
               href={profile.resume_url as string}
@@ -143,7 +117,7 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="text-dark-500 hover:text-primary-400 text-sm font-mono transition-colors"
             >
-              ↓ {(profile.resume_label as string) || "Download CV"}
+              ↓ {(profile.resume_label as string) || t("downloadCV")}
             </a>
           )}
         </motion.div>
@@ -155,14 +129,7 @@ export default function Hero() {
           animate="show"
           className="flex flex-wrap gap-2"
         >
-          {[
-            "React",
-            "Next.js",
-            "TypeScript",
-            "Laravel",
-            "C# .NET",
-            "Docker",
-          ].map((tech) => (
+          {["React", "Next.js", "TypeScript", "Laravel", "C# .NET", "Docker"].map((tech) => (
             <span
               key={tech}
               className="px-3 py-1 text-xs font-mono text-dark-500 border border-dark-800 rounded
@@ -187,7 +154,7 @@ export default function Hero() {
           className="w-px h-10 bg-gradient-to-b from-dark-700 to-transparent"
         />
         <span className="text-dark-700 text-[10px] font-mono tracking-[0.2em]">
-          SCROLL
+          {t("scroll")}
         </span>
       </motion.div>
     </section>

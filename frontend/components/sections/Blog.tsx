@@ -2,17 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
 import type { Blog } from "@/types";
 
 function BlogCard({ blog, index }: { blog: Blog; index: number }) {
+  const t      = useTranslations("blog");
+  const locale = useLocale();
+
   const date = blog.published_at
-    ? new Date(blog.published_at).toLocaleDateString("th-TH", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
+    ? new Date(blog.published_at).toLocaleDateString(
+        locale === "th" ? "th-TH" : "en-US",
+        { year: "numeric", month: "long", day: "numeric" }
+      )
     : null;
 
   return (
@@ -24,18 +27,13 @@ function BlogCard({ blog, index }: { blog: Blog; index: number }) {
       className="card p-6 flex flex-col gap-4 hover:border-primary-500/30 hover:-translate-y-1
                  transition-all duration-300 group cursor-pointer"
     >
-      {/* Cover image placeholder */}
       {blog.cover_image ? (
-        <img
-          src={blog.cover_image}
-          alt={blog.title}
-          className="w-full h-44 object-cover rounded-lg bg-dark-700"
-        />
+        <img src={blog.cover_image} alt={blog.title}
+             className="w-full h-44 object-cover rounded-lg bg-dark-700" />
       ) : (
         <div className="w-full h-44 rounded-lg bg-gradient-to-br from-primary-900/40 to-accent-900/40
                         border border-dark-700 flex items-center justify-center">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6"
-               strokeWidth="1.5" opacity="0.5">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
             <polyline points="14 2 14 8 20 8" />
             <line x1="16" y1="13" x2="8" y2="13" />
@@ -51,19 +49,15 @@ function BlogCard({ blog, index }: { blog: Blog; index: number }) {
           {blog.title}
         </h3>
         {blog.excerpt && (
-          <p className="text-dark-400 text-sm leading-relaxed line-clamp-3">
-            {blog.excerpt}
-          </p>
+          <p className="text-dark-400 text-sm leading-relaxed line-clamp-3">{blog.excerpt}</p>
         )}
       </div>
 
       <div className="flex items-center justify-between pt-3 border-t border-dark-800">
-        {date && (
-          <span className="text-dark-500 text-xs font-mono">{date}</span>
-        )}
+        {date && <span className="text-dark-500 text-xs font-mono">{date}</span>}
         <span className="text-primary-400 text-sm font-medium flex items-center gap-1
                          group-hover:gap-2 transition-all">
-          Read more
+          {t("readMore")}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -91,9 +85,10 @@ function BlogSkeleton() {
 }
 
 export default function Blog() {
-  const [blogs, setBlogs]   = useState<Blog[]>([]);
+  const t = useTranslations("blog");
+  const [blogs, setBlogs]     = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError]   = useState<string | null>(null);
+  const [error, setError]     = useState<string | null>(null);
 
   useEffect(() => {
     api
@@ -103,17 +98,12 @@ export default function Blog() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Hide entire section if no blogs and not loading
   if (!loading && blogs.length === 0 && !error) return null;
 
   return (
     <section id="blog" className="py-24">
       <div className="section-container">
-        <SectionHeader
-          accent="// writing"
-          title="Latest Articles"
-          subtitle="Thoughts on web development, tools, and best practices"
-        />
+        <SectionHeader accent={t("accent")} title={t("title")} subtitle={t("subtitle")} />
 
         {error && (
           <p className="text-center text-dark-500 py-8 text-sm">{error}</p>
@@ -122,9 +112,7 @@ export default function Blog() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
             ? Array.from({ length: 3 }).map((_, i) => <BlogSkeleton key={i} />)
-            : blogs.map((blog, i) => (
-                <BlogCard key={blog.id} blog={blog} index={i} />
-              ))}
+            : blogs.map((blog, i) => <BlogCard key={blog.id} blog={blog} index={i} />)}
         </div>
       </div>
     </section>

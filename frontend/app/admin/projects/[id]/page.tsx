@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import axios from "axios";
 import ProjectForm from "@/components/admin/ProjectForm";
 import adminApi from "@/lib/adminApi";
@@ -11,13 +13,16 @@ import type { ProjectFormValues } from "@/types/admin";
 export default function EditProjectPage() {
   const { id }   = useParams<{ id: string }>();
   const router   = useRouter();
+  const t        = useTranslations("admin.projects");
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     adminApi
       .get<{ data: Project }>(`/admin/projects/${id}`)
       .then((res) => setProject(res.data.data))
+      .catch(() => setFetchError(t("serverError")))
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -29,22 +34,23 @@ export default function EditProjectPage() {
       const message =
         axios.isAxiosError(err) && err.response?.data?.message
           ? err.response.data.message
-          : "Something went wrong. Please try again.";
+          : t("serverError");
       console.error(err);
       throw new Error(message);
     }
   }
 
-  if (loading) return <div className="text-dark-500 p-8">Loading…</div>;
-  if (!project) return <div className="text-red-400 p-8">Project not found.</div>;
+  if (loading) return <div className="text-dark-500 p-8">{t("loading")}</div>;
+  if (fetchError) return <div className="text-red-400 p-8">{fetchError}</div>;
+  if (!project) return <div className="text-red-400 p-8">{t("notFound")}</div>;
 
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <a href="/admin/projects" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
-          ← Back to Projects
-        </a>
-        <h1 className="text-2xl font-bold text-white mt-2">Edit Project</h1>
+        <Link href="/admin/projects" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
+          {t("backToList")}
+        </Link>
+        <h1 className="text-2xl font-bold text-white mt-2">{t("editTitle")}</h1>
       </div>
       <div className="card p-6">
         <ProjectForm
@@ -59,7 +65,7 @@ export default function EditProjectPage() {
             order:       project.order,
           }}
           onSubmit={handleSubmit}
-          submitLabel="Update Project"
+          submitLabel={t("updateLabel")}
         />
       </div>
     </div>

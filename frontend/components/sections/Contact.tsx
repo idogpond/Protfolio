@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
 import { useProfile } from "@/lib/useProfile";
@@ -11,9 +12,10 @@ type FormState = "idle" | "loading" | "success" | "error";
 
 export default function Contact() {
   const { profile } = useProfile();
-  const [form, setForm] = useState<ContactFormData>({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
-  const [state, setState] = useState<FormState>("idle");
+  const t = useTranslations("contact");
+  const [form, setForm]         = useState<ContactFormData>({ name: "", email: "", message: "" });
+  const [errors, setErrors]     = useState<Partial<ContactFormData>>({});
+  const [state, setState]       = useState<FormState>("idle");
   const [serverMessage, setServerMessage] = useState("");
 
   const contactInfo = [
@@ -36,9 +38,9 @@ export default function Contact() {
 
   function validate(): boolean {
     const e: Partial<ContactFormData> = {};
-    if (!form.name.trim() || form.name.length < 2) e.name = "กรุณากรอกชื่ออย่างน้อย 2 ตัวอักษร";
-    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email = "กรุณากรอกอีเมลให้ถูกต้อง";
-    if (!form.message.trim() || form.message.length < 10) e.message = "กรุณากรอกข้อความอย่างน้อย 10 ตัวอักษร";
+    if (!form.name.trim() || form.name.length < 2)               e.name    = t("errors.nameShort");
+    if (!form.email.trim() || !/\S+@\S+\.\S+/.test(form.email)) e.email   = t("errors.emailInvalid");
+    if (!form.message.trim() || form.message.length < 10)        e.message = t("errors.messageShort");
     setErrors(e);
     return Object.keys(e).length === 0;
   }
@@ -54,7 +56,7 @@ export default function Contact() {
       setForm({ name: "", email: "", message: "" });
     } catch (err: unknown) {
       setState("error");
-      setServerMessage(err instanceof Error ? err.message : "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+      setServerMessage(err instanceof Error ? err.message : t("errors.serverError"));
     }
   }
 
@@ -67,22 +69,23 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 bg-dark-900/30">
       <div className="section-container">
-        <SectionHeader accent="// get in touch" title="Contact Me" subtitle="Have a project in mind? Let's talk!" />
+        <SectionHeader accent={t("accent")} title={t("title")} subtitle={t("subtitle")} />
 
         <div className="grid lg:grid-cols-5 gap-12 max-w-5xl mx-auto">
           {/* Left */}
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-2 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            className="lg:col-span-2 space-y-6"
+          >
             <div className="space-y-2">
-              <h3 className="text-white font-semibold text-xl">Let&apos;s connect</h3>
-              <p className="text-dark-400 text-sm leading-relaxed">
-                ยินดีรับงาน Freelance, Full-time, หรือโปรเจกต์ที่น่าสนใจ ส่งข้อความมาได้เลยครับ
-              </p>
+              <h3 className="text-white font-semibold text-xl">{t("connectTitle")}</h3>
+              <p className="text-dark-400 text-sm leading-relaxed">{t("description")}</p>
             </div>
             <div className="space-y-4">
               {contactInfo.map((info) => (
                 <a key={info.label} href={info.href} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 card hover:border-primary-500/30 hover:text-primary-300 transition-all group">
+                   className="flex items-center gap-4 p-4 card hover:border-primary-500/30 hover:text-primary-300 transition-all group">
                   <span className="text-primary-400 group-hover:scale-110 transition-transform">{info.icon}</span>
                   <div>
                     <p className="text-dark-500 text-xs">{info.label}</p>
@@ -94,45 +97,74 @@ export default function Contact() {
           </motion.div>
 
           {/* Right — Form */}
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }} className="lg:col-span-3">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            className="lg:col-span-3"
+          >
             <form onSubmit={handleSubmit} noValidate className="card p-7 space-y-5">
               <div className="space-y-2">
-                <label htmlFor="name" className="block text-dark-300 text-sm font-medium">ชื่อ <span className="text-red-400">*</span></label>
-                <input id="name" name="name" type="text" value={form.name} onChange={handleChange} placeholder="Your Name"
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.name ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                <label htmlFor="name" className="block text-dark-300 text-sm font-medium">
+                  {t("form.name")} <span className="text-red-400">*</span>
+                </label>
+                <input
+                  id="name" name="name" type="text" value={form.name} onChange={handleChange}
+                  placeholder={t("namePlaceholder")}
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.name ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                />
                 {errors.name && <p className="text-red-400 text-xs">{errors.name}</p>}
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="email" className="block text-dark-300 text-sm font-medium">อีเมล <span className="text-red-400">*</span></label>
-                <input id="email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="your@email.com"
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                <label htmlFor="email" className="block text-dark-300 text-sm font-medium">
+                  {t("form.email")} <span className="text-red-400">*</span>
+                </label>
+                <input
+                  id="email" name="email" type="email" value={form.email} onChange={handleChange}
+                  placeholder={t("emailPlaceholder")}
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm ${errors.email ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                />
                 {errors.email && <p className="text-red-400 text-xs">{errors.email}</p>}
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="message" className="block text-dark-300 text-sm font-medium">ข้อความ <span className="text-red-400">*</span></label>
-                <textarea id="message" name="message" rows={5} value={form.message} onChange={handleChange} placeholder="สวัสดีครับ ผมสนใจ..."
+                <label htmlFor="message" className="block text-dark-300 text-sm font-medium">
+                  {t("form.message")} <span className="text-red-400">*</span>
+                </label>
+                <textarea
+                  id="message" name="message" rows={5} value={form.message} onChange={handleChange}
+                  placeholder={t("messagePlaceholder")}
                   maxLength={2000}
-                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`} />
+                  className={`w-full px-4 py-3 bg-dark-800 border rounded-md text-white placeholder-dark-600 outline-none transition-colors text-sm resize-none ${errors.message ? "border-red-500" : "border-dark-700 focus:border-primary-500"}`}
+                />
                 <div className="flex justify-between items-start mt-1">
                   {errors.message ? <p className="text-red-400 text-xs">{errors.message}</p> : <span />}
-                  <p className={`text-xs font-mono transition-colors ${
-                    form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"
-                  }`}>
+                  <p className={`text-xs font-mono transition-colors ${form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"}`}>
                     {form.message.length}/2000
                   </p>
                 </div>
               </div>
+
               {serverMessage && (
-                <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-                  className={`p-4 rounded-xl text-sm ${state === "success" ? "bg-green-500/10 border border-green-500/30 text-green-400" : "bg-red-500/10 border border-red-500/30 text-red-400"}`}>
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-xl text-sm ${state === "success" ? "bg-green-500/10 border border-green-500/30 text-green-400" : "bg-red-500/10 border border-red-500/30 text-red-400"}`}
+                >
                   {serverMessage}
                 </motion.div>
               )}
-              <button type="submit" disabled={state === "loading" || state === "success"}
-                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50">
-                {state === "loading" && <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" /><path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>}
-                {state === "loading" ? "กำลังส่ง..." : state === "success" ? "ส่งแล้ว ✓" : "ส่งข้อความ"}
+
+              <button
+                type="submit" disabled={state === "loading" || state === "success"}
+                className="w-full btn-primary flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {state === "loading" && (
+                  <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
+                    <path fill="currentColor" className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                )}
+                {state === "loading" ? t("form.sending") : state === "success" ? t("form.sent") : t("form.submit")}
               </button>
             </form>
           </motion.div>

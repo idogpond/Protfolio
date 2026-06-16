@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useTranslations } from "next-intl";
 import axios from "axios";
 import BlogForm from "@/components/admin/BlogForm";
 import adminApi from "@/lib/adminApi";
@@ -8,6 +10,7 @@ import type { BlogFormValues } from "@/types/admin";
 
 export default function NewBlogPage() {
   const router = useRouter();
+  const t      = useTranslations("admin.blogs");
 
   async function handleSubmit(data: BlogFormValues) {
     try {
@@ -17,22 +20,22 @@ export default function NewBlogPage() {
       const message =
         axios.isAxiosError(err) && err.response?.data?.message
           ? err.response.data.message
-          : "Something went wrong. Please try again.";
+          : t("serverError");
       console.error(err);
       throw new Error(message);
     }
   }
 
   return (
-    <div className="max-w-3xl space-y-6">
+    <div className="max-w-2xl space-y-6">
       <div>
-        <a href="/admin/blogs" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
-          ← Back to Blogs
-        </a>
-        <h1 className="text-2xl font-bold text-white mt-2">New Blog Post</h1>
+        <Link href="/admin/blogs" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
+          {t("backToList")}
+        </Link>
+        <h1 className="text-2xl font-bold text-white mt-2">{t("newTitle")}</h1>
       </div>
       <div className="card p-6">
-        <BlogForm onSubmit={handleSubmit} submitLabel="Create Post" />
+        <BlogForm onSubmit={handleSubmit} submitLabel={t("createLabel")} />
       </div>
     </div>
   );

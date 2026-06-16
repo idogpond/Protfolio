@@ -1,38 +1,47 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useProfile } from "@/lib/useProfile";
 
 export default function About() {
   const { profile } = useProfile();
+  const t = useTranslations("about");
 
   const stats = [
-    { value: `${profile.years_of_experience || "3"}+`, label: "Years Experience" },
-    { value: "20+", label: "Projects Completed" },
-    { value: "10+", label: "Happy Clients" },
-    { value: "5+",  label: "Tech Stacks" },
+    { value: `${profile.years_of_experience || "3"}+`, label: t("stats.experience") },
+    { value: "20+", label: t("stats.projects") },
+    { value: "10+", label: t("stats.clients") },
+    { value: "5+",  label: t("stats.stacks") },
   ];
 
   const highlights = [
-    "TypeScript enthusiast — type safety first",
-    "REST API design & documentation",
-    "Agile / Git workflow & Code Review",
-    "Performance optimization & SEO",
+    t("highlights.typescript"),
+    t("highlights.api"),
+    t("highlights.agile"),
+    t("highlights.performance"),
   ];
 
   return (
     <section id="about" className="py-24">
       <div className="section-container">
-        <SectionHeader accent="// about me" title="About Me" subtitle="A little background on who I am and what I do" />
+        <SectionHeader
+          accent={t("accent")}
+          title={t("title")}
+          subtitle={t("subtitle")}
+        />
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
-          <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.6 }} className="space-y-5 text-dark-300 leading-relaxed">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            className="space-y-5 text-dark-300 leading-relaxed"
+          >
             {profile.about_me
-              ? profile.about_me.split("\n\n").map((para, i) => <p key={i}>{para}</p>)
-              : <p>Full Stack Developer with {profile.years_of_experience || "3"}+ years of experience building modern web applications.</p>}
+              ? (profile.about_me as string).split("\n\n").map((para, i) => <p key={i}>{para}</p>)
+              : <p>{t("fallbackBio", { years: String(profile.years_of_experience || 3) })}</p>}
 
             {profile.location && (
               <p className="flex items-center gap-2 text-dark-400 text-sm">
@@ -53,26 +62,34 @@ export default function About() {
             </ul>
 
             <div className="pt-4">
-              <a href="#contact" className="btn-primary inline-block">Let&apos;s Work Together</a>
+              <a href="#contact" className="btn-primary inline-block">{t("cta")}</a>
             </div>
           </motion.div>
 
           {/* Stats */}
-          <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.6 }} className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }} transition={{ duration: 0.6 }}
+            className="grid grid-cols-2 gap-4"
+          >
             {stats.map((stat, i) => (
-              <motion.div key={stat.label} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="card p-6 text-center hover:border-primary-500/40 transition-colors duration-300">
+                className="card p-6 text-center hover:border-primary-500/40 transition-colors duration-300"
+              >
                 <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
                 <div className="text-dark-400 text-sm">{stat.label}</div>
               </motion.div>
             ))}
 
             {/* Code snippet */}
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }} transition={{ delay: 0.4 }}
-              className="card col-span-2 p-5 font-mono text-sm">
+              className="card col-span-2 p-5 font-mono text-sm"
+            >
               <div className="flex gap-1.5 mb-3">
                 <span className="w-3 h-3 rounded-full bg-red-500/70" />
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />

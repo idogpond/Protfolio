@@ -1,21 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { EXPERIENCES } from "@/lib/data";
 
 export default function Experience() {
+  const t = useTranslations("experience");
+
   return (
     <section id="experience" className="py-24 bg-dark-900/30">
       <div className="section-container">
         <SectionHeader
-          accent="// career"
-          title="Work Experience"
-          subtitle="My professional journey so far"
+          accent={t("accent")}
+          title={t("title")}
+          subtitle={t("subtitle")}
         />
 
         <div className="relative max-w-3xl mx-auto">
-          {/* Vertical timeline line */}
           <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500 via-dark-700 to-transparent" />
 
           <div className="space-y-10">
@@ -28,12 +30,10 @@ export default function Experience() {
                 transition={{ delay: index * 0.15, duration: 0.5 }}
                 className="relative pl-16"
               >
-                {/* Timeline dot */}
-                <div className="absolute left-4 top-6 w-4 h-4 -translate-x-1/2 rounded-full
-                                bg-dark-950 border-2 border-primary-500 shadow-[0_0_10px_2px_rgba(59,130,246,0.3)]" />
+                <div className="absolute left-4 top-6 w-3.5 h-3.5 -translate-x-1/2 rounded-full
+                                bg-dark-950 border-2 border-primary-500 shadow-[0_0_8px_2px_rgba(245,158,11,0.25)]" />
 
                 <div className="card p-6 hover:border-primary-500/30 transition-colors duration-300">
-                  {/* Header */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                     <div>
                       <h3 className="text-white font-semibold text-lg">{exp.position}</h3>
@@ -45,7 +45,6 @@ export default function Experience() {
                     </span>
                   </div>
 
-                  {/* Responsibilities */}
                   <ul className="space-y-2 mb-4">
                     {exp.description.map((point, i) => (
                       <li key={i} className="flex items-start gap-3 text-dark-300 text-sm">
@@ -55,14 +54,10 @@ export default function Experience() {
                     ))}
                   </ul>
 
-                  {/* Tech tags */}
                   <div className="flex flex-wrap gap-2 pt-3 border-t border-dark-800">
-                    {exp.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="text-xs font-mono text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded"
-                      >
-                        {t}
+                    {exp.tech.map((tech) => (
+                      <span key={tech} className="text-xs font-mono text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded">
+                        {tech}
                       </span>
                     ))}
                   </div>
