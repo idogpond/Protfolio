@@ -51,6 +51,9 @@ export function DatePicker({
           mode="single"
           selected={validDate}
           onSelect={handleSelect}
+          captionLayout="dropdown"
+          fromYear={1950}
+          toYear={new Date().getFullYear() + 5}
         />
         {clearable && validDate && (
           <div className="border-t p-2">
