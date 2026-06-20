@@ -206,13 +206,17 @@
       "personal": {
         "fullName": "Full Name *",
         "nickname": "Nickname",
-        "jobTitle": "Job Title",
-        "bio": "Bio (short — shown in Hero)",
-        "aboutMe": "About Me (long — shown in About section)",
+        "jobTitleEn": "Job Title (EN) *",
+        "jobTitleTh": "Job Title (TH)",
+        "bioEn": "Bio EN (Hero — short)",
+        "bioTh": "Bio TH (Hero — short)",
+        "aboutEn": "About EN (long)",
+        "aboutTh": "About TH (long)",
         "profileImage": "Profile Image URL",
         "yearsOfExp": "Years of Experience",
         "dateOfBirth": "Date of Birth",
-        "location": "Location / City",
+        "locationEn": "Location (EN)",
+        "locationTh": "Location (TH)",
         "availableForHire": "Available for hire"
       },
       "contactTab": {
@@ -233,11 +237,14 @@
       "resume": {
         "url": "Resume / CV URL",
         "urlHint": "Path or URL for download, e.g. /resume.pdf",
-        "label": "Download Button Label"
+        "labelEn": "Download Button Label (EN)",
+        "labelTh": "Download Button Label (TH)"
       },
       "seo": {
-        "metaTitle": "Meta Title",
-        "metaDescription": "Meta Description",
+        "metaTitleEn": "Meta Title (EN)",
+        "metaTitleTh": "Meta Title (TH)",
+        "metaDescriptionEn": "Meta Description (EN)",
+        "metaDescriptionTh": "Meta Description (TH)",
         "metaDescHint": "Recommended 150-160 characters",
         "ogImage": "OG Image URL",
         "ogImageHint": "Image shown when sharing on Social"

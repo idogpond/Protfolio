@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { Controller } from "react-hook-form";
 import adminApi from "@/lib/adminApi";
 import Toast from "@/components/admin/Toast";
-import type { ProfileSettings } from "@/types/admin";
+import type { Profile } from "@/types";
 import { Button }   from "@/components/ui/button";
 import { Input }    from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,34 +16,41 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label }    from "@/components/ui/label";
 import { Field }    from "@/components/ui/field";
 
-// ─── Explicit FormValues type (schema moved inside component) ─────────────────
+// ─── Explicit FormValues type ─────────────────────────────────────────────────
 type FormValues = {
-  name:                string;
-  nickname:            string;
-  job_title:           string;
-  bio:                 string;
-  about_me:            string;
-  profile_image:       string;
-  years_of_experience: string;
-  date_of_birth:       string;
-  location:            string;
-  available_for_hire:  boolean;
-  email:               string;
-  phone:               string;
-  line_id:             string;
-  whatsapp:            string;
-  github_url:          string;
-  linkedin_url:        string;
-  facebook_url:        string;
-  twitter_url:         string;
-  instagram_url:       string;
-  youtube_url:         string;
-  website_url:         string;
-  resume_url:          string;
-  resume_label:        string;
-  meta_title:          string;
-  meta_description:    string;
-  og_image:            string;
+  name:                 string;
+  nickname:             string;
+  job_title_en:         string;
+  job_title_th:         string;
+  bio_en:               string;
+  bio_th:               string;
+  about_en:             string;
+  about_th:             string;
+  profile_image:        string;
+  years_of_experience:  number;
+  date_of_birth:        string;
+  location_en:          string;
+  location_th:          string;
+  available_for_hire:   boolean;
+  email:                string;
+  phone:                string;
+  line_id:              string;
+  whatsapp:             string;
+  github_url:           string;
+  linkedin_url:         string;
+  facebook_url:         string;
+  twitter_url:          string;
+  instagram_url:        string;
+  youtube_url:          string;
+  website_url:          string;
+  resume_url:           string;
+  resume_label_en:      string;
+  resume_label_th:      string;
+  meta_title_en:        string;
+  meta_title_th:        string;
+  meta_description_en:  string;
+  meta_description_th:  string;
+  og_image:             string;
 };
 
 // ─── TabId ────────────────────────────────────────────────────────────────────
@@ -63,13 +70,17 @@ export default function AdminProfilePage() {
       z.object({
         name:                z.string().min(1, t("errors.required")),
         nickname:            z.string(),
-        job_title:           z.string(),
-        bio:                 z.string(),
-        about_me:            z.string(),
+        job_title_en:        z.string(),
+        job_title_th:        z.string(),
+        bio_en:              z.string(),
+        bio_th:              z.string(),
+        about_en:            z.string(),
+        about_th:            z.string(),
         profile_image:       z.string(),
-        years_of_experience: z.string(),
+        years_of_experience: z.coerce.number(),
         date_of_birth:       z.string(),
-        location:            z.string(),
+        location_en:         z.string(),
+        location_th:         z.string(),
         available_for_hire:  z.boolean(),
         email:               z.string().email(t("errors.emailInvalid")).or(z.literal("")),
         phone:               z.string(),
@@ -83,9 +94,12 @@ export default function AdminProfilePage() {
         youtube_url:         z.string(),
         website_url:         z.string(),
         resume_url:          z.string(),
-        resume_label:        z.string(),
-        meta_title:          z.string(),
-        meta_description:    z.string(),
+        resume_label_en:     z.string(),
+        resume_label_th:     z.string(),
+        meta_title_en:       z.string(),
+        meta_title_th:       z.string(),
+        meta_description_en: z.string(),
+        meta_description_th: z.string(),
         og_image:            z.string(),
       }),
     [t]
@@ -110,20 +124,24 @@ export default function AdminProfilePage() {
   // Load profile data
   useEffect(() => {
     adminApi
-      .get<ProfileSettings>("/admin/profile")
+      .get<Profile>("/admin/profile")
       .then((res) => {
         const d = res.data;
         reset({
           name:                String(d.name                ?? ""),
           nickname:            String(d.nickname            ?? ""),
-          job_title:           String(d.job_title           ?? ""),
-          bio:                 String(d.bio                 ?? ""),
-          about_me:            String(d.about_me            ?? ""),
+          job_title_en:        String(d.job_title_en        ?? ""),
+          job_title_th:        String(d.job_title_th        ?? ""),
+          bio_en:              String(d.bio_en              ?? ""),
+          bio_th:              String(d.bio_th              ?? ""),
+          about_en:            String(d.about_en            ?? ""),
+          about_th:            String(d.about_th            ?? ""),
           profile_image:       String(d.profile_image       ?? ""),
-          years_of_experience: String(d.years_of_experience ?? ""),
+          years_of_experience: Number(d.years_of_experience ?? 0),
           date_of_birth:       String(d.date_of_birth       ?? ""),
-          location:            String(d.location            ?? ""),
-          available_for_hire:  d.available_for_hire === true || d.available_for_hire === "true",
+          location_en:         String(d.location_en         ?? ""),
+          location_th:         String(d.location_th         ?? ""),
+          available_for_hire:  d.available_for_hire === true,
           email:               String(d.email               ?? ""),
           phone:               String(d.phone               ?? ""),
           line_id:             String(d.line_id             ?? ""),
@@ -136,9 +154,12 @@ export default function AdminProfilePage() {
           youtube_url:         String(d.youtube_url         ?? ""),
           website_url:         String(d.website_url         ?? ""),
           resume_url:          String(d.resume_url          ?? ""),
-          resume_label:        String(d.resume_label        ?? ""),
-          meta_title:          String(d.meta_title          ?? ""),
-          meta_description:    String(d.meta_description    ?? ""),
+          resume_label_en:     String(d.resume_label_en     ?? ""),
+          resume_label_th:     String(d.resume_label_th     ?? ""),
+          meta_title_en:       String(d.meta_title_en       ?? ""),
+          meta_title_th:       String(d.meta_title_th       ?? ""),
+          meta_description_en: String(d.meta_description_en ?? ""),
+          meta_description_th: String(d.meta_description_th ?? ""),
           og_image:            String(d.og_image            ?? ""),
         });
       })
@@ -202,27 +223,47 @@ export default function AdminProfilePage() {
                 <Input id="nickname" {...register("nickname")} placeholder="Dev" />
               </Field>
             </div>
-            <Field label={t("personal.jobTitle")} htmlFor="job_title">
-              <Input id="job_title" {...register("job_title")} placeholder="Full Stack Developer" />
-            </Field>
-            <Field label={t("personal.bio")} htmlFor="bio">
-              <Textarea id="bio" {...register("bio")} rows={3} placeholder="…" className="resize-none" />
-            </Field>
-            <Field label={t("personal.aboutMe")} htmlFor="about_me">
-              <Textarea id="about_me" {...register("about_me")} rows={6} placeholder="…" className="resize-y" />
-            </Field>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("personal.jobTitleEn")} htmlFor="job_title_en">
+                <Input id="job_title_en" {...register("job_title_en")} placeholder="Full Stack Developer" />
+              </Field>
+              <Field label={t("personal.jobTitleTh")} htmlFor="job_title_th">
+                <Input id="job_title_th" {...register("job_title_th")} placeholder="นักพัฒนา Full Stack" />
+              </Field>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("personal.bioEn")} htmlFor="bio_en">
+                <Textarea id="bio_en" {...register("bio_en")} rows={3} placeholder="…" className="resize-none" />
+              </Field>
+              <Field label={t("personal.bioTh")} htmlFor="bio_th">
+                <Textarea id="bio_th" {...register("bio_th")} rows={3} placeholder="…" className="resize-none" />
+              </Field>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("personal.aboutEn")} htmlFor="about_en">
+                <Textarea id="about_en" {...register("about_en")} rows={6} placeholder="…" className="resize-y" />
+              </Field>
+              <Field label={t("personal.aboutTh")} htmlFor="about_th">
+                <Textarea id="about_th" {...register("about_th")} rows={6} placeholder="…" className="resize-y" />
+              </Field>
+            </div>
             <Field label={t("personal.profileImage")} htmlFor="profile_image">
               <Input id="profile_image" {...register("profile_image")} placeholder="https://…/avatar.jpg" />
             </Field>
-            <div className="grid sm:grid-cols-3 gap-4">
+            <div className="grid sm:grid-cols-2 gap-4">
               <Field label={t("personal.yearsOfExp")} htmlFor="years_of_experience">
-                <Input id="years_of_experience" {...register("years_of_experience")} placeholder="3" />
+                <Input id="years_of_experience" type="number" {...register("years_of_experience", { valueAsNumber: true })} placeholder="3" />
               </Field>
               <Field label={t("personal.dateOfBirth")} htmlFor="date_of_birth">
                 <Input id="date_of_birth" type="date" {...register("date_of_birth")} />
               </Field>
-              <Field label={t("personal.location")} htmlFor="location">
-                <Input id="location" {...register("location")} placeholder="Bangkok, Thailand" />
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("personal.locationEn")} htmlFor="location_en">
+                <Input id="location_en" {...register("location_en")} placeholder="Bangkok, Thailand" />
+              </Field>
+              <Field label={t("personal.locationTh")} htmlFor="location_th">
+                <Input id="location_th" {...register("location_th")} placeholder="กรุงเทพฯ ประเทศไทย" />
               </Field>
             </div>
             <div className="flex items-center gap-3 pt-1">
@@ -298,22 +339,38 @@ export default function AdminProfilePage() {
             <Field label={t("resume.url")} hint={t("resume.urlHint")} htmlFor="resume_url">
               <Input id="resume_url" {...register("resume_url")} placeholder="/resume.pdf" />
             </Field>
-            <Field label={t("resume.label")} htmlFor="resume_label">
-              <Input id="resume_label" {...register("resume_label")} placeholder="Download CV" />
-            </Field>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("resume.labelEn")} htmlFor="resume_label_en">
+                <Input id="resume_label_en" {...register("resume_label_en")} placeholder="Download CV" />
+              </Field>
+              <Field label={t("resume.labelTh")} htmlFor="resume_label_th">
+                <Input id="resume_label_th" {...register("resume_label_th")} placeholder="ดาวน์โหลด CV" />
+              </Field>
+            </div>
           </>
         )}
 
         {/* ── Tab: SEO ── */}
         {activeTab === "seo" && (
           <>
-            <Field label={t("seo.metaTitle")} htmlFor="meta_title">
-              <Input id="meta_title" {...register("meta_title")} placeholder="Your Name | Full Stack Developer" />
-            </Field>
-            <Field label={t("seo.metaDescription")} hint={t("seo.metaDescHint")} htmlFor="meta_description">
-              <Textarea id="meta_description" {...register("meta_description")} rows={3}
-                placeholder="Full Stack Web Developer with 3+ years…" className="resize-none" />
-            </Field>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("seo.metaTitleEn")} htmlFor="meta_title_en">
+                <Input id="meta_title_en" {...register("meta_title_en")} placeholder="Your Name | Full Stack Developer" />
+              </Field>
+              <Field label={t("seo.metaTitleTh")} htmlFor="meta_title_th">
+                <Input id="meta_title_th" {...register("meta_title_th")} placeholder="ชื่อ | นักพัฒนา Full Stack" />
+              </Field>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("seo.metaDescriptionEn")} hint={t("seo.metaDescHint")} htmlFor="meta_description_en">
+                <Textarea id="meta_description_en" {...register("meta_description_en")} rows={3}
+                  placeholder="Full Stack Web Developer with 3+ years…" className="resize-none" />
+              </Field>
+              <Field label={t("seo.metaDescriptionTh")} hint={t("seo.metaDescHint")} htmlFor="meta_description_th">
+                <Textarea id="meta_description_th" {...register("meta_description_th")} rows={3}
+                  placeholder="นักพัฒนา Full Stack ที่มีประสบการณ์ 3+ ปี…" className="resize-none" />
+              </Field>
+            </div>
             <Field label={t("seo.ogImage")} hint={t("seo.ogImageHint")} htmlFor="og_image">
               <Input id="og_image" {...register("og_image")} placeholder="https://…/og-image.png" />
             </Field>

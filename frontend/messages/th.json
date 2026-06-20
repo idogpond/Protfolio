@@ -206,13 +206,17 @@
       "personal": {
         "fullName": "ชื่อ-นามสกุล *",
         "nickname": "ชื่อเล่น",
-        "jobTitle": "ตำแหน่งงาน",
-        "bio": "Bio (สั้น — แสดงใน Hero)",
-        "aboutMe": "About Me (ยาว — แสดงใน About Section)",
+        "jobTitleEn": "ตำแหน่งงาน (EN) *",
+        "jobTitleTh": "ตำแหน่งงาน (TH)",
+        "bioEn": "Bio EN (Hero — สั้น)",
+        "bioTh": "Bio TH (Hero — สั้น)",
+        "aboutEn": "About EN (ยาว)",
+        "aboutTh": "About TH (ยาว)",
         "profileImage": "URL รูปโปรไฟล์",
         "yearsOfExp": "ประสบการณ์ (ปี)",
         "dateOfBirth": "วันเกิด",
-        "location": "ที่อยู่ / เมือง",
+        "locationEn": "ที่อยู่ / เมือง (EN)",
+        "locationTh": "ที่อยู่ / เมือง (TH)",
         "availableForHire": "พร้อมรับงาน"
       },
       "contactTab": {
@@ -233,11 +237,14 @@
       "resume": {
         "url": "URL เรซูเม่ / ประวัติ",
         "urlHint": "Path หรือ URL สำหรับดาวน์โหลด เช่น /resume.pdf",
-        "label": "ชื่อปุ่ม Download"
+        "labelEn": "ชื่อปุ่ม Download (EN)",
+        "labelTh": "ชื่อปุ่ม Download (TH)"
       },
       "seo": {
-        "metaTitle": "Meta Title",
-        "metaDescription": "Meta Description",
+        "metaTitleEn": "Meta Title (EN)",
+        "metaTitleTh": "Meta Title (TH)",
+        "metaDescriptionEn": "Meta Description (EN)",
+        "metaDescriptionTh": "Meta Description (TH)",
         "metaDescHint": "แนะนำ 150-160 ตัวอักษร",
         "ogImage": "URL รูป OG",
         "ogImageHint": "รูปที่แสดงเมื่อ share บน Social"
