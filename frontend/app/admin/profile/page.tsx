@@ -124,9 +124,9 @@ export default function AdminProfilePage() {
   // Load profile data
   useEffect(() => {
     adminApi
-      .get<Profile>("/admin/profile")
+      .get<{ data: Profile }>("/admin/profile")
       .then((res) => {
-        const d = res.data;
+        const d = res.data.data;
         reset({
           name:                String(d.name                ?? ""),
           nickname:            String(d.nickname            ?? ""),
