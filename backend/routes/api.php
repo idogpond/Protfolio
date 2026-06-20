@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\AdminBlogController;
 use App\Http\Controllers\Api\AdminContactController;
 use App\Http\Controllers\Api\AdminEducationController;
 use App\Http\Controllers\Api\AdminExperienceController;
@@ -8,7 +7,6 @@ use App\Http\Controllers\Api\AdminProfileController;
 use App\Http\Controllers\Api\AdminProjectController;
 use App\Http\Controllers\Api\AdminSkillController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\EducationController;
 use App\Http\Controllers\Api\ExperienceController;
@@ -30,8 +28,6 @@ Route::get('/skills',      [SkillController::class,      'index']);
 Route::get('/educations',  [EducationController::class,  'index']);
 
 Route::apiResource('projects', ProjectController::class)->only(['index', 'show']);
-Route::apiResource('blogs', BlogController::class)->only(['index'])->names(['index' => 'blogs.index']);
-Route::get('/blogs/{slug}', [BlogController::class, 'show'])->name('blogs.show');
 Route::post('/contacts', [ContactController::class, 'store']);
 
 /*
@@ -58,10 +54,6 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('projects', AdminProjectController::class)
         ->only(['index', 'show', 'store', 'update', 'destroy']);
 
-    // Blogs
-    Route::apiResource('blogs', AdminBlogController::class)
-        ->only(['index', 'show', 'store', 'update', 'destroy']);
-
     // Profile
     Route::get('profile',  [AdminProfileController::class, 'show']);
     Route::post('profile', [AdminProfileController::class, 'update']);
@@ -82,7 +74,6 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::get('stats', function () {
         return response()->json([
             'projects' => \App\Models\Project::count(),
-            'blogs'    => \App\Models\Blog::count(),
             'contacts' => \App\Models\Contact::count(),
             'unread'   => \App\Models\Contact::unread()->count(),
         ]);
