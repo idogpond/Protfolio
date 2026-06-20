@@ -125,7 +125,7 @@ export default function ProjectForm({ defaultValues, onSubmit, submitLabel }: Pr
             name="is_featured"
             control={control}
             render={({ field }) => (
-              <Label className="flex items-center gap-3 cursor-pointer font-normal text-dark-300 text-sm">
+              <Label className="flex items-center gap-3 cursor-pointer font-normal text-foreground/80 text-sm">
                 <Checkbox
                   checked={field.value}
                   onCheckedChange={field.onChange}

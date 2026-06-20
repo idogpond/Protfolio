@@ -62,7 +62,7 @@ export default function SkillForm({ defaultValues, onSubmit, submitLabel }: Prop
         </Field>
         <Field label="Category *" htmlFor="category" error={errors.category?.message}>
           <select id="category" {...register("category")}
-            className="w-full bg-dark-800 border border-dark-700 rounded-md px-3 py-2 text-sm text-white">
+            className="w-full bg-muted border border-border rounded-md px-3 py-2 text-sm text-foreground">
             <option value="frontend">Frontend</option>
             <option value="backend">Backend</option>
             <option value="devops">DevOps</option>
@@ -80,7 +80,7 @@ export default function SkillForm({ defaultValues, onSubmit, submitLabel }: Prop
         </div>
       )}
 
-      <div className="flex justify-end pt-2 border-t border-dark-800">
+      <div className="flex justify-end pt-2 border-t border-border">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving…" : submitLabel}
         </Button>

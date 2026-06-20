@@ -137,7 +137,7 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
         </div>
       )}
 
-      <div className="flex justify-end pt-2 border-t border-dark-800">
+      <div className="flex justify-end pt-2 border-t border-border">
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving…" : submitLabel}
         </Button>

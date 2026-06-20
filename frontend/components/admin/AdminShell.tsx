@@ -11,15 +11,15 @@ export default function AdminShell({ children }: { children: ReactNode }) {
   const t = useTranslations("admin.layout");
 
   return (
-    <div className="min-h-screen bg-dark-950 flex">
+    <div className="min-h-screen bg-background flex">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-dark-900 border-b border-dark-800 flex items-center px-4 lg:px-6 gap-4 shrink-0">
+        <header className="h-16 bg-card border-b border-border flex items-center px-4 lg:px-6 gap-4 shrink-0">
           <Button
             variant="ghost" size="icon"
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden text-dark-400 hover:text-white"
+            className="lg:hidden text-muted-foreground hover:text-foreground"
             aria-label={t("openMenu")}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -28,7 +28,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </Button>
-          <span className="text-dark-500 text-sm">{t("headerTitle")}</span>
+          <span className="text-muted-foreground/70 text-sm">{t("headerTitle")}</span>
         </header>
 
         <main className="flex-1 p-4 lg:p-8 overflow-auto">

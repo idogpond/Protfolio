@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 import adminApi from "@/lib/adminApi";
 import AdminLanguageSwitcher from "@/components/admin/AdminLanguageSwitcher";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -112,14 +113,14 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-30 w-64 bg-dark-900 border-r border-dark-800 flex flex-col",
+          "fixed inset-y-0 left-0 z-30 w-64 bg-card border-r border-border flex flex-col",
           "transition-transform duration-300",
           open ? "translate-x-0" : "-translate-x-full",
           "lg:translate-x-0 lg:static lg:z-auto"
         )}
       >
         {/* Logo */}
-        <div className="h-16 flex items-center px-6 border-b border-dark-800 shrink-0">
+        <div className="h-16 flex items-center px-6 border-b border-border shrink-0">
           <span className="text-lg font-bold gradient-text">&lt;Admin /&gt;</span>
         </div>
 
@@ -136,7 +137,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
                   "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
                   active
                     ? "bg-primary-500/15 text-primary-400"
-                    : "text-dark-400 hover:bg-dark-800 hover:text-white"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
                 )}
               >
                 <span className={active ? "text-primary-400" : ""}>{item.icon}</span>
@@ -146,14 +147,18 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           })}
         </nav>
 
-        {/* Bottom: language switcher + view site + logout */}
-        <div className="p-4 border-t border-dark-800">
+        {/* Bottom: theme toggle + language switcher + view site + logout */}
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center justify-between mb-2 px-1">
+            <span className="text-muted-foreground/50 text-xs font-mono">Theme</span>
+            <ThemeToggle />
+          </div>
           <AdminLanguageSwitcher />
           <a
             href="/"
             target="_blank"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-dark-500
-                       hover:text-white hover:bg-dark-800 transition-colors mb-1"
+            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground/70
+                       hover:text-foreground hover:bg-muted transition-colors mb-1"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
