@@ -22,7 +22,9 @@ export interface AdminContact {
 
 export interface ProjectFormValues {
   title: string;
+  title_th: string;
   description: string;
+  description_th: string;
   tech_stack: string[];
   github_url: string;
   demo_url: string;
@@ -31,47 +33,51 @@ export interface ProjectFormValues {
   order: number;
 }
 
-export interface ProfileSettings {
-  // Personal
-  name: string;
-  nickname: string;
-  job_title: string;
-  bio: string;
-  about_me: string;
-  profile_image: string;
-  years_of_experience: string;
-  date_of_birth: string;
-  location: string;
-  available_for_hire: boolean | string;
-  // Contact
-  email: string;
-  phone: string;
-  line_id: string;
-  whatsapp: string;
-  // Social
-  github_url: string;
-  linkedin_url: string;
-  facebook_url: string;
-  twitter_url: string;
-  instagram_url: string;
-  youtube_url: string;
-  website_url: string;
-  // Resume
-  resume_url: string;
-  resume_label: string;
-  // SEO
-  meta_title: string;
-  meta_description: string;
-  og_image: string;
-  [key: string]: string | boolean;
-}
-
 export interface BlogFormValues {
   title: string;
+  title_th: string;
   slug: string;
   content: string;
+  content_th: string;
   excerpt: string;
+  excerpt_th: string;
   cover_image: string;
   is_published: boolean;
   published_at: string;
 }
+
+export interface ExperienceFormValues {
+  company: string;
+  position_en: string;
+  position_th: string;
+  period: string;
+  started_at: string;
+  ended_at: string;
+  description_en: string[];
+  description_th: string[];
+  tech: string[];
+  order: number;
+}
+
+export interface SkillFormValues {
+  name: string;
+  icon: string;
+  level: number;
+  category: "frontend" | "backend" | "devops" | "other";
+  order: number;
+}
+
+export interface EducationFormValues {
+  degree_en: string;
+  degree_th: string;
+  field_en: string;
+  field_th: string;
+  institution: string;
+  started_at: string;
+  graduated_at: string;
+  gpa: string;
+  order: number;
+}
+
+// Re-export Profile from index for admin use
+export type { Profile } from "./index";

@@ -2,33 +2,40 @@
 
 import { useEffect, useState } from "react";
 import api from "@/lib/axios";
-import type { ProfileSettings } from "@/types/admin";
+import type { Profile } from "@/types";
 
-const EMPTY: ProfileSettings = {
-  name: "", nickname: "", job_title: "", bio: "", about_me: "",
-  profile_image: "", years_of_experience: "3", date_of_birth: "",
-  location: "", available_for_hire: false,
-  email: "", phone: "", line_id: "", whatsapp: "",
-  github_url: "", linkedin_url: "", facebook_url: "",
-  twitter_url: "", instagram_url: "", youtube_url: "", website_url: "",
-  resume_url: "", resume_label: "Download CV",
-  meta_title: "", meta_description: "", og_image: "",
+const EMPTY: Profile = {
+  id: 0,
+  name: "", nickname: null,
+  job_title_en: "", job_title_th: null,
+  bio_en: "", bio_th: null,
+  about_en: null, about_th: null,
+  profile_image: null,
+  years_of_experience: 0,
+  date_of_birth: null,
+  location_en: null, location_th: null,
+  available_for_hire: false,
+  email: null, phone: null, line_id: null, whatsapp: null,
+  github_url: null, linkedin_url: null, facebook_url: null,
+  twitter_url: null, instagram_url: null, youtube_url: null, website_url: null,
+  resume_url: null, resume_label_en: "Download CV", resume_label_th: "ดาวน์โหลด CV",
+  meta_title_en: null, meta_title_th: null,
+  meta_description_en: null, meta_description_th: null,
+  og_image: null,
 };
 
-let cache: ProfileSettings | null = null;
+let cache: Profile | null = null;
 
 export function useProfile() {
-  const [profile, setProfile] = useState<ProfileSettings>(cache ?? EMPTY);
+  const [profile, setProfile] = useState<Profile>(cache ?? EMPTY);
   const [loading, setLoading] = useState(!cache);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError]     = useState<string | null>(null);
 
   useEffect(() => {
     if (cache) { setProfile(cache); setLoading(false); return; }
-
-    api.get<ProfileSettings>("/profile").then((res) => {
+    api.get<Profile>("/profile").then((res) => {
       cache = res.data;
       setProfile(res.data);
-      setError(null);
     }).catch(() => {
       setError("Failed to load profile");
     }).finally(() => setLoading(false));
