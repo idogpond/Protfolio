@@ -64,8 +64,8 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-        <p className="text-dark-500 text-sm mt-1">{t("overview")}</p>
+        <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+        <p className="text-muted-foreground/70 text-sm mt-1">{t("overview")}</p>
       </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -76,20 +76,20 @@ export default function DashboardPage() {
             className={`card p-6 border hover:border-opacity-60 transition-all hover:-translate-y-0.5 ${card.bg}`}
           >
             <div className={`mb-3 ${card.color}`}>{card.icon}</div>
-            <div className="text-3xl font-bold text-white mb-1">
+            <div className="text-3xl font-bold text-foreground mb-1">
               {loading ? (
-                <div className="h-8 w-12 bg-dark-700 rounded animate-pulse" />
+                <div className="h-8 w-12 bg-border rounded animate-pulse" />
               ) : (
                 stats?.[card.key] ?? 0
               )}
             </div>
-            <div className="text-dark-400 text-sm">{card.label}</div>
+            <div className="text-muted-foreground text-sm">{card.label}</div>
           </a>
         ))}
       </div>
 
       <div className="card p-6">
-        <h2 className="text-white font-semibold mb-4">{t("quickActions")}</h2>
+        <h2 className="text-foreground font-semibold mb-4">{t("quickActions")}</h2>
         <div className="flex flex-wrap gap-3">
           <Link href="/admin/projects/new" className={buttonVariants()}>{t("newProject")}</Link>
           <Link href="/admin/contacts"     className={buttonVariants({ variant: "outline" })}>{t("viewMessages")}</Link>

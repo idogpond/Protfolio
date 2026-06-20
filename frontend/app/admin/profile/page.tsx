@@ -187,12 +187,12 @@ export default function AdminProfilePage() {
   return (
     <div className="max-w-3xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-        <p className="text-dark-500 text-sm mt-1">{t("subtitle")}</p>
+        <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+        <p className="text-muted-foreground/70 text-sm mt-1">{t("subtitle")}</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-dark-800/50 p-1 rounded-xl border border-dark-800 overflow-x-auto">
+      <div className="flex gap-1 bg-muted/50 p-1 rounded-xl border border-border overflow-x-auto">
         {TABS.map((tab) => (
           <Button
             key={tab.id}
@@ -201,8 +201,8 @@ export default function AdminProfilePage() {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all
                         ${activeTab === tab.id
-                          ? "bg-dark-900 text-white shadow border border-dark-700"
-                          : "text-dark-400 hover:text-white"}`}
+                          ? "bg-background text-foreground shadow border border-border"
+                          : "text-muted-foreground hover:text-foreground"}`}
           >
             {tab.label}
           </Button>
@@ -283,7 +283,7 @@ export default function AdminProfilePage() {
                 name="available_for_hire"
                 control={control}
                 render={({ field }) => (
-                  <Label className="flex items-center gap-3 cursor-pointer font-normal text-dark-300 text-sm">
+                  <Label className="flex items-center gap-3 cursor-pointer font-normal text-foreground/80 text-sm">
                     <Checkbox
                       id="available_for_hire"
                       checked={field.value}
@@ -390,7 +390,7 @@ export default function AdminProfilePage() {
         )}
 
         {/* Save button */}
-        <div className="flex justify-end pt-2 border-t border-dark-800">
+        <div className="flex justify-end pt-2 border-t border-border">
           <Button type="submit" disabled={isSubmitting} className="flex items-center gap-2">
             {isSubmitting && (
               <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">

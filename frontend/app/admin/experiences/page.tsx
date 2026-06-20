@@ -42,40 +42,40 @@ export default function AdminExperiencesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-          <p className="text-dark-500 text-sm mt-1">{t("count", { count: experiences.length })}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground/70 text-sm mt-1">{t("count", { count: experiences.length })}</p>
         </div>
         <Link href="/admin/experiences/new" className={buttonVariants({ size: "sm" })}>{t("newEntry")}</Link>
       </div>
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-dark-500">{t("loading")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("loading")}</div>
         ) : error ? (
           <div className="p-8 text-center text-red-400">{error}</div>
         ) : experiences.length === 0 ? (
-          <div className="p-8 text-center text-dark-500">{t("empty")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("empty")}</div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dark-800 text-dark-400 text-left">
+              <tr className="border-b border-border text-muted-foreground text-left">
                 <th className="px-4 py-3 font-medium">{t("colCompany")}</th>
                 <th className="px-4 py-3 font-medium hidden sm:table-cell">{t("colPosition")}</th>
                 <th className="px-4 py-3 font-medium hidden md:table-cell">{t("colPeriod")}</th>
                 <th className="px-4 py-3 font-medium text-right">{t("colActions")}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-dark-800">
+            <tbody className="divide-y divide-border">
               {experiences.map((exp) => (
-                <tr key={exp.id} className="hover:bg-dark-800/50 transition-colors">
+                <tr key={exp.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-4 py-3">
-                    <p className="text-white font-medium">{exp.company}</p>
+                    <p className="text-foreground font-medium">{exp.company}</p>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
-                    <p className="text-dark-300">{exp.position_en}</p>
+                    <p className="text-foreground/80">{exp.position_en}</p>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <p className="text-dark-400 text-xs">{exp.period}</p>
+                    <p className="text-muted-foreground text-xs">{exp.period}</p>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
@@ -89,7 +89,7 @@ export default function AdminExperiencesPage() {
                         variant="outline" size="sm"
                         onClick={() => handleDelete(exp.id)}
                         disabled={deleting === exp.id}
-                        className="text-dark-300 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
+                        className="text-foreground/80 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
                       >
                         {deleting === exp.id ? t("deleting") : t("delete")}
                       </Button>

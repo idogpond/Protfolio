@@ -42,52 +42,52 @@ export default function AdminProjectsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-          <p className="text-dark-500 text-sm mt-1">{t("count", { count: projects.length })}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground/70 text-sm mt-1">{t("count", { count: projects.length })}</p>
         </div>
         <Link href="/admin/projects/new" className={buttonVariants({ size: "sm" })}>{t("newProject")}</Link>
       </div>
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-dark-500">{t("loading")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("loading")}</div>
         ) : error ? (
           <div className="p-8 text-center text-red-400">{error}</div>
         ) : projects.length === 0 ? (
-          <div className="p-8 text-center text-dark-500">{t("empty")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("empty")}</div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dark-800 text-dark-400 text-left">
+              <tr className="border-b border-border text-muted-foreground text-left">
                 <th className="px-4 py-3 font-medium">{t("colTitle")}</th>
                 <th className="px-4 py-3 font-medium hidden sm:table-cell">{t("colTechStack")}</th>
                 <th className="px-4 py-3 font-medium hidden md:table-cell">{t("colFeatured")}</th>
                 <th className="px-4 py-3 font-medium text-right">{t("colActions")}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-dark-800">
+            <tbody className="divide-y divide-border">
               {projects.map((project) => (
-                <tr key={project.id} className="hover:bg-dark-800/50 transition-colors">
+                <tr key={project.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-4 py-3">
-                    <p className="text-white font-medium">{project.title}</p>
-                    <p className="text-dark-500 text-xs mt-0.5 line-clamp-1">{project.description}</p>
+                    <p className="text-foreground font-medium">{project.title}</p>
+                    <p className="text-muted-foreground/70 text-xs mt-0.5 line-clamp-1">{project.description}</p>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <div className="flex flex-wrap gap-1">
                       {(project.tech_stack ?? []).slice(0, 3).map((tech) => (
-                        <span key={tech} className="text-xs px-1.5 py-0.5 bg-dark-700 text-dark-300 rounded">
+                        <span key={tech} className="text-xs px-1.5 py-0.5 bg-muted text-foreground/80 rounded">
                           {tech}
                         </span>
                       ))}
                       {(project.tech_stack?.length ?? 0) > 3 && (
-                        <span className="text-xs text-dark-500">+{(project.tech_stack?.length ?? 0) - 3}</span>
+                        <span className="text-xs text-muted-foreground/70">+{(project.tech_stack?.length ?? 0) - 3}</span>
                       )}
                     </div>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
                     {project.is_featured
                       ? <span className="text-xs text-green-400 bg-green-500/10 px-2 py-0.5 rounded-full">{t("featuredYes")}</span>
-                      : <span className="text-xs text-dark-500">—</span>}
+                      : <span className="text-xs text-muted-foreground/70">—</span>}
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
@@ -101,7 +101,7 @@ export default function AdminProjectsPage() {
                         variant="outline" size="sm"
                         onClick={() => handleDelete(project.id)}
                         disabled={deleting === project.id}
-                        className="text-dark-300 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
+                        className="text-foreground/80 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
                       >
                         {deleting === project.id ? t("deleting") : t("delete")}
                       </Button>

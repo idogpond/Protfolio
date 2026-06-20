@@ -56,8 +56,8 @@ export default function AdminContactsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-          <p className="text-dark-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground/70 text-sm mt-1">
             {t("count", { count: contacts.length })}
             {unreadCount > 0 && (
               <span className="ml-2 text-orange-400 font-medium">
@@ -69,11 +69,11 @@ export default function AdminContactsPage() {
       </div>
 
       {loading ? (
-        <div className="card p-8 text-center text-dark-500">{t("loading")}</div>
+        <div className="card p-8 text-center text-muted-foreground/70">{t("loading")}</div>
       ) : error ? (
         <div className="card p-8 text-center text-red-400">{error}</div>
       ) : contacts.length === 0 ? (
-        <div className="card p-8 text-center text-dark-500">{t("empty")}</div>
+        <div className="card p-8 text-center text-muted-foreground/70">{t("empty")}</div>
       ) : (
         <div className="space-y-3">
           {contacts.map((contact) => (
@@ -88,14 +88,14 @@ export default function AdminContactsPage() {
                 <div className="flex-1 min-w-0">
                   {/* Header */}
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-white font-semibold">{contact.name}</span>
+                    <span className="text-foreground font-semibold">{contact.name}</span>
                     {!contact.is_read && (
                       <span className="text-xs bg-primary-500/20 text-primary-400
                                        px-2 py-0.5 rounded-full font-medium">
                         {t("newBadge")}
                       </span>
                     )}
-                    <span className="text-dark-500 text-xs ml-auto shrink-0">
+                    <span className="text-muted-foreground/70 text-xs ml-auto shrink-0">
                       {formatDate(contact.created_at)}
                     </span>
                   </div>
@@ -107,7 +107,7 @@ export default function AdminContactsPage() {
                     {contact.email}
                   </a>
 
-                  <p className="text-dark-300 text-sm mt-3 leading-relaxed whitespace-pre-wrap">
+                  <p className="text-foreground/80 text-sm mt-3 leading-relaxed whitespace-pre-wrap">
                     {contact.message}
                   </p>
                 </div>
@@ -115,12 +115,12 @@ export default function AdminContactsPage() {
 
               {/* Actions */}
               {!contact.is_read && (
-                <div className="flex justify-end mt-4 pt-4 border-t border-dark-800">
+                <div className="flex justify-end mt-4 pt-4 border-t border-border">
                   <Button
                     variant="outline" size="sm"
                     onClick={() => handleMarkRead(contact.id)}
                     disabled={marking === contact.id}
-                    className="text-dark-300 hover:text-green-400 hover:border-green-500 flex items-center gap-2 disabled:opacity-50"
+                    className="text-foreground/80 hover:text-green-400 hover:border-green-500 flex items-center gap-2 disabled:opacity-50"
                   >
                     {marking === contact.id ? (
                       <>
@@ -144,7 +144,7 @@ export default function AdminContactsPage() {
 
               {contact.is_read && (
                 <div className="flex justify-end mt-3">
-                  <span className="text-xs text-dark-600 flex items-center gap-1">
+                  <span className="text-xs text-muted-foreground/50 flex items-center gap-1">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <polyline points="20 6 9 17 4 12" />
                     </svg>

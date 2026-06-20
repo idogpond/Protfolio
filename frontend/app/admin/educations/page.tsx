@@ -42,41 +42,41 @@ export default function AdminEducationsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t("title")}</h1>
-          <p className="text-dark-500 text-sm mt-1">{t("count", { count: educations.length })}</p>
+          <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>
+          <p className="text-muted-foreground/70 text-sm mt-1">{t("count", { count: educations.length })}</p>
         </div>
         <Link href="/admin/educations/new" className={buttonVariants({ size: "sm" })}>{t("newEntry")}</Link>
       </div>
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-dark-500">{t("loading")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("loading")}</div>
         ) : error ? (
           <div className="p-8 text-center text-red-400">{error}</div>
         ) : educations.length === 0 ? (
-          <div className="p-8 text-center text-dark-500">{t("empty")}</div>
+          <div className="p-8 text-center text-muted-foreground/70">{t("empty")}</div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-dark-800 text-dark-400 text-left">
+              <tr className="border-b border-border text-muted-foreground text-left">
                 <th className="px-4 py-3 font-medium">{t("colInstitution")}</th>
                 <th className="px-4 py-3 font-medium hidden sm:table-cell">{t("colDegree")}</th>
                 <th className="px-4 py-3 font-medium hidden md:table-cell">{t("colGraduated")}</th>
                 <th className="px-4 py-3 font-medium text-right">{t("colActions")}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-dark-800">
+            <tbody className="divide-y divide-border">
               {educations.map((edu) => (
-                <tr key={edu.id} className="hover:bg-dark-800/50 transition-colors">
+                <tr key={edu.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-4 py-3">
-                    <p className="text-white font-medium">{edu.institution}</p>
+                    <p className="text-foreground font-medium">{edu.institution}</p>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
-                    <p className="text-dark-300">{edu.degree_en}</p>
-                    <p className="text-dark-500 text-xs mt-0.5">{edu.field_en}</p>
+                    <p className="text-foreground/80">{edu.degree_en}</p>
+                    <p className="text-muted-foreground/70 text-xs mt-0.5">{edu.field_en}</p>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <p className="text-dark-400 text-xs">{edu.graduated_at ?? "—"}</p>
+                    <p className="text-muted-foreground text-xs">{edu.graduated_at ?? "—"}</p>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">
@@ -90,7 +90,7 @@ export default function AdminEducationsPage() {
                         variant="outline" size="sm"
                         onClick={() => handleDelete(edu.id)}
                         disabled={deleting === edu.id}
-                        className="text-dark-300 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
+                        className="text-foreground/80 hover:text-red-400 hover:border-red-500 disabled:opacity-50"
                       >
                         {deleting === edu.id ? t("deleting") : t("delete")}
                       </Button>

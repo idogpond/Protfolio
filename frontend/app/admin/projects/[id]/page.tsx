@@ -40,17 +40,17 @@ export default function EditProjectPage() {
     }
   }
 
-  if (loading) return <div className="text-dark-500 p-8">{t("loading")}</div>;
+  if (loading) return <div className="text-muted-foreground/70 p-8">{t("loading")}</div>;
   if (fetchError) return <div className="text-red-400 p-8">{fetchError}</div>;
   if (!project) return <div className="text-red-400 p-8">{t("notFound")}</div>;
 
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <Link href="/admin/projects" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
+        <Link href="/admin/projects" className="text-muted-foreground/70 hover:text-primary-400 text-sm transition-colors">
           {t("backToList")}
         </Link>
-        <h1 className="text-2xl font-bold text-white mt-2">{t("editTitle")}</h1>
+        <h1 className="text-2xl font-bold text-foreground mt-2">{t("editTitle")}</h1>
       </div>
       <div className="card p-6">
         <ProjectForm

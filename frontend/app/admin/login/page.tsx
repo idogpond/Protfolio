@@ -12,10 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input }  from "@/components/ui/input";
 import { Label }  from "@/components/ui/label";
 
-type FormValues = {
-  email: string;
-  password: string;
-};
+type FormValues = { email: string; password: string };
 
 function LoginForm() {
   const router       = useRouter();
@@ -32,11 +29,8 @@ function LoginForm() {
     [t]
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, formState: { errors, isSubmitting } } =
+    useForm<FormValues>({ resolver: zodResolver(schema) });
 
   async function onSubmit(data: FormValues) {
     setServerError("");
@@ -60,37 +54,33 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="card p-8">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold gradient-text mb-1">&lt;Admin /&gt;</h1>
-            <p className="text-dark-500 text-sm">{t("panelTitle")}</p>
+            <p className="text-muted-foreground/70 text-sm">{t("panelTitle")}</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-dark-300">{t("emailLabel")}</Label>
+              <Label htmlFor="email" className="text-foreground/80">{t("emailLabel")}</Label>
               <Input
                 id="email" type="email" placeholder="admin@portfolio.com"
                 {...register("email")}
                 className={errors.email ? "border-destructive" : ""}
               />
-              {errors.email && (
-                <p className="text-destructive text-xs">{errors.email.message}</p>
-              )}
+              {errors.email && <p className="text-destructive text-xs">{errors.email.message}</p>}
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="password" className="text-dark-300">{t("passwordLabel")}</Label>
+              <Label htmlFor="password" className="text-foreground/80">{t("passwordLabel")}</Label>
               <Input
                 id="password" type="password" placeholder="••••••••"
                 {...register("password")}
                 className={errors.password ? "border-destructive" : ""}
               />
-              {errors.password && (
-                <p className="text-destructive text-xs">{errors.password.message}</p>
-              )}
+              {errors.password && <p className="text-destructive text-xs">{errors.password.message}</p>}
             </div>
 
             {serverError && (
@@ -99,10 +89,7 @@ function LoginForm() {
               </div>
             )}
 
-            <Button
-              type="submit" disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2"
-            >
+            <Button type="submit" disabled={isSubmitting} className="w-full flex items-center justify-center gap-2">
               {isSubmitting && (
                 <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
@@ -114,8 +101,8 @@ function LoginForm() {
           </form>
         </div>
 
-        <p className="text-center text-dark-600 text-xs mt-6">
-          <a href="/" className="hover:text-dark-400 transition-colors">{t("backToPortfolio")}</a>
+        <p className="text-center text-muted-foreground/50 text-xs mt-6">
+          <a href="/" className="hover:text-muted-foreground transition-colors">{t("backToPortfolio")}</a>
         </p>
       </div>
     </div>

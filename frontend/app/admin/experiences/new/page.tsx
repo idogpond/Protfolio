@@ -29,10 +29,10 @@ export default function NewExperiencePage() {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <Link href="/admin/experiences" className="text-dark-500 hover:text-primary-400 text-sm transition-colors">
+        <Link href="/admin/experiences" className="text-muted-foreground/70 hover:text-primary-400 text-sm transition-colors">
           {t("backToList")}
         </Link>
-        <h1 className="text-2xl font-bold text-white mt-2">{t("newTitle")}</h1>
+        <h1 className="text-2xl font-bold text-foreground mt-2">{t("newTitle")}</h1>
       </div>
       <div className="card p-6">
         <ExperienceForm onSubmit={handleSubmit} submitLabel={t("createLabel")} />
