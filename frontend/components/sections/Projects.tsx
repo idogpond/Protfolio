@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
 import { useProfile } from "@/lib/useProfile";
 import type { Project } from "@/types";
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, locale }: { project: Project; index: number; locale: string }) {
+  const title       = locale === "th" ? (project.title_th       || project.title)       : project.title;
+  const description = locale === "th" ? (project.description_th || project.description) : project.description;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 30 }}
@@ -50,9 +53,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
       <div className="flex-1">
         <h3 className="text-white font-display font-bold text-lg mb-2 group-hover:text-primary-300 transition-colors">
-          {project.title}
+          {title}
         </h3>
-        <p className="text-dark-400 text-sm leading-relaxed line-clamp-3">{project.description}</p>
+        <p className="text-dark-400 text-sm leading-relaxed line-clamp-3">{description}</p>
       </div>
 
       <div className="flex flex-wrap gap-1.5 pt-3 border-t border-dark-800">
@@ -93,6 +96,7 @@ function ProjectSkeleton() {
 export default function Projects() {
   const { profile } = useProfile();
   const t = useTranslations("projects");
+  const locale = useLocale();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
@@ -120,7 +124,7 @@ export default function Projects() {
         <div className="grid sm:grid-cols-2 gap-6">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => <ProjectSkeleton key={i} />)
-            : projects.map((project, i) => <ProjectCard key={project.id} project={project} index={i} />)}
+            : projects.map((project, i) => <ProjectCard key={project.id} project={project} index={i} locale={locale} />)}
         </div>
 
         {!loading && projects.length === 0 && !error && (

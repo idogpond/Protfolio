@@ -1,16 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useProfile } from "@/lib/useProfile";
 
 export default function About() {
   const { profile } = useProfile();
   const t = useTranslations("about");
+  const locale = useLocale();
+
+  const aboutMe  = locale === "th" ? (profile.about_th || profile.about_en) : profile.about_en;
+  const location = locale === "th" ? (profile.location_th || profile.location_en) : profile.location_en;
+  const jobTitle = locale === "th" ? (profile.job_title_th || profile.job_title_en) : profile.job_title_en;
 
   const stats = [
-    { value: `${profile.years_of_experience || "3"}+`, label: t("stats.experience") },
+    { value: `${profile.years_of_experience || 3}+`, label: t("stats.experience") },
     { value: "20+", label: t("stats.projects") },
     { value: "10+", label: t("stats.clients") },
     { value: "5+",  label: t("stats.stacks") },
@@ -39,16 +44,16 @@ export default function About() {
             viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="space-y-5 text-dark-300 leading-relaxed"
           >
-            {profile.about_me
-              ? (profile.about_me as string).split("\n\n").map((para, i) => <p key={i}>{para}</p>)
+            {aboutMe
+              ? aboutMe.split("\n\n").map((para, i) => <p key={i}>{para}</p>)
               : <p>{t("fallbackBio", { years: String(profile.years_of_experience || 3) })}</p>}
 
-            {profile.location && (
+            {location && (
               <p className="flex items-center gap-2 text-dark-400 text-sm">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
                 </svg>
-                {String(profile.location)}
+                {location}
               </p>
             )}
 
@@ -97,7 +102,7 @@ export default function About() {
               </div>
               <p className="text-dark-500"><span className="text-accent-400">const</span> <span className="text-primary-300">developer</span> <span className="text-dark-400">=</span> <span className="text-dark-400">{"{"}</span></p>
               <p className="pl-4 text-dark-400"><span className="text-green-400">name</span><span className="text-dark-500">: </span><span className="text-yellow-300">&quot;{String(profile.name) || "Your Name"}&quot;</span>,</p>
-              <p className="pl-4 text-dark-400"><span className="text-green-400">role</span><span className="text-dark-500">: </span><span className="text-yellow-300">&quot;{String(profile.job_title) || "Full Stack Dev"}&quot;</span>,</p>
+              <p className="pl-4 text-dark-400"><span className="text-green-400">role</span><span className="text-dark-500">: </span><span className="text-yellow-300">&quot;{jobTitle || "Full Stack Dev"}&quot;</span>,</p>
               <p className="pl-4 text-dark-400"><span className="text-green-400">available</span><span className="text-dark-500">: </span><span className="text-blue-400">{profile.available_for_hire ? "true" : "false"}</span>,</p>
               <p className="text-dark-400">{"}"}</p>
             </motion.div>

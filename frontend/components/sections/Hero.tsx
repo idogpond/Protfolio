@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useProfile } from "@/lib/useProfile";
 
 const fadeUp = (delay: number) => ({
@@ -16,11 +16,14 @@ const fadeUp = (delay: number) => ({
 export default function Hero() {
   const { profile } = useProfile();
   const t = useTranslations("hero");
-  const nameParts =
-    (profile.name as string | undefined)?.split(" ") ?? ["Your", "Name"];
+  const locale = useLocale();
+  const nameParts = profile.name?.split(" ") ?? ["Your", "Name"];
 
-  const isAvailable =
-    profile.available_for_hire === true || profile.available_for_hire === "true";
+  const isAvailable = profile.available_for_hire === true;
+
+  const jobTitle    = locale === "th" ? (profile.job_title_th || profile.job_title_en) : profile.job_title_en;
+  const bio         = locale === "th" ? (profile.bio_th       || profile.bio_en)       : profile.bio_en;
+  const resumeLabel = locale === "th" ? (profile.resume_label_th || "ดาวน์โหลด CV")    : (profile.resume_label_en || t("downloadCV"));
 
   return (
     <section
@@ -87,7 +90,7 @@ export default function Hero() {
           animate="show"
           className="text-xl sm:text-2xl text-dark-300 font-medium mb-4 max-w-xl leading-relaxed"
         >
-          {(profile.job_title as string | undefined) ?? "Full Stack Web Developer"}
+          {jobTitle ?? "Full Stack Web Developer"}
         </motion.h2>
 
         {/* Bio */}
@@ -97,8 +100,7 @@ export default function Hero() {
           animate="show"
           className="text-dark-500 text-base leading-relaxed max-w-lg mb-10"
         >
-          {(profile.bio as string | undefined) ??
-            "3+ years crafting modern web applications with React, Laravel, and C# .NET Core."}
+          {bio ?? "3+ years crafting modern web applications with React, Laravel, and C# .NET Core."}
         </motion.p>
 
         {/* CTAs */}
@@ -112,12 +114,12 @@ export default function Hero() {
           <a href="#contact" className="btn-outline">{t("getInTouch")}</a>
           {profile.resume_url && (
             <a
-              href={profile.resume_url as string}
+              href={profile.resume_url}
               target="_blank"
               rel="noopener noreferrer"
               className="text-dark-500 hover:text-primary-400 text-sm font-mono transition-colors"
             >
-              ↓ {(profile.resume_label as string) || t("downloadCV")}
+              ↓ {resumeLabel}
             </a>
           )}
         </motion.div>

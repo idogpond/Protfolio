@@ -1,9 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { SKILLS } from "@/lib/data";
+import api from "@/lib/axios";
 import type { Skill } from "@/types";
 
 type CategoryKey = Skill["category"];
@@ -31,6 +32,11 @@ function DotRating({ level }: { level: number }) {
 
 export default function Skills() {
   const t = useTranslations("skills");
+  const [skills, setSkills] = useState<Skill[]>([]);
+
+  useEffect(() => {
+    api.get<{ data: Skill[] }>("/skills").then((res) => setSkills(res.data.data));
+  }, []);
 
   const categories: { key: CategoryKey; label: string; color: string }[] = [
     { key: "frontend", label: t("frontend"), color: CATEGORY_STYLES.frontend },
@@ -49,7 +55,7 @@ export default function Skills() {
 
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           {categories.map((cat, ci) => {
-            const catSkills = SKILLS.filter((s) => s.category === cat.key);
+            const catSkills = skills.filter((s) => s.category === cat.key);
             return (
               <motion.div
                 key={cat.key}
