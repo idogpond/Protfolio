@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Field } from "@/components/ui/field";
+import { DatePicker } from "@/components/ui/date-picker";
 import type { ExperienceFormValues } from "@/types/admin";
 
 const schema = z.object({
@@ -34,7 +35,12 @@ interface Props {
 export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }: Props) {
   const [serverError, setServerError] = useState("");
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<FormFields>({
     resolver: zodResolver(schema),
     defaultValues: {
       company:        defaultValues?.company        ?? "",
@@ -81,11 +87,33 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
         <Field label="Period *" htmlFor="period" hint='e.g. "Oct 2022 — Present"' error={errors.period?.message}>
           <Input id="period" {...register("period")} />
         </Field>
-        <Field label="Started" htmlFor="started_at">
-          <Input id="started_at" type="date" {...register("started_at")} />
+        <Field label="Started">
+          <Controller
+            name="started_at"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Pick start date"
+                clearable
+              />
+            )}
+          />
         </Field>
-        <Field label="Ended (blank = present)" htmlFor="ended_at">
-          <Input id="ended_at" type="date" {...register("ended_at")} />
+        <Field label="Ended (blank = present)">
+          <Controller
+            name="ended_at"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Pick end date"
+                clearable
+              />
+            )}
+          />
         </Field>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
