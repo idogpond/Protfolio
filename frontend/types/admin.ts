@@ -6,7 +6,6 @@ export interface AdminUser {
 
 export interface DashboardStats {
   projects: number;
-  blogs: number;
   contacts: number;
   unread: number;
 }
@@ -31,19 +30,6 @@ export interface ProjectFormValues {
   image_url: string;
   is_featured: boolean;
   order: number;
-}
-
-export interface BlogFormValues {
-  title: string;
-  title_th: string;
-  slug: string;
-  content: string;
-  content_th: string;
-  excerpt: string;
-  excerpt_th: string;
-  cover_image: string;
-  is_published: boolean;
-  published_at: string;
 }
 
 export interface ExperienceFormValues {
