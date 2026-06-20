@@ -73,9 +73,9 @@ export interface EducationFormValues {
   field_en: string;
   field_th: string;
   institution: string;
-  started_at: string;
-  graduated_at: string;
-  gpa: string;
+  started_at: string | null;
+  graduated_at: string | null;
+  gpa: string | null;
   order: number;
 }
 

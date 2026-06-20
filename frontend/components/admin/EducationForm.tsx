@@ -15,9 +15,9 @@ const schema = z.object({
   field_en:     z.string().min(1),
   field_th:     z.string(),
   institution:  z.string().min(1),
-  started_at:   z.string(),
-  graduated_at: z.string(),
-  gpa:          z.string(),
+  started_at:   z.string().nullable(),
+  graduated_at: z.string().nullable(),
+  gpa:          z.string().nullable(),
   order:        z.number().min(0),
 });
 
@@ -52,9 +52,9 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
       // so Laravel's nullable|integer validation passes instead of failing on "".
       await onSubmit({
         ...data,
-        started_at:   data.started_at   === "" ? (null as unknown as string) : data.started_at,
-        graduated_at: data.graduated_at === "" ? (null as unknown as string) : data.graduated_at,
-        gpa:          data.gpa          === "" ? (null as unknown as string) : data.gpa,
+        started_at:   data.started_at   === "" ? null : data.started_at,
+        graduated_at: data.graduated_at === "" ? null : data.graduated_at,
+        gpa:          data.gpa          === "" ? null : data.gpa,
       });
     } catch (err: unknown) {
       setServerError(err instanceof Error ? err.message : "Something went wrong.");
