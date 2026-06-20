@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label }    from "@/components/ui/label";
 import { Field }    from "@/components/ui/field";
+import { DatePicker } from "@/components/ui/date-picker";
 
 // ─── Explicit FormValues type ─────────────────────────────────────────────────
 type FormValues = {
@@ -254,8 +255,19 @@ export default function AdminProfilePage() {
               <Field label={t("personal.yearsOfExp")} htmlFor="years_of_experience">
                 <Input id="years_of_experience" type="number" {...register("years_of_experience", { valueAsNumber: true })} placeholder="3" />
               </Field>
-              <Field label={t("personal.dateOfBirth")} htmlFor="date_of_birth">
-                <Input id="date_of_birth" type="date" {...register("date_of_birth")} />
+              <Field label={t("personal.dateOfBirth")}>
+                <Controller
+                  name="date_of_birth"
+                  control={control}
+                  render={({ field }) => (
+                    <DatePicker
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Pick date of birth"
+                      clearable
+                    />
+                  )}
+                />
               </Field>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
