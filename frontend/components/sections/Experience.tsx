@@ -20,12 +20,12 @@ export default function Experience() {
   }, []);
 
   return (
-    <section id="experience" className="py-24 bg-dark-900/30">
+    <section id="experience" className="py-24 bg-muted/30">
       <div className="section-container">
         <SectionHeader accent={t("accent")} title={t("title")} subtitle={t("subtitle")} />
 
         <div className="relative max-w-3xl mx-auto">
-          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500 via-dark-700 to-transparent" />
+          <div className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500 via-border to-transparent" />
 
           <div className="space-y-10">
             {experiences.map((exp, index) => {
@@ -42,30 +42,30 @@ export default function Experience() {
                   className="relative pl-16"
                 >
                   <div className="absolute left-4 top-6 w-3.5 h-3.5 -translate-x-1/2 rounded-full
-                                  bg-dark-950 border-2 border-primary-500 shadow-[0_0_8px_2px_rgba(245,158,11,0.25)]" />
+                                  bg-background border-2 border-primary-500 shadow-[0_0_8px_2px_rgba(245,158,11,0.25)]" />
 
                   <div className="card p-6 hover:border-primary-500/30 transition-colors duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
                       <div>
-                        <h3 className="text-white font-semibold text-lg">{position}</h3>
+                        <h3 className="text-foreground font-semibold text-lg">{position}</h3>
                         <p className="text-primary-400 font-medium">{exp.company}</p>
                       </div>
-                      <span className="shrink-0 px-3 py-1 text-xs font-mono text-dark-400
-                                       bg-dark-800 border border-dark-700 rounded-full self-start sm:self-auto">
+                      <span className="shrink-0 px-3 py-1 text-xs font-mono text-muted-foreground
+                                       bg-muted border border-border rounded-full self-start sm:self-auto">
                         {exp.period}
                       </span>
                     </div>
 
                     <ul className="space-y-2 mb-4">
                       {description.map((point, i) => (
-                        <li key={i} className="flex items-start gap-3 text-dark-300 text-sm">
+                        <li key={i} className="flex items-start gap-3 text-foreground/80 text-sm">
                           <span className="text-primary-500 mt-0.5 shrink-0">▹</span>
                           {point}
                         </li>
                       ))}
                     </ul>
 
-                    <div className="flex flex-wrap gap-2 pt-3 border-t border-dark-800">
+                    <div className="flex flex-wrap gap-2 pt-3 border-t border-border">
                       {(exp.tech ?? []).map((tech) => (
                         <span key={tech} className="text-xs font-mono text-accent-400 bg-accent-500/10 px-2 py-0.5 rounded">
                           {tech}

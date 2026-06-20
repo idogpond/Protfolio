@@ -13,7 +13,7 @@ const CATEGORY_STYLES: Record<CategoryKey, string> = {
   frontend: "text-primary-400 bg-primary-500/10 border-primary-500/25",
   backend:  "text-accent-400 bg-accent-500/10 border-accent-500/25",
   devops:   "text-emerald-400 bg-emerald-500/10 border-emerald-500/25",
-  other:    "text-dark-400 bg-dark-500/10 border-dark-500/25",
+  other:    "text-muted-foreground bg-muted/60 border-border",
 };
 
 function DotRating({ level }: { level: number }) {
@@ -23,7 +23,7 @@ function DotRating({ level }: { level: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <span
           key={i}
-          className={`w-1.5 h-1.5 rounded-full transition-colors ${i < filled ? "bg-primary-500" : "bg-dark-700"}`}
+          className={`w-1.5 h-1.5 rounded-full transition-colors ${i < filled ? "bg-primary-500" : "bg-border"}`}
         />
       ))}
     </div>
@@ -45,7 +45,7 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-24 bg-dark-900/20">
+    <section id="skills" className="py-24 bg-muted/20">
       <div className="section-container">
         <SectionHeader
           accent={t("accent")}
@@ -68,7 +68,7 @@ export default function Skills() {
                   <span className={`text-[10px] font-mono font-semibold tracking-widest uppercase px-2.5 py-1 rounded border ${cat.color}`}>
                     {cat.label}
                   </span>
-                  <div className="flex-1 h-px bg-dark-800" />
+                  <div className="flex-1 h-px bg-border" />
                 </div>
 
                 <ul className="space-y-4">
@@ -83,7 +83,7 @@ export default function Skills() {
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="text-lg leading-none">{skill.icon}</span>
-                        <span className="text-dark-300 text-sm group-hover:text-white transition-colors">
+                        <span className="text-foreground/80 text-sm group-hover:text-foreground transition-colors">
                           {skill.name}
                         </span>
                       </div>
@@ -104,14 +104,14 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="card p-6"
         >
-          <p className="text-dark-500 text-[11px] font-mono tracking-[0.3em] uppercase mb-4">
+          <p className="text-muted-foreground/70 text-[11px] font-mono tracking-[0.3em] uppercase mb-4">
             {t("alsoFamiliarWith")}
           </p>
           <div className="flex flex-wrap gap-2">
             {["Redis", "Nginx", "REST API", "GraphQL", "Jest", "PHPUnit", "Figma", "Postman", "GitHub Actions", "Vercel", "AWS S3"].map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1.5 text-sm text-dark-400 bg-dark-800/60 border border-dark-700
+                className="px-3 py-1.5 text-sm text-muted-foreground bg-muted/60 border border-border
                            rounded hover:border-primary-500/40 hover:text-primary-300
                            transition-colors cursor-default"
               >

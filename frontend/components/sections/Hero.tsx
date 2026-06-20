@@ -34,8 +34,7 @@ export default function Hero() {
       <div
         className="absolute inset-0 -z-10"
         style={{
-          backgroundImage:
-            "radial-gradient(circle, #3f3f4618 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, var(--dot-grid-color) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
       />
@@ -47,10 +46,10 @@ export default function Hero() {
         <motion.div variants={fadeUp(0)} initial="hidden" animate="show" className="mb-10">
           <span
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                          border border-dark-800 bg-dark-900/60 text-dark-400
+                          border border-border bg-card/60 text-muted-foreground
                           text-[11px] font-mono tracking-widest uppercase"
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? "bg-emerald-400 animate-pulse" : "bg-dark-600"}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? "bg-emerald-400 animate-pulse" : "bg-muted-foreground/30"}`} />
             {isAvailable ? t("available") : t("notAvailable")}
           </span>
         </motion.div>
@@ -60,7 +59,7 @@ export default function Hero() {
           variants={fadeUp(0.1)}
           initial="hidden"
           animate="show"
-          className="text-dark-500 font-mono text-xs tracking-[0.25em] uppercase mb-6"
+          className="text-muted-foreground/70 font-mono text-xs tracking-[0.25em] uppercase mb-6"
         >
           {t("greeting")}
         </motion.p>
@@ -71,7 +70,7 @@ export default function Hero() {
             <motion.div key={i} variants={fadeUp(0.15 + i * 0.13)} initial="hidden" animate="show">
               <span
                 className={`block font-display font-extrabold leading-[0.88] tracking-tight ${
-                  i === nameParts.length - 1 ? "gradient-text" : "text-white"
+                  i === nameParts.length - 1 ? "gradient-text" : "text-foreground"
                 }`}
                 style={{ fontSize: "clamp(3.5rem, 11vw, 8.5rem)" }}
               >
@@ -88,7 +87,7 @@ export default function Hero() {
           variants={fadeUp(0.62)}
           initial="hidden"
           animate="show"
-          className="text-xl sm:text-2xl text-dark-300 font-medium mb-4 max-w-xl leading-relaxed"
+          className="text-xl sm:text-2xl text-foreground/80 font-medium mb-4 max-w-xl leading-relaxed"
         >
           {jobTitle ?? "Full Stack Web Developer"}
         </motion.h2>
@@ -98,7 +97,7 @@ export default function Hero() {
           variants={fadeUp(0.72)}
           initial="hidden"
           animate="show"
-          className="text-dark-500 text-base leading-relaxed max-w-lg mb-10"
+          className="text-muted-foreground/70 text-base leading-relaxed max-w-lg mb-10"
         >
           {bio ?? "3+ years crafting modern web applications with React, Laravel, and C# .NET Core."}
         </motion.p>
@@ -117,7 +116,7 @@ export default function Hero() {
               href={profile.resume_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-dark-500 hover:text-primary-400 text-sm font-mono transition-colors"
+              className="text-muted-foreground/70 hover:text-primary-400 text-sm font-mono transition-colors"
             >
               ↓ {resumeLabel}
             </a>
@@ -134,7 +133,7 @@ export default function Hero() {
           {["React", "Next.js", "TypeScript", "Laravel", "C# .NET", "Docker"].map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 text-xs font-mono text-dark-500 border border-dark-800 rounded
+              className="px-3 py-1 text-xs font-mono text-muted-foreground/70 border border-border rounded
                          hover:border-primary-500/50 hover:text-primary-400 transition-colors cursor-default"
             >
               {tech}
@@ -153,9 +152,9 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 7, 0] }}
           transition={{ repeat: Infinity, duration: 1.7, ease: "easeInOut" }}
-          className="w-px h-10 bg-gradient-to-b from-dark-700 to-transparent"
+          className="w-px h-10 bg-gradient-to-b from-border to-transparent"
         />
-        <span className="text-dark-700 text-[10px] font-mono tracking-[0.2em]">
+        <span className="text-muted-foreground/30 text-[10px] font-mono tracking-[0.2em]">
           {t("scroll")}
         </span>
       </motion.div>

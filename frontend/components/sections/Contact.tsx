@@ -71,7 +71,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-dark-900/30">
+    <section id="contact" className="py-24 bg-muted/30">
       <div className="section-container">
         <SectionHeader accent={t("accent")} title={t("title")} subtitle={t("subtitle")} />
 
@@ -83,8 +83,8 @@ export default function Contact() {
             className="lg:col-span-2 space-y-6"
           >
             <div className="space-y-2">
-              <h3 className="text-white font-semibold text-xl">{t("connectTitle")}</h3>
-              <p className="text-dark-400 text-sm leading-relaxed">{t("description")}</p>
+              <h3 className="text-foreground font-semibold text-xl">{t("connectTitle")}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{t("description")}</p>
             </div>
             <div className="space-y-4">
               {contactInfo.map((info) => (
@@ -92,8 +92,8 @@ export default function Contact() {
                    className="flex items-center gap-4 p-4 card hover:border-primary-500/30 hover:text-primary-300 transition-all group">
                   <span className="text-primary-400 group-hover:scale-110 transition-transform">{info.icon}</span>
                   <div>
-                    <p className="text-dark-500 text-xs">{info.label}</p>
-                    <p className="text-white text-sm font-medium">{info.value}</p>
+                    <p className="text-muted-foreground/70 text-xs">{info.label}</p>
+                    <p className="text-foreground text-sm font-medium">{info.value}</p>
                   </div>
                 </a>
               ))}
@@ -108,7 +108,7 @@ export default function Contact() {
           >
             <form onSubmit={handleSubmit} noValidate className="card p-7 space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-dark-300">
+                <Label htmlFor="name" className="text-foreground/80">
                   {t("form.name")} <span className="text-red-400">*</span>
                 </Label>
                 <Input
@@ -120,7 +120,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-dark-300">
+                <Label htmlFor="email" className="text-foreground/80">
                   {t("form.email")} <span className="text-red-400">*</span>
                 </Label>
                 <Input
@@ -132,7 +132,7 @@ export default function Contact() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message" className="text-dark-300">
+                <Label htmlFor="message" className="text-foreground/80">
                   {t("form.message")} <span className="text-red-400">*</span>
                 </Label>
                 <Textarea
@@ -143,7 +143,7 @@ export default function Contact() {
                 />
                 <div className="flex justify-between items-start mt-1">
                   {errors.message ? <p className="text-destructive text-xs">{errors.message}</p> : <span />}
-                  <p className={`text-xs font-mono transition-colors ${form.message.length >= 1900 ? "text-amber-400" : "text-dark-600"}`}>
+                  <p className={`text-xs font-mono transition-colors ${form.message.length >= 1900 ? "text-amber-400" : "text-muted-foreground/50"}`}>
                     {form.message.length}/2000
                   </p>
                 </div>

@@ -42,14 +42,14 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="space-y-5 text-dark-300 leading-relaxed"
+            className="space-y-5 text-foreground/80 leading-relaxed"
           >
             {aboutMe
               ? aboutMe.split("\n\n").map((para, i) => <p key={i}>{para}</p>)
               : <p>{t("fallbackBio", { years: String(profile.years_of_experience || 3) })}</p>}
 
             {location && (
-              <p className="flex items-center gap-2 text-dark-400 text-sm">
+              <p className="flex items-center gap-2 text-muted-foreground text-sm">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
                 </svg>
@@ -85,7 +85,7 @@ export default function About() {
                 className="card p-6 text-center hover:border-primary-500/40 transition-colors duration-300"
               >
                 <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
-                <div className="text-dark-400 text-sm">{stat.label}</div>
+                <div className="text-muted-foreground text-sm">{stat.label}</div>
               </motion.div>
             ))}
 
@@ -100,11 +100,11 @@ export default function About() {
                 <span className="w-3 h-3 rounded-full bg-yellow-500/70" />
                 <span className="w-3 h-3 rounded-full bg-green-500/70" />
               </div>
-              <p className="text-dark-500"><span className="text-accent-400">const</span> <span className="text-primary-300">developer</span> <span className="text-dark-400">=</span> <span className="text-dark-400">{"{"}</span></p>
-              <p className="pl-4 text-dark-400"><span className="text-green-400">name</span><span className="text-dark-500">: </span><span className="text-yellow-300">&quot;{String(profile.name) || "Your Name"}&quot;</span>,</p>
-              <p className="pl-4 text-dark-400"><span className="text-green-400">role</span><span className="text-dark-500">: </span><span className="text-yellow-300">&quot;{jobTitle || "Full Stack Dev"}&quot;</span>,</p>
-              <p className="pl-4 text-dark-400"><span className="text-green-400">available</span><span className="text-dark-500">: </span><span className="text-blue-400">{profile.available_for_hire ? "true" : "false"}</span>,</p>
-              <p className="text-dark-400">{"}"}</p>
+              <p className="text-muted-foreground/70"><span className="text-accent-400">const</span> <span className="text-primary-300">developer</span> <span className="text-muted-foreground">{"= {"}</span></p>
+              <p className="pl-4 text-muted-foreground"><span className="text-green-400">name</span><span className="text-muted-foreground/70">: </span><span className="text-yellow-300">&quot;{String(profile.name) || "Your Name"}&quot;</span>,</p>
+              <p className="pl-4 text-muted-foreground"><span className="text-green-400">role</span><span className="text-muted-foreground/70">: </span><span className="text-yellow-300">&quot;{jobTitle || "Full Stack Dev"}&quot;</span>,</p>
+              <p className="pl-4 text-muted-foreground"><span className="text-green-400">available</span><span className="text-muted-foreground/70">: </span><span className="text-blue-400">{profile.available_for_hire ? "true" : "false"}</span>,</p>
+              <p className="text-muted-foreground">{"}"}</p>
             </motion.div>
           </motion.div>
         </div>
