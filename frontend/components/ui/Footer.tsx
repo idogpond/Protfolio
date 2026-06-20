@@ -7,14 +7,14 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-dark-800/60 py-8 mt-16">
+    <footer className="border-t border-border/60 py-8 mt-16">
       <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-dark-600 text-xs font-mono">
+        <p className="text-muted-foreground/50 text-xs font-mono">
           © {year} — {t("built")}
         </p>
-        <div className="flex items-center gap-1 text-dark-700 text-xs font-mono">
+        <div className="flex items-center gap-1 text-muted-foreground/30 text-xs font-mono">
           <span className="text-primary-500">▲</span>
-          <a href="#" className="hover:text-dark-400 transition-colors ml-1">
+          <a href="#" className="hover:text-muted-foreground transition-colors ml-1">
             {t("backToTop")}
           </a>
         </div>

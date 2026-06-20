@@ -18,7 +18,7 @@ export default function LanguageSwitcher() {
 
   return (
     <div
-      className={`flex items-center gap-0.5 text-[11px] font-mono border border-dark-800
+      className={`flex items-center gap-0.5 text-[11px] font-mono border border-border
                   rounded px-1.5 py-1 transition-opacity ${pending ? "opacity-50" : ""}`}
     >
       <button
@@ -26,19 +26,19 @@ export default function LanguageSwitcher() {
         className={`px-1.5 py-0.5 rounded transition-colors ${
           locale === "en"
             ? "text-primary-400 bg-primary-500/10"
-            : "text-dark-500 hover:text-dark-300"
+            : "text-muted-foreground/70 hover:text-muted-foreground"
         }`}
         aria-label="Switch to English"
       >
         EN
       </button>
-      <span className="text-dark-700">|</span>
+      <span className="text-muted-foreground/30">|</span>
       <button
         onClick={() => switchLocale("th")}
         className={`px-1.5 py-0.5 rounded transition-colors ${
           locale === "th"
             ? "text-primary-400 bg-primary-500/10"
-            : "text-dark-500 hover:text-dark-300"
+            : "text-muted-foreground/70 hover:text-muted-foreground"
         }`}
         aria-label="Switch to Thai"
       >

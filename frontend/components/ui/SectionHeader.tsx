@@ -8,11 +8,7 @@ interface SectionHeaderProps {
   accent?: string;
 }
 
-export default function SectionHeader({
-  title,
-  subtitle,
-  accent,
-}: SectionHeaderProps) {
+export default function SectionHeader({ title, subtitle, accent }: SectionHeaderProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
