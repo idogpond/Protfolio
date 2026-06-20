@@ -4,7 +4,6 @@
     "skills": "Skills",
     "projects": "Projects",
     "experience": "Experience",
-    "blog": "Blog",
     "contact": "Contact"
   },
   "hero": {
@@ -57,12 +56,6 @@
     "empty": "No projects yet.",
     "viewMore": "View More on GitHub"
   },
-  "blog": {
-    "accent": "// writing",
-    "title": "Latest Articles",
-    "subtitle": "Thoughts on web development, tools, and best practices",
-    "readMore": "Read more"
-  },
   "contact": {
     "accent": "// get in touch",
     "title": "Contact Me",
@@ -101,7 +94,6 @@
         "dashboard": "Dashboard",
         "profile": "Profile",
         "projects": "Projects",
-        "blogs": "Blogs",
         "contacts": "Contacts",
         "experiences": "Experiences",
         "skills": "Skills",
@@ -128,13 +120,11 @@
       "overview": "Portfolio overview",
       "stats": {
         "projects": "Projects",
-        "blogs": "Blog Posts",
         "contacts": "Messages",
         "unread": "Unread Messages"
       },
       "quickActions": "Quick Actions",
       "newProject": "+ New Project",
-      "newBlog": "+ New Blog Post",
       "viewMessages": "View Messages"
     },
     "projects": {
@@ -158,30 +148,6 @@
       "notFound": "Project not found.",
       "createLabel": "Create Project",
       "updateLabel": "Update Project",
-      "serverError": "Something went wrong. Please try again."
-    },
-    "blogs": {
-      "title": "Blog Posts",
-      "count": "{count} posts",
-      "newPost": "+ New Post",
-      "loading": "Loading…",
-      "empty": "No blog posts yet.",
-      "colTitle": "Title",
-      "colStatus": "Status",
-      "colPublished": "Published",
-      "colActions": "Actions",
-      "published": "Published",
-      "draft": "Draft",
-      "edit": "Edit",
-      "delete": "Delete",
-      "deleting": "…",
-      "confirmDelete": "Confirm delete this blog post?",
-      "newTitle": "New Blog Post",
-      "editTitle": "Edit Blog Post",
-      "backToList": "← Back to Blogs",
-      "notFound": "Blog post not found.",
-      "createLabel": "Create Post",
-      "updateLabel": "Update Post",
       "serverError": "Something went wrong. Please try again."
     },
     "contacts": {
@@ -278,16 +244,6 @@
       "imageUrl": "Image URL",
       "order": "Display Order",
       "isFeatured": "Featured project"
-    },
-    "blogForm": {
-      "titleLabel": "Title *",
-      "slug": "Slug",
-      "slugHint": "Leave empty to auto-generate from title",
-      "excerpt": "Excerpt",
-      "content": "Content *",
-      "coverImage": "Cover Image URL",
-      "publishDate": "Publish Date",
-      "isPublished": "Published"
     },
     "experiences": {
       "title": "Work Experience",

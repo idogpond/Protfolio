@@ -4,7 +4,6 @@
     "skills": "ทักษะ",
     "projects": "ผลงาน",
     "experience": "ประสบการณ์",
-    "blog": "บทความ",
     "contact": "ติดต่อ"
   },
   "hero": {
@@ -57,12 +56,6 @@
     "empty": "ยังไม่มีโปรเจกต์",
     "viewMore": "ดูเพิ่มเติมบน GitHub"
   },
-  "blog": {
-    "accent": "// writing",
-    "title": "บทความล่าสุด",
-    "subtitle": "ความคิดเกี่ยวกับ web development, เครื่องมือ และแนวปฏิบัติ",
-    "readMore": "อ่านต่อ"
-  },
   "contact": {
     "accent": "// get in touch",
     "title": "ติดต่อผม",
@@ -101,7 +94,6 @@
         "dashboard": "แดชบอร์ด",
         "profile": "โปรไฟล์",
         "projects": "โปรเจกต์",
-        "blogs": "บล็อก",
         "contacts": "ข้อความ",
         "experiences": "ประสบการณ์",
         "skills": "ทักษะ",
@@ -128,13 +120,11 @@
       "overview": "ภาพรวมพอร์ตโฟลิโอ",
       "stats": {
         "projects": "โปรเจกต์",
-        "blogs": "บทความบล็อก",
         "contacts": "ข้อความ",
         "unread": "ข้อความที่ยังไม่ได้อ่าน"
       },
       "quickActions": "การดำเนินการด่วน",
       "newProject": "+ โปรเจกต์ใหม่",
-      "newBlog": "+ บทความใหม่",
       "viewMessages": "ดูข้อความ"
     },
     "projects": {
@@ -158,30 +148,6 @@
       "notFound": "ไม่พบโปรเจกต์",
       "createLabel": "สร้างโปรเจกต์",
       "updateLabel": "อัปเดตโปรเจกต์",
-      "serverError": "เกิดข้อผิดพลาด กรุณาลองใหม่"
-    },
-    "blogs": {
-      "title": "บทความบล็อก",
-      "count": "{count} บทความ",
-      "newPost": "+ บทความใหม่",
-      "loading": "กำลังโหลด…",
-      "empty": "ยังไม่มีบทความ",
-      "colTitle": "ชื่อเรื่อง",
-      "colStatus": "สถานะ",
-      "colPublished": "วันที่เผยแพร่",
-      "colActions": "การกระทำ",
-      "published": "เผยแพร่แล้ว",
-      "draft": "ฉบับร่าง",
-      "edit": "แก้ไข",
-      "delete": "ลบ",
-      "deleting": "…",
-      "confirmDelete": "ยืนยันการลบบทความนี้?",
-      "newTitle": "บทความใหม่",
-      "editTitle": "แก้ไขบทความ",
-      "backToList": "← กลับไปรายการบทความ",
-      "notFound": "ไม่พบบทความ",
-      "createLabel": "สร้างบทความ",
-      "updateLabel": "อัปเดตบทความ",
       "serverError": "เกิดข้อผิดพลาด กรุณาลองใหม่"
     },
     "contacts": {
@@ -278,16 +244,6 @@
       "imageUrl": "Image URL",
       "order": "ลำดับการแสดง",
       "isFeatured": "โปรเจกต์แนะนำ"
-    },
-    "blogForm": {
-      "titleLabel": "ชื่อเรื่อง *",
-      "slug": "Slug",
-      "slugHint": "เว้นว่างเพื่อสร้างอัตโนมัติจากชื่อเรื่อง",
-      "excerpt": "บทคัดย่อ",
-      "content": "เนื้อหา *",
-      "coverImage": "URL รูปหน้าปก",
-      "publishDate": "วันที่เผยแพร่",
-      "isPublished": "เผยแพร่"
     },
     "experiences": {
       "title": "ประสบการณ์การทำงาน",
