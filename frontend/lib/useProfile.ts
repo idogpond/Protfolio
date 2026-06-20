@@ -33,9 +33,9 @@ export function useProfile() {
 
   useEffect(() => {
     if (cache) { setProfile(cache); setLoading(false); return; }
-    api.get<Profile>("/profile").then((res) => {
-      cache = res.data;
-      setProfile(res.data);
+    api.get<{ data: Profile }>("/profile").then((res) => {
+      cache = res.data.data;
+      setProfile(res.data.data);
     }).catch(() => {
       setError("Failed to load profile");
     }).finally(() => setLoading(false));

@@ -48,7 +48,14 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
   async function handleFormSubmit(data: EducationFormValues) {
     setServerError("");
     try {
-      await onSubmit(data);
+      // Convert empty string year/gpa fields to null before sending to backend,
+      // so Laravel's nullable|integer validation passes instead of failing on "".
+      await onSubmit({
+        ...data,
+        started_at:   data.started_at   === "" ? (null as unknown as string) : data.started_at,
+        graduated_at: data.graduated_at === "" ? (null as unknown as string) : data.graduated_at,
+        gpa:          data.gpa          === "" ? (null as unknown as string) : data.gpa,
+      });
     } catch (err: unknown) {
       setServerError(err instanceof Error ? err.message : "Something went wrong.");
     }
