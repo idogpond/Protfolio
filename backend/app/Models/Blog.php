@@ -11,10 +11,10 @@ class Blog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
+        'title', 'title_th',
         'slug',
-        'content',
-        'excerpt',
+        'content', 'content_th',
+        'excerpt', 'excerpt_th',
         'cover_image',
         'is_published',
         'published_at',

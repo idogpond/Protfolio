@@ -14,8 +14,10 @@ class BlogResource extends JsonResource
         return [
             'id'           => $this->id,
             'title'        => $this->title,
+            'title_th'     => $this->title_th,
             'slug'         => $this->slug,
             'excerpt'      => $this->excerpt,
+            'excerpt_th'   => $this->excerpt_th,
             'cover_image'  => $this->cover_image,
             'is_published' => $this->is_published,
             'published_at' => $this->published_at?->toISOString(),
@@ -25,6 +27,10 @@ class BlogResource extends JsonResource
             'content'      => $this->when(
                 $isAdmin || $request->routeIs('blogs.show'),
                 $this->content
+            ),
+            'content_th'   => $this->when(
+                $isAdmin || $request->routeIs('blogs.show'),
+                $this->content_th
             ),
         ];
     }

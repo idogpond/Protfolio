@@ -2,13 +2,19 @@
 
 use App\Http\Controllers\Api\AdminBlogController;
 use App\Http\Controllers\Api\AdminContactController;
+use App\Http\Controllers\Api\AdminEducationController;
+use App\Http\Controllers\Api\AdminExperienceController;
 use App\Http\Controllers\Api\AdminProfileController;
 use App\Http\Controllers\Api\AdminProjectController;
+use App\Http\Controllers\Api\AdminSkillController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\EducationController;
+use App\Http\Controllers\Api\ExperienceController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\SkillController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +24,10 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/health', fn () => response()->json(['status' => 'ok', 'timestamp' => now()]));
 
-Route::get('/profile', [ProfileController::class, 'show']);
+Route::get('/profile',     [ProfileController::class,    'show']);
+Route::get('/experiences', [ExperienceController::class, 'index']);
+Route::get('/skills',      [SkillController::class,      'index']);
+Route::get('/educations',  [EducationController::class,  'index']);
 
 Route::apiResource('projects', ProjectController::class)->only(['index', 'show']);
 Route::apiResource('blogs', BlogController::class)->only(['index'])->names(['index' => 'blogs.index']);
@@ -56,6 +65,14 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     // Profile
     Route::get('profile',  [AdminProfileController::class, 'show']);
     Route::post('profile', [AdminProfileController::class, 'update']);
+
+    // Experiences / Skills / Educations
+    Route::apiResource('experiences', AdminExperienceController::class)
+        ->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::apiResource('skills', AdminSkillController::class)
+        ->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::apiResource('educations', AdminEducationController::class)
+        ->only(['index', 'show', 'store', 'update', 'destroy']);
 
     // Contacts
     Route::get('contacts',                  [AdminContactController::class, 'index']);
