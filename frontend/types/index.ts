@@ -98,23 +98,6 @@ export interface Project {
   updated_at: string;
 }
 
-// ─── Blog ─────────────────────────────────────────────────────────────────────
-export interface Blog {
-  id: number;
-  title: string;
-  title_th: string | null;
-  slug: string;
-  content: string;
-  content_th: string | null;
-  excerpt: string | null;
-  excerpt_th: string | null;
-  cover_image: string | null;
-  is_published: boolean;
-  published_at: string | null;
-  created_at: string;
-  updated_at: string;
-}
-
 // ─── Contact Form ─────────────────────────────────────────────────────────────
 export interface ContactFormData {
   name: string;

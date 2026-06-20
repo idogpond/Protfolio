@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { NAV_LINKS } from "@/lib/data";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
-const NAV_KEYS = ["about", "skills", "projects", "experience", "blog", "contact"] as const;
+const NAV_KEYS = ["about", "skills", "projects", "experience", "contact"] as const;
 
 export default function Navbar() {
   const t = useTranslations("nav");
