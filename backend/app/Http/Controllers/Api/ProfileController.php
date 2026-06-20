@@ -1,19 +1,15 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProfileSetting;
+use App\Http\Resources\ProfileResource;
+use App\Models\Profile;
 use Illuminate\Http\JsonResponse;
 
 class ProfileController extends Controller
 {
-    /**
-     * GET /api/profile
-     * Public — ดึงข้อมูลทั้งหมดเป็น key-value object
-     */
-    public function show(): JsonResponse
+    public function show(): ProfileResource
     {
-        return response()->json(ProfileSetting::toMap());
+        return new ProfileResource(Profile::current());
     }
 }
