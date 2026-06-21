@@ -14,11 +14,11 @@ export function Field({ label, hint, error, htmlFor, children }: FieldProps) {
     <div className="space-y-1.5">
       <Label
         htmlFor={htmlFor}
-        className={error ? "text-destructive" : "text-dark-300 font-medium"}
+        className={error ? "text-destructive" : "text-foreground/80 font-medium"}
       >
         {label}
       </Label>
-      {hint && <p className="text-dark-600 text-xs">{hint}</p>}
+      {hint && <p className="text-muted-foreground/50 text-xs">{hint}</p>}
       {children}
       {error && <p className="text-destructive text-xs">{error}</p>}
     </div>
