@@ -9,7 +9,7 @@ import { routing } from "@/i18n/routing";
 async function getProfile() {
   try {
     const res = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL ?? "http://backend:8000/api"}/profile`,
+      `${process.env.INTERNAL_API_URL ?? "http://backend:8000/api"}/profile`,
       { timeout: 3000 }
     );
     return res.data;

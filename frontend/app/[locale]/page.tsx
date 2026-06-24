@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { locale } = await params;
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api"}/profile`,
+      `${process.env.INTERNAL_API_URL ?? "http://backend:8000/api"}/profile`,
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) return {};
