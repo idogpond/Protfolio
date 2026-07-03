@@ -10,10 +10,10 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'admin@portfolio.com'],
+            ['email' => env('ADMIN_EMAIL', 'admin@portfolio.com')],
             [
                 'name'     => 'Admin',
-                'password' => bcrypt('password'),
+                'password' => bcrypt(env('ADMIN_PASSWORD', 'password')),
             ]
         );
     }
