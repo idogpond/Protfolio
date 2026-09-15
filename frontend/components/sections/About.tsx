@@ -16,7 +16,7 @@ export default function About() {
 
   const stats = [
     { value: `${profile.years_of_experience || 3}+`, label: t("stats.experience") },
-    { value: "20+", label: t("stats.projects") },
+    { value: "10+", label: t("stats.projects") },
     { value: "10+", label: t("stats.clients") },
     { value: "5+",  label: t("stats.stacks") },
   ];

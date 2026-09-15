@@ -13,7 +13,7 @@ class EducationSeeder extends Seeder
             'degree_th'    => 'วิทยาศาสตรบัณฑิต',
             'field_en'     => 'Information Technology',
             'field_th'     => 'เทคโนโลยีสารสนเทศ',
-            'institution'  => 'FILL_FROM_CV',
+            'institution'  => 'Burapha University, Thailand',
             'started_at'   => 2018,
             'graduated_at' => 2022,
             'gpa'          => null,

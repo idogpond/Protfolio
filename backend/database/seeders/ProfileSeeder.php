@@ -28,7 +28,7 @@ class ProfileSeeder extends Seeder
             'line_id'             => '',
             'whatsapp'            => '',
             'github_url'          => 'https://github.com/idogpond',
-            'linkedin_url'        => 'https://www.linkedin.com/in/kittikarn-janbang',
+            'linkedin_url'        => '',
             'facebook_url'        => '',
             'twitter_url'         => '',
             'instagram_url'       => '',

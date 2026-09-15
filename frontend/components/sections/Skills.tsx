@@ -95,31 +95,6 @@ export default function Skills() {
             );
           })}
         </div>
-
-        {/* Also familiar with */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="card p-6"
-        >
-          <p className="text-muted-foreground/70 text-[11px] font-mono tracking-[0.3em] uppercase mb-4">
-            {t("alsoFamiliarWith")}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {["Redis", "Nginx", "REST API", "GraphQL", "Jest", "PHPUnit", "Figma", "Postman", "GitHub Actions", "Vercel", "AWS S3"].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 text-sm text-muted-foreground bg-muted/60 border border-border
-                           rounded hover:border-primary-500/40 hover:text-primary-300
-                           transition-colors cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
