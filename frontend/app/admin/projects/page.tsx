@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import adminApi from "@/lib/adminApi";
 import type { Project } from "@/types";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 
 export default function AdminProjectsPage() {
   const t = useTranslations("admin.projects");
@@ -13,6 +14,7 @@ export default function AdminProjectsPage() {
   const [loading, setLoading]   = useState(true);
   const [deleting, setDeleting] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { confirm, dialog } = useConfirm();
 
   useEffect(() => { fetchProjects(); }, []);
 
@@ -28,7 +30,7 @@ export default function AdminProjectsPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm(t("confirmDelete"))) return;
+    if (!(await confirm(t("confirmDelete")))) return;
     setDeleting(id);
     try {
       await adminApi.delete(`/admin/projects/${id}`);
@@ -40,6 +42,7 @@ export default function AdminProjectsPage() {
 
   return (
     <div className="space-y-6">
+      {dialog}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>

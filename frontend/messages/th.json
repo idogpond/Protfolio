@@ -230,7 +230,9 @@
       "invalidUrl": "URL ไม่ถูกต้อง",
       "serverError": "เกิดข้อผิดพลาด",
       "saving": "กำลังบันทึก…",
-      "save": "บันทึก"
+      "save": "บันทึก",
+      "cancel": "ยกเลิก",
+      "delete": "ลบ"
     },
     "projectForm": {
       "titleLabel": "ชื่อ *",

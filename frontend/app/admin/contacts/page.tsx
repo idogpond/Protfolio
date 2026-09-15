@@ -6,6 +6,7 @@ import adminApi from "@/lib/adminApi";
 import type { AdminContact } from "@/types/admin";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useConfirm } from "@/components/ui/confirm-dialog";
 
 export default function AdminContactsPage() {
   const t = useTranslations("admin.contacts");
@@ -16,6 +17,7 @@ export default function AdminContactsPage() {
   const [error, setError]       = useState<string | null>(null);
   const [marking, setMarking]   = useState<number | null>(null);
   const [deleting, setDeleting] = useState<number | null>(null);
+  const { confirm, dialog } = useConfirm();
 
   useEffect(() => { fetchContacts(); }, []);
 
@@ -45,7 +47,7 @@ export default function AdminContactsPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm(t("confirmDelete"))) return;
+    if (!(await confirm(t("confirmDelete")))) return;
     setDeleting(id);
     try {
       await adminApi.delete(`/admin/contacts/${id}`);
@@ -68,6 +70,7 @@ export default function AdminContactsPage() {
 
   return (
     <div className="space-y-6">
+      {dialog}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{t("title")}</h1>

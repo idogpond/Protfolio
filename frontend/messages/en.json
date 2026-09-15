@@ -230,7 +230,9 @@
       "invalidUrl": "Invalid URL",
       "serverError": "Something went wrong",
       "saving": "Saving…",
-      "save": "Save"
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete"
     },
     "projectForm": {
       "titleLabel": "Title *",
