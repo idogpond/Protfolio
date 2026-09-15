@@ -17,8 +17,10 @@ class AdminProfileController extends Controller
     public function update(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'                => ['required', 'string', 'max:255'],
-            'nickname'            => ['nullable', 'string', 'max:100'],
+            'name_en'             => ['required', 'string', 'max:255'],
+            'name_th'             => ['nullable', 'string', 'max:255'],
+            'nickname_en'         => ['nullable', 'string', 'max:100'],
+            'nickname_th'         => ['nullable', 'string', 'max:100'],
             'job_title_en'        => ['required', 'string', 'max:255'],
             'job_title_th'        => ['nullable', 'string', 'max:255'],
             'bio_en'              => ['required', 'string'],

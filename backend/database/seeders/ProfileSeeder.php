@@ -9,8 +9,10 @@ class ProfileSeeder extends Seeder
     public function run(): void
     {
         Profile::firstOrCreate([], [
-            'name'                => 'Kittikarn Janbang',
-            'nickname'            => 'Kittikarn',
+            'name_en'             => 'Kittikarn Janbang',
+            'name_th'             => 'กิตติกานต์ จันบาง',
+            'nickname_en'         => 'Kittikarn',
+            'nickname_th'         => 'กิตติกานต์',
             'job_title_en'        => 'Full-Stack Developer',
             'job_title_th'        => 'นักพัฒนา Full-Stack',
             'bio_en'              => 'Full-Stack Developer with 3+ years of experience specializing in modernizing legacy systems — migrating monolithic Laravel Blade applications into decoupled architectures with React frontends and Laravel REST APIs. Experienced in full backend refactoring, version upgrades, and API redesign to ensure full feature parity. Also built and maintained 10+ production applications in healthcare and travel domains.',

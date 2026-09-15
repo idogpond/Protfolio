@@ -30,6 +30,7 @@ export default function Experience() {
           <div className="space-y-10">
             {experiences.map((exp, index) => {
               const position    = locale === "th" ? (exp.position_th || exp.position_en) : exp.position_en;
+              const period      = locale === "th" ? (exp.period_th || exp.period_en) : exp.period_en;
               const description = locale === "th" ? (exp.description_th?.length ? exp.description_th : exp.description_en) : exp.description_en;
 
               return (
@@ -52,7 +53,7 @@ export default function Experience() {
                       </div>
                       <span className="shrink-0 px-3 py-1 text-xs font-mono text-muted-foreground
                                        bg-muted border border-border rounded-full self-start sm:self-auto">
-                        {exp.period}
+                        {period}
                       </span>
                     </div>
 

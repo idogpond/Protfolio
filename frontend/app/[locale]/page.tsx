@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const p = json.data;
     const isTh = locale === "th";
     return {
-      title: (isTh ? p.meta_title_th : p.meta_title_en) ?? p.name,
+      title: (isTh ? p.meta_title_th : p.meta_title_en) ?? (isTh ? p.name_th : p.name_en) ?? p.name_en,
       description: (isTh ? p.meta_description_th : p.meta_description_en) ?? undefined,
       openGraph: p.og_image ? { images: [p.og_image] } : undefined,
     };

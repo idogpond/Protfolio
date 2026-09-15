@@ -171,8 +171,10 @@
         "seo": "SEO & Meta"
       },
       "personal": {
-        "fullName": "ชื่อ-นามสกุล *",
-        "nickname": "ชื่อเล่น",
+        "fullNameEn": "ชื่อ-นามสกุล (EN) *",
+        "fullNameTh": "ชื่อ-นามสกุล (TH)",
+        "nicknameEn": "ชื่อเล่น (EN)",
+        "nicknameTh": "ชื่อเล่น (TH)",
         "jobTitleEn": "ตำแหน่งงาน (EN) *",
         "jobTitleTh": "ตำแหน่งงาน (TH)",
         "bioEn": "Bio EN (Hero — สั้น)",
@@ -270,7 +272,8 @@
       "companyLabel": "บริษัท *",
       "positionEnLabel": "ตำแหน่ง (EN) *",
       "positionThLabel": "ตำแหน่ง (TH)",
-      "periodLabel": "ช่วงเวลา *",
+      "periodEnLabel": "ช่วงเวลา (EN) *",
+      "periodThLabel": "ช่วงเวลา (TH)",
       "periodHint": "เช่น \"Oct 2022 — Present\"",
       "startedLabel": "วันที่เริ่ม",
       "startedPlaceholder": "เลือกวันที่เริ่ม",
@@ -339,7 +342,8 @@
       "serverError": "เกิดข้อผิดพลาด"
     },
     "educationForm": {
-      "institutionLabel": "สถาบัน *",
+      "institutionEnLabel": "สถาบัน (EN) *",
+      "institutionThLabel": "สถาบัน (TH)",
       "institutionPlaceholder": "ชื่อมหาวิทยาลัย",
       "degreeEnLabel": "ปริญญา (EN) *",
       "degreeEnPlaceholder": "Bachelor of Science",

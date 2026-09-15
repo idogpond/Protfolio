@@ -16,7 +16,7 @@ class Education extends Model
 
     protected $fillable = [
         'degree_en', 'degree_th', 'field_en', 'field_th',
-        'institution', 'started_at', 'graduated_at', 'gpa', 'order',
+        'institution_en', 'institution_th', 'started_at', 'graduated_at', 'gpa', 'order',
     ];
 
     protected $casts = [

@@ -16,7 +16,8 @@ const schema = z.object({
   company:        z.string().min(1),
   position_en:    z.string().min(1),
   position_th:    z.string(),
-  period:         z.string().min(1),
+  period_en:      z.string().min(1),
+  period_th:      z.string(),
   started_at:     z.string(),
   ended_at:       z.string(),
   description_en: z.string().min(1),  // newline-separated in form
@@ -48,7 +49,8 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
       company:        defaultValues?.company        ?? "",
       position_en:    defaultValues?.position_en    ?? "",
       position_th:    defaultValues?.position_th    ?? "",
-      period:         defaultValues?.period         ?? "",
+      period_en:      defaultValues?.period_en       ?? "",
+      period_th:      defaultValues?.period_th       ?? "",
       started_at:     defaultValues?.started_at     ?? "",
       ended_at:       defaultValues?.ended_at       ?? "",
       description_en: defaultValues?.description_en?.join("\n") ?? "",
@@ -85,10 +87,15 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
           <Input id="position_th" {...register("position_th")} />
         </Field>
       </div>
-      <div className="grid sm:grid-cols-3 gap-4">
-        <Field label={t("experienceForm.periodLabel")} htmlFor="period" hint={t("experienceForm.periodHint")} error={errors.period?.message}>
-          <Input id="period" {...register("period")} />
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label={t("experienceForm.periodEnLabel")} htmlFor="period_en" hint={t("experienceForm.periodHint")} error={errors.period_en?.message}>
+          <Input id="period_en" {...register("period_en")} />
         </Field>
+        <Field label={t("experienceForm.periodThLabel")} htmlFor="period_th">
+          <Input id="period_th" {...register("period_th")} />
+        </Field>
+      </div>
+      <div className="grid sm:grid-cols-2 gap-4">
         <Field label={t("experienceForm.startedLabel")}>
           <Controller
             name="started_at"

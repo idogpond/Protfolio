@@ -36,7 +36,8 @@ export interface ExperienceFormValues {
   company: string;
   position_en: string;
   position_th: string;
-  period: string;
+  period_en: string;
+  period_th: string;
   started_at: string;
   ended_at: string;
   description_en: string[];
@@ -58,7 +59,8 @@ export interface EducationFormValues {
   degree_th: string;
   field_en: string;
   field_th: string;
-  institution: string;
+  institution_en: string;
+  institution_th: string;
   started_at: string | null;
   graduated_at: string | null;
   gpa: string | null;

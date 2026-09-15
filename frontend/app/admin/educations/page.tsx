@@ -72,7 +72,7 @@ export default function AdminEducationsPage() {
               {educations.map((edu) => (
                 <tr key={edu.id} className="hover:bg-muted/50 transition-colors">
                   <td className="px-4 py-3">
-                    <p className="text-foreground font-medium">{edu.institution}</p>
+                    <p className="text-foreground font-medium">{edu.institution_en}</p>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <p className="text-foreground/80">{edu.degree_en}</p>

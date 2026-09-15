@@ -7,8 +7,10 @@ export interface ApiResponse<T> {
 // ─── Profile ─────────────────────────────────────────────────────────────────
 export interface Profile {
   id: number;
-  name: string;
-  nickname: string | null;
+  name_en: string;
+  name_th: string | null;
+  nickname_en: string | null;
+  nickname_th: string | null;
   job_title_en: string;
   job_title_th: string | null;
   bio_en: string;
@@ -48,7 +50,8 @@ export interface Experience {
   company: string;
   position_en: string;
   position_th: string | null;
-  period: string;
+  period_en: string;
+  period_th: string | null;
   started_at: string | null;
   ended_at: string | null;
   description_en: string[];
@@ -74,7 +77,8 @@ export interface Education {
   degree_th: string | null;
   field_en: string;
   field_th: string | null;
-  institution: string;
+  institution_en: string;
+  institution_th: string | null;
   started_at: number | null;
   graduated_at: number | null;
   gpa: number | null;

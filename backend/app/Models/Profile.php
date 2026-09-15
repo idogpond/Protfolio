@@ -13,7 +13,7 @@ class Profile extends Model
     }
 
     protected $fillable = [
-        'name', 'nickname', 'job_title_en', 'job_title_th',
+        'name_en', 'name_th', 'nickname_en', 'nickname_th', 'job_title_en', 'job_title_th',
         'bio_en', 'bio_th', 'about_en', 'about_th',
         'profile_image', 'years_of_experience', 'date_of_birth',
         'location_en', 'location_th', 'available_for_hire',

@@ -78,7 +78,7 @@ export default function AdminExperiencesPage() {
                     <p className="text-foreground/80">{exp.position_en}</p>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <p className="text-muted-foreground text-xs">{exp.period}</p>
+                    <p className="text-muted-foreground text-xs">{exp.period_en}</p>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2">

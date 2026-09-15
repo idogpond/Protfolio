@@ -6,7 +6,8 @@ import type { Profile } from "@/types";
 
 const EMPTY: Profile = {
   id: 0,
-  name: "", nickname: null,
+  name_en: "", name_th: null,
+  nickname_en: null, nickname_th: null,
   job_title_en: "", job_title_th: null,
   bio_en: "", bio_th: null,
   about_en: null, about_th: null,

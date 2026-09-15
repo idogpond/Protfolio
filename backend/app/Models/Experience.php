@@ -13,7 +13,7 @@ class Experience extends Model
     }
 
     protected $fillable = [
-        'company', 'position_en', 'position_th', 'period',
+        'company', 'position_en', 'position_th', 'period_en', 'period_th',
         'started_at', 'ended_at',
         'description_en', 'description_th', 'tech', 'order',
     ];

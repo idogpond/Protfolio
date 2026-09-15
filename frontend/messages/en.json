@@ -171,8 +171,10 @@
         "seo": "SEO & Meta"
       },
       "personal": {
-        "fullName": "Full Name *",
-        "nickname": "Nickname",
+        "fullNameEn": "Full Name (EN) *",
+        "fullNameTh": "Full Name (TH)",
+        "nicknameEn": "Nickname (EN)",
+        "nicknameTh": "Nickname (TH)",
         "jobTitleEn": "Job Title (EN) *",
         "jobTitleTh": "Job Title (TH)",
         "bioEn": "Bio EN (Hero — short)",
@@ -270,7 +272,8 @@
       "companyLabel": "Company *",
       "positionEnLabel": "Position (EN) *",
       "positionThLabel": "Position (TH)",
-      "periodLabel": "Period *",
+      "periodEnLabel": "Period (EN) *",
+      "periodThLabel": "Period (TH)",
       "periodHint": "e.g. \"Oct 2022 — Present\"",
       "startedLabel": "Started",
       "startedPlaceholder": "Pick start date",
@@ -339,7 +342,8 @@
       "serverError": "Something went wrong."
     },
     "educationForm": {
-      "institutionLabel": "Institution *",
+      "institutionEnLabel": "Institution (EN) *",
+      "institutionThLabel": "Institution (TH)",
       "institutionPlaceholder": "University name",
       "degreeEnLabel": "Degree (EN) *",
       "degreeEnPlaceholder": "Bachelor of Science",

@@ -19,8 +19,10 @@ import { DatePicker } from "@/components/ui/date-picker";
 
 // ─── Explicit FormValues type ─────────────────────────────────────────────────
 type FormValues = {
-  name:                 string;
-  nickname:             string;
+  name_en:              string;
+  name_th:              string;
+  nickname_en:          string;
+  nickname_th:          string;
   job_title_en:         string;
   job_title_th:         string;
   bio_en:               string;
@@ -69,8 +71,10 @@ export default function AdminProfilePage() {
   const schema = useMemo(
     () =>
       z.object({
-        name:                z.string().min(1, t("errors.required")),
-        nickname:            z.string(),
+        name_en:             z.string().min(1, t("errors.required")),
+        name_th:             z.string(),
+        nickname_en:         z.string(),
+        nickname_th:         z.string(),
         job_title_en:        z.string(),
         job_title_th:        z.string(),
         bio_en:              z.string(),
@@ -129,8 +133,10 @@ export default function AdminProfilePage() {
       .then((res) => {
         const d = res.data.data;
         reset({
-          name:                String(d.name                ?? ""),
-          nickname:            String(d.nickname            ?? ""),
+          name_en:             String(d.name_en             ?? ""),
+          name_th:             String(d.name_th             ?? ""),
+          nickname_en:         String(d.nickname_en         ?? ""),
+          nickname_th:         String(d.nickname_th         ?? ""),
           job_title_en:        String(d.job_title_en        ?? ""),
           job_title_th:        String(d.job_title_th        ?? ""),
           bio_en:              String(d.bio_en              ?? ""),
@@ -216,12 +222,20 @@ export default function AdminProfilePage() {
         {activeTab === "personal" && (
           <>
             <div className="grid sm:grid-cols-2 gap-4">
-              <Field label={t("personal.fullName")} error={errors.name?.message} htmlFor="name">
-                <Input id="name" {...register("name")} placeholder="Your Name"
-                  className={errors.name ? "border-destructive" : ""} />
+              <Field label={t("personal.fullNameEn")} error={errors.name_en?.message} htmlFor="name_en">
+                <Input id="name_en" {...register("name_en")} placeholder="Your Name"
+                  className={errors.name_en ? "border-destructive" : ""} />
               </Field>
-              <Field label={t("personal.nickname")} htmlFor="nickname">
-                <Input id="nickname" {...register("nickname")} placeholder="Dev" />
+              <Field label={t("personal.fullNameTh")} htmlFor="name_th">
+                <Input id="name_th" {...register("name_th")} placeholder="ชื่อ-นามสกุล" />
+              </Field>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <Field label={t("personal.nicknameEn")} htmlFor="nickname_en">
+                <Input id="nickname_en" {...register("nickname_en")} placeholder="Dev" />
+              </Field>
+              <Field label={t("personal.nicknameTh")} htmlFor="nickname_th">
+                <Input id="nickname_th" {...register("nickname_th")} placeholder="ชื่อเล่น" />
               </Field>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">

@@ -13,7 +13,8 @@ class ExperienceSeeder extends Seeder
                 'company'        => 'AD System Asia Co., Ltd.',
                 'position_en'    => 'Full-Stack Web Developer',
                 'position_th'    => 'นักพัฒนาเว็บ Full-Stack',
-                'period'         => 'Oct 2022 — Present',
+                'period_en'      => 'Oct 2022 — Present',
+                'period_th'      => 'ต.ค. 2022 — ปัจจุบัน',
                 'started_at'     => '2022-10-01',
                 'ended_at'       => null,
                 'description_en' => json_encode([
@@ -41,7 +42,8 @@ class ExperienceSeeder extends Seeder
                 'company'        => 'A-Host Company Limited',
                 'position_en'    => 'Developer Intern',
                 'position_th'    => 'นักพัฒนาฝึกงาน',
-                'period'         => 'Dec 2020 — Mar 2021',
+                'period_en'      => 'Dec 2020 — Mar 2021',
+                'period_th'      => 'ธ.ค. 2020 — มี.ค. 2021',
                 'started_at'     => '2020-12-01',
                 'ended_at'       => '2021-03-31',
                 'description_en' => json_encode([

@@ -10,8 +10,10 @@ class AdminProfileResource extends JsonResource
     {
         return [
             'id'                  => $this->id,
-            'name'                => $this->name,
-            'nickname'            => $this->nickname,
+            'name_en'             => $this->name_en,
+            'name_th'             => $this->name_th,
+            'nickname_en'         => $this->nickname_en,
+            'nickname_th'         => $this->nickname_th,
             'job_title_en'        => $this->job_title_en,
             'job_title_th'        => $this->job_title_th,
             'bio_en'              => $this->bio_en,

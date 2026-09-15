@@ -18,8 +18,10 @@ class ImportCvData extends Command
     // ── CV Data ────────────────────────────────────────────────────────────────
 
     private array $profileData = [
-        'name'                => 'Kittikarn Janbang',
-        'nickname'            => 'Kittikarn',
+        'name_en'             => 'Kittikarn Janbang',
+        'name_th'             => 'กิตติกานต์ จันบาง',
+        'nickname_en'         => 'Kittikarn',
+        'nickname_th'         => 'กิตติกานต์',
         'job_title_en'        => 'Full-Stack Developer',
         'job_title_th'        => 'นักพัฒนา Full-Stack',
         'bio_en'              => 'Full-Stack Developer with 3+ years of experience specializing in modernizing legacy systems — migrating monolithic Laravel Blade applications into decoupled architectures with React frontends and Laravel REST APIs. Experienced in full backend refactoring, version upgrades, and API redesign to ensure full feature parity. Also built and maintained 10+ production applications in healthcare and travel domains.',
@@ -58,7 +60,8 @@ class ImportCvData extends Command
             'company'        => 'AD System Asia Co., Ltd.',
             'position_en'    => 'Full-Stack Web Developer',
             'position_th'    => 'นักพัฒนาเว็บ Full-Stack',
-            'period'         => 'Oct 2022 — Present',
+            'period_en'      => 'Oct 2022 — Present',
+            'period_th'      => 'ต.ค. 2022 — ปัจจุบัน',
             'started_at'     => '2022-10-01',
             'ended_at'       => null,
             'description_en' => [
@@ -84,7 +87,8 @@ class ImportCvData extends Command
             'company'        => 'A-Host Company Limited',
             'position_en'    => 'Developer Intern',
             'position_th'    => 'นักพัฒนาฝึกงาน',
-            'period'         => 'Dec 2020 — Mar 2021',
+            'period_en'      => 'Dec 2020 — Mar 2021',
+            'period_th'      => 'ธ.ค. 2020 — มี.ค. 2021',
             'started_at'     => '2020-12-01',
             'ended_at'       => '2021-03-31',
             'description_en' => [
@@ -128,7 +132,8 @@ class ImportCvData extends Command
             'degree_th'    => 'วิทยาศาสตรบัณฑิต',
             'field_en'     => 'Information Technology',
             'field_th'     => 'เทคโนโลยีสารสนเทศ',
-            'institution'  => 'Burapha University, Thailand',
+            'institution_en' => 'Burapha University, Thailand',
+            'institution_th' => 'มหาวิทยาลัยบูรพา, ประเทศไทย',
             'started_at'   => 2018,
             'graduated_at' => 2022,
             'gpa'          => null,
@@ -202,7 +207,8 @@ class ImportCvData extends Command
                         'company'        => $exp['company'],
                         'position_en'    => $exp['position_en'],
                         'position_th'    => $exp['position_th'],
-                        'period'         => $exp['period'],
+                        'period_en'      => $exp['period_en'],
+                        'period_th'      => $exp['period_th'],
                         'started_at'     => $exp['started_at'],
                         'ended_at'       => $exp['ended_at'],
                         'description_en' => $exp['description_en'],

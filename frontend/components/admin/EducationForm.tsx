@@ -15,7 +15,8 @@ const schema = z.object({
   degree_th:    z.string(),
   field_en:     z.string().min(1),
   field_th:     z.string(),
-  institution:  z.string().min(1),
+  institution_en: z.string().min(1),
+  institution_th: z.string(),
   started_at:   z.string().nullable(),
   graduated_at: z.string().nullable(),
   gpa:          z.string().nullable(),
@@ -39,7 +40,8 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
       degree_th:    defaultValues?.degree_th    ?? "",
       field_en:     defaultValues?.field_en     ?? "",
       field_th:     defaultValues?.field_th     ?? "",
-      institution:  defaultValues?.institution  ?? "",
+      institution_en: defaultValues?.institution_en ?? "",
+      institution_th: defaultValues?.institution_th ?? "",
       started_at:   defaultValues?.started_at   ?? "",
       graduated_at: defaultValues?.graduated_at ?? "",
       gpa:          defaultValues?.gpa          ?? "",
@@ -65,9 +67,14 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-      <Field label={t("educationForm.institutionLabel")} htmlFor="institution" error={errors.institution?.message}>
-        <Input id="institution" {...register("institution")} placeholder={t("educationForm.institutionPlaceholder")} />
-      </Field>
+      <div className="grid sm:grid-cols-2 gap-4">
+        <Field label={t("educationForm.institutionEnLabel")} htmlFor="institution_en" error={errors.institution_en?.message}>
+          <Input id="institution_en" {...register("institution_en")} placeholder={t("educationForm.institutionPlaceholder")} />
+        </Field>
+        <Field label={t("educationForm.institutionThLabel")} htmlFor="institution_th">
+          <Input id="institution_th" {...register("institution_th")} />
+        </Field>
+      </div>
       <div className="grid sm:grid-cols-2 gap-4">
         <Field label={t("educationForm.degreeEnLabel")} htmlFor="degree_en" error={errors.degree_en?.message}>
           <Input id="degree_en" {...register("degree_en")} placeholder={t("educationForm.degreeEnPlaceholder")} />

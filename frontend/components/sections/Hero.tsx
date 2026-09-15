@@ -17,7 +17,8 @@ export default function Hero() {
   const { profile } = useProfile();
   const t = useTranslations("hero");
   const locale = useLocale();
-  const nameParts = profile.name?.split(" ") ?? ["Your", "Name"];
+  const name = locale === "th" ? (profile.name_th || profile.name_en) : profile.name_en;
+  const nameParts = name?.split(" ") ?? ["Your", "Name"];
 
   const isAvailable = profile.available_for_hire === true;
 
