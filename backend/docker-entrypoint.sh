@@ -35,4 +35,12 @@ php artisan config:clear
 php artisan route:clear
 
 echo "==> Starting Laravel server..."
-exec php artisan serve --host=0.0.0.0 --port=8000
+# Not `php artisan serve` — its ServeCommand spawns the actual request
+# handler as a child process with a hardcoded env passthrough allow-list
+# (APP_ENV, PATH, a few IDE/debug vars — see Laravel's ServeCommand
+# $passthroughVariables). Everything else silently falls back to whatever
+# was in .env at image build time, so docker-compose env vars (DB_*,
+# MAIL_*, SANCTUM_*, ADMIN_*, ...) never reach real requests even though
+# `php artisan tinker`/seeders see them fine. Running PHP's built-in
+# server directly avoids that wrapper entirely.
+exec php -S 0.0.0.0:8000 -t public public/index.php
