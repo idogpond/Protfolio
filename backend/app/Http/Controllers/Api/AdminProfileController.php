@@ -2,16 +2,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProfileResource;
+use App\Http\Resources\AdminProfileResource;
 use App\Models\Profile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AdminProfileController extends Controller
 {
-    public function show(): ProfileResource
+    public function show(): AdminProfileResource
     {
-        return new ProfileResource(Profile::current());
+        return new AdminProfileResource(Profile::current());
     }
 
     public function update(Request $request): JsonResponse
@@ -57,7 +57,7 @@ class AdminProfileController extends Controller
 
         return response()->json([
             'message' => 'Profile updated successfully',
-            'data'    => new ProfileResource($profile->fresh()),
+            'data'    => new AdminProfileResource($profile->fresh()),
         ]);
     }
 }

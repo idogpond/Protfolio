@@ -12,7 +12,7 @@ const EMPTY: Profile = {
   about_en: null, about_th: null,
   profile_image: null,
   years_of_experience: 0,
-  date_of_birth: null,
+  age: null,
   location_en: null, location_th: null,
   available_for_hire: false,
   email: null, phone: null, line_id: null, whatsapp: null,

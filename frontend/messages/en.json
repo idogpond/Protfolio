@@ -19,6 +19,7 @@
     "title": "About Me",
     "subtitle": "A little background on who I am and what I do",
     "fallbackBio": "Full Stack Developer with {years}+ years of experience building modern web applications.",
+    "age": "{age} years old",
     "cta": "Let's Work Together",
     "stats": {
       "experience": "Years Experience",

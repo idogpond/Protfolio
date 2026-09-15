@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProfileResource extends JsonResource
+class AdminProfileResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
@@ -20,7 +20,7 @@ class ProfileResource extends JsonResource
             'about_th'            => $this->about_th,
             'profile_image'       => $this->profile_image,
             'years_of_experience' => $this->years_of_experience,
-            'age'                 => $this->date_of_birth?->age,
+            'date_of_birth'       => $this->date_of_birth?->toDateString(),
             'location_en'         => $this->location_en,
             'location_th'         => $this->location_th,
             'available_for_hire'  => $this->available_for_hire,

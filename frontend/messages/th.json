@@ -19,6 +19,7 @@
     "title": "เกี่ยวกับผม",
     "subtitle": "พื้นฐานและสิ่งที่ผมทำ",
     "fallbackBio": "Full Stack Developer ที่มีประสบการณ์ {years}+ ปีในการพัฒนาเว็บแอปพลิเคชัน",
+    "age": "อายุ {age} ปี",
     "cta": "ทำงานร่วมกัน",
     "stats": {
       "experience": "ปีประสบการณ์",

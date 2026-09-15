@@ -65,5 +65,7 @@ export interface EducationFormValues {
   order: number;
 }
 
-// Re-export Profile from index for admin use
-export type { Profile } from "./index";
+// Admin profile view: same as the public Profile, but with the raw
+// date_of_birth (for the edit form) instead of the computed public age.
+import type { Profile } from "./index";
+export type AdminProfile = Omit<Profile, "age"> & { date_of_birth: string | null };

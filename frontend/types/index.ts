@@ -17,7 +17,7 @@ export interface Profile {
   about_th: string | null;
   profile_image: string | null;
   years_of_experience: number;
-  date_of_birth: string | null;
+  age: number | null;
   location_en: string | null;
   location_th: string | null;
   available_for_hire: boolean;

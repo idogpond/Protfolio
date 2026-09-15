@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { Controller } from "react-hook-form";
 import adminApi from "@/lib/adminApi";
 import Toast from "@/components/admin/Toast";
-import type { Profile } from "@/types";
+import type { AdminProfile } from "@/types/admin";
 import { Button }   from "@/components/ui/button";
 import { Input }    from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -125,7 +125,7 @@ export default function AdminProfilePage() {
   // Load profile data
   useEffect(() => {
     adminApi
-      .get<{ data: Profile }>("/admin/profile")
+      .get<{ data: AdminProfile }>("/admin/profile")
       .then((res) => {
         const d = res.data.data;
         reset({
