@@ -21,9 +21,9 @@ export default function Hero() {
 
   const isAvailable = profile.available_for_hire === true;
 
-  const jobTitle    = locale === "th" ? (profile.job_title_th || profile.job_title_en) : profile.job_title_en;
-  const bio         = locale === "th" ? (profile.bio_th       || profile.bio_en)       : profile.bio_en;
-  const resumeLabel = locale === "th" ? (profile.resume_label_th || "ดาวน์โหลด CV")    : (profile.resume_label_en || t("downloadCV"));
+  const jobTitle = locale === "th" ? (profile.job_title_th || profile.job_title_en) : profile.job_title_en;
+  const bio = locale === "th" ? (profile.bio_th || profile.bio_en) : profile.bio_en;
+  const resumeLabel = locale === "th" ? (profile.resume_label_th || "ดาวน์โหลด CV") : (profile.resume_label_en || t("downloadCV"));
 
   return (
     <section
@@ -67,9 +67,8 @@ export default function Hero() {
           {nameParts.map((part, i) => (
             <motion.div key={i} variants={fadeUp(0.15 + i * 0.13)} initial="hidden" animate="show">
               <span
-                className={`block font-display font-extrabold leading-[0.88] tracking-tight ${
-                  i === nameParts.length - 1 ? "gradient-text" : "text-foreground"
-                }`}
+                className={`block font-display font-extrabold leading-[0.88] tracking-tight ${i === nameParts.length - 1 ? "gradient-text" : "text-foreground"
+                  }`}
                 style={{ fontSize: "clamp(3.5rem, 11vw, 8.5rem)" }}
               >
                 {part}
@@ -152,9 +151,6 @@ export default function Hero() {
           transition={{ repeat: Infinity, duration: 1.7, ease: "easeInOut" }}
           className="w-px h-10 bg-gradient-to-b from-border to-transparent"
         />
-        <span className="text-muted-foreground/40 text-xs">
-          {t("scroll")}
-        </span>
       </motion.div>
     </section>
   );
