@@ -266,6 +266,23 @@
       "updateLabel": "Update Experience",
       "serverError": "Something went wrong."
     },
+    "experienceForm": {
+      "companyLabel": "Company *",
+      "positionEnLabel": "Position (EN) *",
+      "positionThLabel": "Position (TH)",
+      "periodLabel": "Period *",
+      "periodHint": "e.g. \"Oct 2022 — Present\"",
+      "startedLabel": "Started",
+      "startedPlaceholder": "Pick start date",
+      "endedLabel": "Ended (blank = present)",
+      "endedPlaceholder": "Pick end date",
+      "descriptionEnLabel": "Description EN *",
+      "descriptionThLabel": "Description TH",
+      "descriptionHint": "One bullet point per line",
+      "techLabel": "Tech Stack",
+      "techHint": "Comma-separated e.g. Laravel, React, Docker",
+      "orderLabel": "Display Order"
+    },
     "skills": {
       "title": "Skills",
       "newTitle": "New Skill",
@@ -287,6 +304,19 @@
       "updateLabel": "Update Skill",
       "serverError": "Something went wrong."
     },
+    "skillForm": {
+      "nameLabel": "Skill Name *",
+      "namePlaceholder": "React.js",
+      "iconLabel": "Icon",
+      "iconHint": "Emoji or short text like TS, JS",
+      "levelLabel": "Level (0–100) *",
+      "categoryLabel": "Category *",
+      "categoryFrontend": "Frontend",
+      "categoryBackend": "Backend",
+      "categoryDevops": "DevOps",
+      "categoryOther": "Other",
+      "orderLabel": "Display Order"
+    },
     "educations": {
       "title": "Education",
       "newTitle": "New Education Entry",
@@ -307,6 +337,21 @@
       "createLabel": "Create Entry",
       "updateLabel": "Update Entry",
       "serverError": "Something went wrong."
+    },
+    "educationForm": {
+      "institutionLabel": "Institution *",
+      "institutionPlaceholder": "University name",
+      "degreeEnLabel": "Degree (EN) *",
+      "degreeEnPlaceholder": "Bachelor of Science",
+      "degreeThLabel": "Degree (TH)",
+      "fieldEnLabel": "Field (EN) *",
+      "fieldEnPlaceholder": "Information Technology",
+      "fieldThLabel": "Field (TH)",
+      "startedLabel": "Started (year)",
+      "startedPlaceholder": "2018",
+      "graduatedLabel": "Graduated (year)",
+      "graduatedPlaceholder": "2022",
+      "gpaLabel": "GPA"
     }
   }
 }

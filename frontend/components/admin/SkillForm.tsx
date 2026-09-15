@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export default function SkillForm({ defaultValues, onSubmit, submitLabel }: Props) {
+  const t = useTranslations("admin");
   const [serverError, setServerError] = useState("");
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<SkillFormValues>({
@@ -42,34 +44,34 @@ export default function SkillForm({ defaultValues, onSubmit, submitLabel }: Prop
     try {
       await onSubmit(data);
     } catch (err: unknown) {
-      setServerError(err instanceof Error ? err.message : "Something went wrong.");
+      setServerError(err instanceof Error ? err.message : t("form.serverError"));
     }
   }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Skill Name *" htmlFor="name" error={errors.name?.message}>
-          <Input id="name" {...register("name")} placeholder="React.js" />
+        <Field label={t("skillForm.nameLabel")} htmlFor="name" error={errors.name?.message}>
+          <Input id="name" {...register("name")} placeholder={t("skillForm.namePlaceholder")} />
         </Field>
-        <Field label="Icon" hint="Emoji or short text like TS, JS" htmlFor="icon">
+        <Field label={t("skillForm.iconLabel")} hint={t("skillForm.iconHint")} htmlFor="icon">
           <Input id="icon" {...register("icon")} placeholder="⚛️" />
         </Field>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">
-        <Field label="Level (0–100) *" htmlFor="level" error={errors.level?.message}>
+        <Field label={t("skillForm.levelLabel")} htmlFor="level" error={errors.level?.message}>
           <Input id="level" type="number" {...register("level", { valueAsNumber: true })} />
         </Field>
-        <Field label="Category *" htmlFor="category" error={errors.category?.message}>
+        <Field label={t("skillForm.categoryLabel")} htmlFor="category" error={errors.category?.message}>
           <select id="category" {...register("category")}
             className="w-full bg-muted border border-border rounded-md px-3 py-2 text-sm text-foreground">
-            <option value="frontend">Frontend</option>
-            <option value="backend">Backend</option>
-            <option value="devops">DevOps</option>
-            <option value="other">Other</option>
+            <option value="frontend">{t("skillForm.categoryFrontend")}</option>
+            <option value="backend">{t("skillForm.categoryBackend")}</option>
+            <option value="devops">{t("skillForm.categoryDevops")}</option>
+            <option value="other">{t("skillForm.categoryOther")}</option>
           </select>
         </Field>
-        <Field label="Display Order" htmlFor="order" error={errors.order?.message}>
+        <Field label={t("skillForm.orderLabel")} htmlFor="order" error={errors.order?.message}>
           <Input id="order" type="number" {...register("order", { valueAsNumber: true })} />
         </Field>
       </div>
@@ -82,7 +84,7 @@ export default function SkillForm({ defaultValues, onSubmit, submitLabel }: Prop
 
       <div className="flex justify-end pt-2 border-t border-border">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : submitLabel}
+          {isSubmitting ? t("form.saving") : submitLabel}
         </Button>
       </div>
     </form>

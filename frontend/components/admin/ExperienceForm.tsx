@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,6 +34,7 @@ interface Props {
 }
 
 export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }: Props) {
+  const t = useTranslations("admin");
   const [serverError, setServerError] = useState("");
 
   const {
@@ -66,28 +68,28 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
         tech:           data.tech.split(",").map(s => s.trim()).filter(Boolean),
       });
     } catch (err: unknown) {
-      setServerError(err instanceof Error ? err.message : "Something went wrong.");
+      setServerError(err instanceof Error ? err.message : t("form.serverError"));
     }
   }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-      <Field label="Company *" htmlFor="company" error={errors.company?.message}>
+      <Field label={t("experienceForm.companyLabel")} htmlFor="company" error={errors.company?.message}>
         <Input id="company" {...register("company")} />
       </Field>
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Position (EN) *" htmlFor="position_en" error={errors.position_en?.message}>
+        <Field label={t("experienceForm.positionEnLabel")} htmlFor="position_en" error={errors.position_en?.message}>
           <Input id="position_en" {...register("position_en")} />
         </Field>
-        <Field label="Position (TH)" htmlFor="position_th">
+        <Field label={t("experienceForm.positionThLabel")} htmlFor="position_th">
           <Input id="position_th" {...register("position_th")} />
         </Field>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">
-        <Field label="Period *" htmlFor="period" hint='e.g. "Oct 2022 — Present"' error={errors.period?.message}>
+        <Field label={t("experienceForm.periodLabel")} htmlFor="period" hint={t("experienceForm.periodHint")} error={errors.period?.message}>
           <Input id="period" {...register("period")} />
         </Field>
-        <Field label="Started">
+        <Field label={t("experienceForm.startedLabel")}>
           <Controller
             name="started_at"
             control={control}
@@ -95,13 +97,13 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
               <DatePicker
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Pick start date"
+                placeholder={t("experienceForm.startedPlaceholder")}
                 clearable
               />
             )}
           />
         </Field>
-        <Field label="Ended (blank = present)">
+        <Field label={t("experienceForm.endedLabel")}>
           <Controller
             name="ended_at"
             control={control}
@@ -109,7 +111,7 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
               <DatePicker
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Pick end date"
+                placeholder={t("experienceForm.endedPlaceholder")}
                 clearable
               />
             )}
@@ -117,17 +119,17 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
         </Field>
       </div>
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Description EN *" hint="One bullet point per line" htmlFor="description_en" error={errors.description_en?.message}>
+        <Field label={t("experienceForm.descriptionEnLabel")} hint={t("experienceForm.descriptionHint")} htmlFor="description_en" error={errors.description_en?.message}>
           <Textarea id="description_en" {...register("description_en")} rows={6} className="resize-y font-mono text-sm" />
         </Field>
-        <Field label="Description TH" hint="One bullet point per line" htmlFor="description_th">
+        <Field label={t("experienceForm.descriptionThLabel")} hint={t("experienceForm.descriptionHint")} htmlFor="description_th">
           <Textarea id="description_th" {...register("description_th")} rows={6} className="resize-y font-mono text-sm" />
         </Field>
       </div>
-      <Field label="Tech Stack" hint="Comma-separated e.g. Laravel, React, Docker" htmlFor="tech">
+      <Field label={t("experienceForm.techLabel")} hint={t("experienceForm.techHint")} htmlFor="tech">
         <Input id="tech" {...register("tech")} />
       </Field>
-      <Field label="Display Order" htmlFor="order" error={errors.order?.message}>
+      <Field label={t("experienceForm.orderLabel")} htmlFor="order" error={errors.order?.message}>
         <Input id="order" type="number" {...register("order", { valueAsNumber: true })} />
       </Field>
 
@@ -139,7 +141,7 @@ export default function ExperienceForm({ defaultValues, onSubmit, submitLabel }:
 
       <div className="flex justify-end pt-2 border-t border-border">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : submitLabel}
+          {isSubmitting ? t("form.saving") : submitLabel}
         </Button>
       </div>
     </form>

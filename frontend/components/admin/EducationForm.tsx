@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export default function EducationForm({ defaultValues, onSubmit, submitLabel }: Props) {
+  const t = useTranslations("admin");
   const [serverError, setServerError] = useState("");
 
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<EducationFormValues>({
@@ -57,37 +59,37 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
         gpa:          data.gpa          === "" ? null : data.gpa,
       });
     } catch (err: unknown) {
-      setServerError(err instanceof Error ? err.message : "Something went wrong.");
+      setServerError(err instanceof Error ? err.message : t("form.serverError"));
     }
   }
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
-      <Field label="Institution *" htmlFor="institution" error={errors.institution?.message}>
-        <Input id="institution" {...register("institution")} placeholder="University name" />
+      <Field label={t("educationForm.institutionLabel")} htmlFor="institution" error={errors.institution?.message}>
+        <Input id="institution" {...register("institution")} placeholder={t("educationForm.institutionPlaceholder")} />
       </Field>
       <div className="grid sm:grid-cols-2 gap-4">
-        <Field label="Degree (EN) *" htmlFor="degree_en" error={errors.degree_en?.message}>
-          <Input id="degree_en" {...register("degree_en")} placeholder="Bachelor of Science" />
+        <Field label={t("educationForm.degreeEnLabel")} htmlFor="degree_en" error={errors.degree_en?.message}>
+          <Input id="degree_en" {...register("degree_en")} placeholder={t("educationForm.degreeEnPlaceholder")} />
         </Field>
-        <Field label="Degree (TH)" htmlFor="degree_th">
+        <Field label={t("educationForm.degreeThLabel")} htmlFor="degree_th">
           <Input id="degree_th" {...register("degree_th")} placeholder="วิทยาศาสตรบัณฑิต" />
         </Field>
-        <Field label="Field (EN) *" htmlFor="field_en" error={errors.field_en?.message}>
-          <Input id="field_en" {...register("field_en")} placeholder="Information Technology" />
+        <Field label={t("educationForm.fieldEnLabel")} htmlFor="field_en" error={errors.field_en?.message}>
+          <Input id="field_en" {...register("field_en")} placeholder={t("educationForm.fieldEnPlaceholder")} />
         </Field>
-        <Field label="Field (TH)" htmlFor="field_th">
+        <Field label={t("educationForm.fieldThLabel")} htmlFor="field_th">
           <Input id="field_th" {...register("field_th")} placeholder="เทคโนโลยีสารสนเทศ" />
         </Field>
       </div>
       <div className="grid sm:grid-cols-3 gap-4">
-        <Field label="Started (year)" htmlFor="started_at">
-          <Input id="started_at" {...register("started_at")} placeholder="2018" />
+        <Field label={t("educationForm.startedLabel")} htmlFor="started_at">
+          <Input id="started_at" {...register("started_at")} placeholder={t("educationForm.startedPlaceholder")} />
         </Field>
-        <Field label="Graduated (year)" htmlFor="graduated_at">
-          <Input id="graduated_at" {...register("graduated_at")} placeholder="2022" />
+        <Field label={t("educationForm.graduatedLabel")} htmlFor="graduated_at">
+          <Input id="graduated_at" {...register("graduated_at")} placeholder={t("educationForm.graduatedPlaceholder")} />
         </Field>
-        <Field label="GPA" htmlFor="gpa">
+        <Field label={t("educationForm.gpaLabel")} htmlFor="gpa">
           <Input id="gpa" {...register("gpa")} placeholder="3.50" />
         </Field>
       </div>
@@ -100,7 +102,7 @@ export default function EducationForm({ defaultValues, onSubmit, submitLabel }: 
 
       <div className="flex justify-end pt-2 border-t border-border">
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : submitLabel}
+          {isSubmitting ? t("form.saving") : submitLabel}
         </Button>
       </div>
     </form>

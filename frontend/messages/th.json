@@ -266,6 +266,23 @@
       "updateLabel": "อัปเดตประสบการณ์",
       "serverError": "เกิดข้อผิดพลาด"
     },
+    "experienceForm": {
+      "companyLabel": "บริษัท *",
+      "positionEnLabel": "ตำแหน่ง (EN) *",
+      "positionThLabel": "ตำแหน่ง (TH)",
+      "periodLabel": "ช่วงเวลา *",
+      "periodHint": "เช่น \"Oct 2022 — Present\"",
+      "startedLabel": "วันที่เริ่ม",
+      "startedPlaceholder": "เลือกวันที่เริ่ม",
+      "endedLabel": "วันที่สิ้นสุด (เว้นว่าง = ปัจจุบัน)",
+      "endedPlaceholder": "เลือกวันที่สิ้นสุด",
+      "descriptionEnLabel": "รายละเอียด EN *",
+      "descriptionThLabel": "รายละเอียด TH",
+      "descriptionHint": "หนึ่งบรรทัดต่อหนึ่งข้อ",
+      "techLabel": "เทคโนโลยี",
+      "techHint": "คั่นด้วยจุลภาค เช่น Laravel, React, Docker",
+      "orderLabel": "ลำดับการแสดง"
+    },
     "skills": {
       "title": "ทักษะ",
       "newTitle": "เพิ่มทักษะใหม่",
@@ -287,6 +304,19 @@
       "updateLabel": "อัปเดตทักษะ",
       "serverError": "เกิดข้อผิดพลาด"
     },
+    "skillForm": {
+      "nameLabel": "ชื่อทักษะ *",
+      "namePlaceholder": "React.js",
+      "iconLabel": "ไอคอน",
+      "iconHint": "อีโมจิหรือตัวอักษรสั้นๆ เช่น TS, JS",
+      "levelLabel": "ระดับ (0–100) *",
+      "categoryLabel": "หมวดหมู่ *",
+      "categoryFrontend": "Frontend",
+      "categoryBackend": "Backend",
+      "categoryDevops": "DevOps",
+      "categoryOther": "อื่นๆ",
+      "orderLabel": "ลำดับการแสดง"
+    },
     "educations": {
       "title": "การศึกษา",
       "newTitle": "เพิ่มข้อมูลการศึกษาใหม่",
@@ -307,6 +337,21 @@
       "createLabel": "สร้างรายการ",
       "updateLabel": "อัปเดตรายการ",
       "serverError": "เกิดข้อผิดพลาด"
+    },
+    "educationForm": {
+      "institutionLabel": "สถาบัน *",
+      "institutionPlaceholder": "ชื่อมหาวิทยาลัย",
+      "degreeEnLabel": "ปริญญา (EN) *",
+      "degreeEnPlaceholder": "Bachelor of Science",
+      "degreeThLabel": "ปริญญา (TH)",
+      "fieldEnLabel": "สาขา (EN) *",
+      "fieldEnPlaceholder": "Information Technology",
+      "fieldThLabel": "สาขา (TH)",
+      "startedLabel": "ปีที่เริ่ม",
+      "startedPlaceholder": "2018",
+      "graduatedLabel": "ปีที่จบ",
+      "graduatedPlaceholder": "2022",
+      "gpaLabel": "เกรดเฉลี่ย"
     }
   }
 }
