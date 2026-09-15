@@ -42,7 +42,7 @@ export default function Experience() {
                   className="relative pl-16"
                 >
                   <div className="absolute left-4 top-6 w-3.5 h-3.5 -translate-x-1/2 rounded-full
-                                  bg-background border-2 border-primary-500 shadow-[0_0_8px_2px_rgba(245,158,11,0.25)]" />
+                                  bg-background border-2 border-primary-500 shadow-[0_0_8px_2px_rgba(72,116,168,0.25)]" />
 
                   <div className="card p-6 hover:border-primary-500/30 transition-colors duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
