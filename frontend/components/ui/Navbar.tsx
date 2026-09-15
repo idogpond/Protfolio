@@ -44,9 +44,9 @@ export default function Navbar() {
                            group-hover:bg-primary-400 transition-colors">
             {initials}
           </span>
-          <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground/80
-                           transition-colors hidden sm:block tracking-wider">
-            /portfolio
+          <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground
+                           transition-colors hidden sm:block">
+            {name}
           </span>
         </a>
 
