@@ -107,6 +107,26 @@ services:
     profiles:
       - tunnel
 
+  # ─────────────────────────────────────────
+  # Cloudflare Quick Tunnel (start with --profile quicktunnel)
+  # No domain/token needed — prints a random *.trycloudflare.com
+  # URL in its logs (`docker compose logs cloudflared-quick`).
+  # The URL changes every time this container restarts, so this
+  # is only meant as a free stand-in until a real domain is
+  # pointed at the `cloudflared` tunnel above.
+  # ─────────────────────────────────────────
+  cloudflared-quick:
+    image: cloudflare/cloudflared:latest
+    container_name: portfolio_cloudflared_quick
+    restart: unless-stopped
+    command: tunnel --url http://frontend:3000
+    depends_on:
+      - frontend
+    networks:
+      - portfolio_network
+    profiles:
+      - quicktunnel
+
 # ─────────────────────────────────────────
 # Volumes & Networks
 # ─────────────────────────────────────────
