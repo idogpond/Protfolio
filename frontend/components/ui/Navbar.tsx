@@ -49,15 +49,9 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="group flex items-center gap-1.5 text-muted-foreground hover:text-foreground
-                             text-sm transition-colors duration-200"
+                  className="text-muted-foreground hover:text-foreground text-sm transition-colors duration-200"
                 >
-                  <span className="text-primary-500/80 font-mono text-[10px] tabular-nums">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="group-hover:text-foreground transition-colors">
-                    {t(NAV_KEYS[i])}
-                  </span>
+                  {t(NAV_KEYS[i])}
                 </a>
               </li>
             ))}
@@ -108,12 +102,8 @@ export default function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-3 py-2.5 text-foreground/80 hover:text-foreground
-                               transition-colors text-sm"
+                    className="block py-2.5 text-foreground/80 hover:text-foreground transition-colors text-sm"
                   >
-                    <span className="text-primary-500 font-mono text-[10px] w-6">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
                     {t(NAV_KEYS[i])}
                   </a>
                 </li>

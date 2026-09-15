@@ -73,7 +73,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-24 bg-muted/30">
       <div className="section-container">
-        <SectionHeader accent={t("accent")} title={t("title")} subtitle={t("subtitle")} />
+        <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
         <div className="grid lg:grid-cols-5 gap-12 max-w-5xl mx-auto">
           {/* Left */}

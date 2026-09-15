@@ -9,15 +9,12 @@ export default function Footer() {
   return (
     <footer className="border-t border-border/60 py-8 mt-16">
       <div className="section-container flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-muted-foreground/50 text-xs font-mono">
-          © {year} — {t("built")}
+        <p className="text-muted-foreground/50 text-xs">
+          © {year} {t("built")}
         </p>
-        <div className="flex items-center gap-1 text-muted-foreground/30 text-xs font-mono">
-          <span className="text-primary-500">▲</span>
-          <a href="#" className="hover:text-muted-foreground transition-colors ml-1">
-            {t("backToTop")}
-          </a>
-        </div>
+        <a href="#" className="text-muted-foreground/50 hover:text-foreground text-xs transition-colors">
+          {t("backToTop")}
+        </a>
       </div>
     </footer>
   );

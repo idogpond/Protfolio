@@ -10,10 +10,10 @@ import type { Skill } from "@/types";
 type CategoryKey = Skill["category"];
 
 const CATEGORY_STYLES: Record<CategoryKey, string> = {
-  frontend: "text-primary-400 bg-primary-500/10 border-primary-500/25",
-  backend:  "text-accent-400 bg-accent-500/10 border-accent-500/25",
-  devops:   "text-emerald-400 bg-emerald-500/10 border-emerald-500/25",
-  other:    "text-muted-foreground bg-muted/60 border-border",
+  frontend: "border-primary-500",
+  backend:  "border-accent-500",
+  devops:   "border-emerald-500",
+  other:    "border-border",
 };
 
 function DotRating({ level }: { level: number }) {
@@ -47,11 +47,7 @@ export default function Skills() {
   return (
     <section id="skills" className="py-24 bg-muted/20">
       <div className="section-container">
-        <SectionHeader
-          accent={t("accent")}
-          title={t("title")}
-          subtitle={t("subtitle")}
-        />
+        <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           {categories.map((cat, ci) => {
@@ -64,23 +60,13 @@ export default function Skills() {
                 viewport={{ once: true }}
                 transition={{ delay: ci * 0.12, duration: 0.5 }}
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <span className={`text-[10px] font-mono font-semibold tracking-widest uppercase px-2.5 py-1 rounded border ${cat.color}`}>
-                    {cat.label}
-                  </span>
-                  <div className="flex-1 h-px bg-border" />
-                </div>
+                <h3 className={`text-base font-display font-semibold text-foreground pb-3 mb-5 border-b-2 ${cat.color}`}>
+                  {cat.label}
+                </h3>
 
                 <ul className="space-y-4">
-                  {catSkills.map((skill, i) => (
-                    <motion.li
-                      key={skill.name}
-                      initial={{ opacity: 0, x: -12 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: ci * 0.12 + i * 0.07, duration: 0.4 }}
-                      className="flex items-center justify-between group"
-                    >
+                  {catSkills.map((skill) => (
+                    <li key={skill.name} className="flex items-center justify-between group">
                       <div className="flex items-center gap-2.5">
                         <span className="text-lg leading-none">{skill.icon}</span>
                         <span className="text-foreground/80 text-sm group-hover:text-foreground transition-colors">
@@ -88,7 +74,7 @@ export default function Skills() {
                         </span>
                       </div>
                       <DotRating level={skill.level} />
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
               </motion.div>

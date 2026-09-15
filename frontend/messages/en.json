@@ -13,10 +13,9 @@
     "viewWork": "View My Work",
     "getInTouch": "Get In Touch",
     "downloadCV": "Download CV",
-    "scroll": "SCROLL"
+    "scroll": "Scroll"
   },
   "about": {
-    "accent": "// about me",
     "title": "About Me",
     "subtitle": "A little background on who I am and what I do",
     "fallbackBio": "Full Stack Developer with {years}+ years of experience building modern web applications.",
@@ -35,7 +34,6 @@
     }
   },
   "skills": {
-    "accent": "// tech stack",
     "title": "Skills & Technologies",
     "subtitle": "Tools and technologies I work with regularly",
     "frontend": "Frontend",
@@ -44,12 +42,10 @@
     "alsoFamiliarWith": "Also familiar with"
   },
   "experience": {
-    "accent": "// career",
     "title": "Work Experience",
     "subtitle": "My professional journey so far"
   },
   "projects": {
-    "accent": "// my work",
     "title": "Featured Projects",
     "subtitle": "A selection of things I've built",
     "loadError": "Could not load projects",
@@ -57,7 +53,6 @@
     "viewMore": "View More on GitHub"
   },
   "contact": {
-    "accent": "// get in touch",
     "title": "Contact Me",
     "subtitle": "Have a project in mind? Let's talk!",
     "connectTitle": "Let's connect",

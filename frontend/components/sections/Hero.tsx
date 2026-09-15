@@ -30,24 +30,22 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen flex items-center pt-16 overflow-hidden"
     >
-      {/* Dot grid background */}
+      {/* Blueprint grid background */}
       <div
         className="absolute inset-0 -z-10"
         style={{
-          backgroundImage: "radial-gradient(circle, var(--dot-grid-color) 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
+          backgroundImage:
+            "linear-gradient(var(--dot-grid-color) 1px, transparent 1px), linear-gradient(90deg, var(--dot-grid-color) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
         }}
       />
-      <div className="absolute -top-32 right-0 w-[560px] h-[560px] rounded-full bg-primary-500/5 blur-3xl -z-10 pointer-events-none" />
-      <div className="absolute bottom-0 -left-40 w-[400px] h-[400px] rounded-full bg-accent-500/4 blur-3xl -z-10 pointer-events-none" />
 
       <div className="section-container w-full py-20 lg:py-28">
         {/* Available badge */}
-        <motion.div variants={fadeUp(0)} initial="hidden" animate="show" className="mb-10">
+        <motion.div variants={fadeUp(0)} initial="hidden" animate="show" className="mb-8">
           <span
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                          border border-border bg-card/60 text-muted-foreground
-                          text-[11px] font-mono tracking-widest uppercase"
+                          border border-border bg-card/60 text-muted-foreground text-sm"
           >
             <span className={`w-1.5 h-1.5 rounded-full ${isAvailable ? "bg-emerald-400 animate-pulse" : "bg-muted-foreground/30"}`} />
             {isAvailable ? t("available") : t("notAvailable")}
@@ -59,7 +57,7 @@ export default function Hero() {
           variants={fadeUp(0.1)}
           initial="hidden"
           animate="show"
-          className="text-muted-foreground/70 font-mono text-xs tracking-[0.25em] uppercase mb-6"
+          className="text-muted-foreground/70 text-base mb-4"
         >
           {t("greeting")}
         </motion.p>
@@ -154,7 +152,7 @@ export default function Hero() {
           transition={{ repeat: Infinity, duration: 1.7, ease: "easeInOut" }}
           className="w-px h-10 bg-gradient-to-b from-border to-transparent"
         />
-        <span className="text-muted-foreground/30 text-[10px] font-mono tracking-[0.2em]">
+        <span className="text-muted-foreground/40 text-xs">
           {t("scroll")}
         </span>
       </motion.div>
