@@ -24,7 +24,7 @@ export default function Experience() {
       <div className="section-container">
         <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
-        <div className="max-w-3xl mx-auto border-t border-border">
+        <div className="max-w-5xl mx-auto border-t border-border">
           {experiences.map((exp, index) => {
             const position    = locale === "th" ? (exp.position_th || exp.position_en) : exp.position_en;
             const period      = locale === "th" ? (exp.period_th || exp.period_en) : exp.period_en;
