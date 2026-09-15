@@ -2,9 +2,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Profile extends Model
 {
+    protected static function booted(): void
+    {
+        static::saved(fn () => Cache::forget('public.profile'));
+        static::deleted(fn () => Cache::forget('public.profile'));
+    }
+
     protected $fillable = [
         'name', 'nickname', 'job_title_en', 'job_title_th',
         'bio_en', 'bio_th', 'about_en', 'about_th',

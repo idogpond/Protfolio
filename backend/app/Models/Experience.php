@@ -2,9 +2,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Experience extends Model
 {
+    protected static function booted(): void
+    {
+        static::saved(fn () => Cache::forget('public.experiences'));
+        static::deleted(fn () => Cache::forget('public.experiences'));
+    }
+
     protected $fillable = [
         'company', 'position_en', 'position_th', 'period',
         'started_at', 'ended_at',

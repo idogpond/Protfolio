@@ -28,7 +28,7 @@ Route::get('/skills',      [SkillController::class,      'index']);
 Route::get('/educations',  [EducationController::class,  'index']);
 
 Route::apiResource('projects', ProjectController::class)->only(['index', 'show']);
-Route::post('/contacts', [ContactController::class, 'store']);
+Route::post('/contacts', [ContactController::class, 'store'])->middleware('throttle:3,1');
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,7 @@ Route::post('/contacts', [ContactController::class, 'store']);
 |--------------------------------------------------------------------------
 */
 Route::prefix('auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);

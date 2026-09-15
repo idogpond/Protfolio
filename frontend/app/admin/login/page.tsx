@@ -40,7 +40,11 @@ function LoginForm() {
         data,
         { headers: { "Content-Type": "application/json", Accept: "application/json" } }
       );
-      Cookies.set("admin_token", res.data.token, { expires: 7, sameSite: "strict" });
+      Cookies.set("admin_token", res.data.token, {
+        expires: 7,
+        sameSite: "strict",
+        secure: window.location.protocol === "https:",
+      });
       const from = searchParams.get("from");
       const redirectTo = from?.startsWith("/admin/") ? from : "/admin/dashboard";
       router.push(redirectTo);

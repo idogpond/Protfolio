@@ -2,9 +2,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Education extends Model
 {
+    protected static function booted(): void
+    {
+        static::saved(fn () => Cache::forget('public.educations'));
+        static::deleted(fn () => Cache::forget('public.educations'));
+    }
+
     protected $table = 'educations';
 
     protected $fillable = [

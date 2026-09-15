@@ -8,6 +8,7 @@ use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectController extends Controller
 {
@@ -17,13 +18,13 @@ class ProjectController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $query = Project::ordered();
+        $projects = Cache::remember('public.projects', now()->addHour(), fn () => Project::ordered()->get());
 
         if ($request->boolean('featured')) {
-            $query->featured();
+            $projects = $projects->where('is_featured', true)->values();
         }
 
-        return ProjectResource::collection($query->get());
+        return ProjectResource::collection($projects);
     }
 
     /**

@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Project extends Model
 {
     use HasFactory;
+
+    protected static function booted(): void
+    {
+        static::saved(fn () => Cache::forget('public.projects'));
+        static::deleted(fn () => Cache::forget('public.projects'));
+    }
 
     protected $fillable = [
         'title',
