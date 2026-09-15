@@ -82,14 +82,14 @@ export default function Contact() {
               <h3 className="text-foreground font-semibold text-xl">{t("connectTitle")}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{t("description")}</p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 divide-y divide-border">
               {contactInfo.map((info) => (
                 <a key={info.label} href={info.href} target="_blank" rel="noopener noreferrer"
-                   className="flex items-center gap-4 p-4 card hover:border-primary-500/30 hover:text-primary-300 transition-all group">
-                  <span className="text-primary-400 group-hover:scale-110 transition-transform">{info.icon}</span>
+                   className="flex items-center gap-4 pt-4 first:pt-0 text-muted-foreground hover:text-primary-400 transition-colors group">
+                  <span className="shrink-0">{info.icon}</span>
                   <div>
-                    <p className="text-muted-foreground/70 text-xs">{info.label}</p>
-                    <p className="text-foreground text-sm font-medium">{info.value}</p>
+                    <p className="text-xs">{info.label}</p>
+                    <p className="text-foreground text-sm font-medium group-hover:text-primary-400 transition-colors">{info.value}</p>
                   </div>
                 </a>
               ))}

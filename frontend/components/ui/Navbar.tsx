@@ -2,17 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { NAV_LINKS } from "@/lib/data";
 import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useProfile } from "@/lib/useProfile";
 
 const NAV_KEYS = ["about", "skills", "projects", "experience", "contact"] as const;
 
 export default function Navbar() {
   const t = useTranslations("nav");
+  const locale = useLocale();
+  const { profile } = useProfile();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const name = locale === "th" ? (profile.name_th || profile.name_en) : profile.name_en;
+  const initials = name
+    ? name.trim().split(/\s+/).map((part) => part[0]).slice(0, 2).join("").toUpperCase()
+    : "";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -34,7 +42,7 @@ export default function Navbar() {
           <span className="w-7 h-7 flex items-center justify-center bg-primary-500 text-primary-foreground
                            text-xs font-display font-extrabold rounded-sm
                            group-hover:bg-primary-400 transition-colors">
-            YN
+            {initials}
           </span>
           <span className="text-sm font-mono text-muted-foreground group-hover:text-foreground/80
                            transition-colors hidden sm:block tracking-wider">
