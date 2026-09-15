@@ -91,30 +91,9 @@ services:
       - portfolio_network
 
   # ─────────────────────────────────────────
-  # Nginx Reverse Proxy
-  # ─────────────────────────────────────────
-  nginx:
-    image: nginx:alpine
-    container_name: portfolio_nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-    volumes:
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-    depends_on:
-      - frontend
-      - backend
-    healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/api/health"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-      start_period: 30s
-    networks:
-      - portfolio_network
-
-  # ─────────────────────────────────────────
   # Cloudflare Tunnel (start with --profile tunnel)
+  # Points directly at the frontend, which already proxies
+  # /api/* to the backend via Next.js rewrites — no nginx needed.
   # ─────────────────────────────────────────
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -122,8 +101,7 @@ services:
     restart: unless-stopped
     command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
     depends_on:
-      nginx:
-        condition: service_healthy
+      - frontend
     networks:
       - portfolio_network
     profiles:
