@@ -91,27 +91,6 @@ services:
       - portfolio_network
 
   # ─────────────────────────────────────────
-  # phpMyAdmin
-  # ─────────────────────────────────────────
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: portfolio_phpmyadmin
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    environment:
-      - PMA_HOST=db
-      - PMA_PORT=3306
-      - PMA_USER=root
-      - PMA_PASSWORD=${DB_ROOT_PASSWORD:-rootsecret}
-      - UPLOAD_LIMIT=64M
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - portfolio_network
-
-  # ─────────────────────────────────────────
   # Nginx Reverse Proxy
   # ─────────────────────────────────────────
   nginx:
