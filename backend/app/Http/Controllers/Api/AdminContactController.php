@@ -32,4 +32,14 @@ class AdminContactController extends Controller
             'data'    => new ContactResource($contact->fresh()),
         ]);
     }
+
+    /**
+     * DELETE /api/admin/contacts/{contact}
+     */
+    public function destroy(Contact $contact): JsonResponse
+    {
+        $contact->delete();
+
+        return response()->json(['message' => 'Deleted']);
+    }
 }

@@ -69,6 +69,7 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     // Contacts
     Route::get('contacts',                  [AdminContactController::class, 'index']);
     Route::patch('contacts/{contact}/read', [AdminContactController::class, 'markAsRead']);
+    Route::delete('contacts/{contact}',     [AdminContactController::class, 'destroy']);
 
     // Dashboard stats
     Route::get('stats', function () {

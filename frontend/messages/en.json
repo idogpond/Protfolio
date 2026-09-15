@@ -12,8 +12,7 @@
     "greeting": "Hi, I'm",
     "viewWork": "View My Work",
     "getInTouch": "Get In Touch",
-    "downloadCV": "Download CV",
-    "scroll": "Scroll"
+    "downloadCV": "Download CV"
   },
   "about": {
     "title": "About Me",
@@ -156,6 +155,9 @@
       "markAsRead": "Mark as Read",
       "marking": "Marking…",
       "read": "Read",
+      "delete": "Delete",
+      "deleting": "Deleting…",
+      "confirmDelete": "Delete this message?",
       "error": "Something went wrong. Please try again."
     },
     "profile": {

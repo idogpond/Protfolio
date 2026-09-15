@@ -15,6 +15,7 @@ export default function AdminContactsPage() {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState<string | null>(null);
   const [marking, setMarking]   = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<number | null>(null);
 
   useEffect(() => { fetchContacts(); }, []);
 
@@ -40,6 +41,19 @@ export default function AdminContactsPage() {
       console.error("Failed to mark contact as read");
     } finally {
       setMarking(null);
+    }
+  }
+
+  async function handleDelete(id: number) {
+    if (!confirm(t("confirmDelete"))) return;
+    setDeleting(id);
+    try {
+      await adminApi.delete(`/admin/contacts/${id}`);
+      setContacts((prev) => prev.filter((c) => c.id !== id));
+    } catch {
+      console.error("Failed to delete contact");
+    } finally {
+      setDeleting(null);
     }
   }
 
@@ -114,8 +128,15 @@ export default function AdminContactsPage() {
               </div>
 
               {/* Actions */}
-              {!contact.is_read && (
-                <div className="flex justify-end mt-4 pt-4 border-t border-border">
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+                {contact.is_read ? (
+                  <span className="text-xs text-muted-foreground/50 flex items-center gap-1">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    {t("read")}
+                  </span>
+                ) : (
                   <Button
                     variant="outline" size="sm"
                     onClick={() => handleMarkRead(contact.id)}
@@ -139,19 +160,21 @@ export default function AdminContactsPage() {
                       </>
                     )}
                   </Button>
-                </div>
-              )}
+                )}
 
-              {contact.is_read && (
-                <div className="flex justify-end mt-3">
-                  <span className="text-xs text-muted-foreground/50 flex items-center gap-1">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    {t("read")}
-                  </span>
-                </div>
-              )}
+                <Button
+                  variant="outline" size="sm"
+                  onClick={() => handleDelete(contact.id)}
+                  disabled={deleting === contact.id}
+                  className="text-foreground/80 hover:text-destructive hover:border-destructive flex items-center gap-2 disabled:opacity-50"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  </svg>
+                  {deleting === contact.id ? t("deleting") : t("delete")}
+                </Button>
+              </div>
             </div>
           ))}
         </div>
