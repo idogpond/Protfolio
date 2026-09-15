@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
@@ -51,16 +50,10 @@ export default function Skills() {
         <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
         <div className="grid md:grid-cols-3 gap-10 mb-10">
-          {categories.map((cat, ci) => {
+          {categories.map((cat) => {
             const catSkills = skills.filter((s) => s.category === cat.key);
             return (
-              <motion.div
-                key={cat.key}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: ci * 0.12, duration: 0.5 }}
-              >
+              <div key={cat.key}>
                 <h3 className={`text-base font-display font-semibold text-foreground pb-3 mb-5 border-b-2 ${cat.border}`}>
                   {cat.label}
                 </h3>
@@ -78,7 +71,7 @@ export default function Skills() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             );
           })}
         </div>

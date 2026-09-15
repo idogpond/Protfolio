@@ -1,23 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
 import { useProfile } from "@/lib/useProfile";
 import type { Project } from "@/types";
 
-function ProjectCard({ project, index, locale }: { project: Project; index: number; locale: string }) {
+function ProjectCard({ project, locale }: { project: Project; locale: string }) {
   const title = locale === "th" ? (project.title_th || project.title) : project.title;
   const description = locale === "th" ? (project.description_th || project.description) : project.description;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
+    <article
       className="card p-6 flex flex-col gap-4 hover:border-primary-500/40
                  transition-all duration-300 group relative overflow-hidden"
     >
@@ -57,7 +52,7 @@ function ProjectCard({ project, index, locale }: { project: Project; index: numb
           </span>
         ))}
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -116,7 +111,7 @@ export default function Projects() {
         <div className="grid sm:grid-cols-2 gap-6">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => <ProjectSkeleton key={i} />)
-            : projects.map((project, i) => <ProjectCard key={project.id} project={project} index={i} locale={locale} />)}
+            : projects.map((project) => <ProjectCard key={project.id} project={project} locale={locale} />)}
         </div>
 
         {!loading && projects.length === 0 && !error && (
@@ -124,12 +119,7 @@ export default function Projects() {
         )}
 
         {!loading && projects.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <div className="text-center mt-12">
             <a
               href={(profile.github_url as string | undefined) || "https://github.com"}
               target="_blank"
@@ -141,7 +131,7 @@ export default function Projects() {
               </svg>
               {t("viewMore")}
             </a>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

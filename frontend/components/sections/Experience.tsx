@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import api from "@/lib/axios";
@@ -25,18 +24,14 @@ export default function Experience() {
         <SectionHeader title={t("title")} subtitle={t("subtitle")} />
 
         <div className="max-w-5xl mx-auto border-t border-border">
-          {experiences.map((exp, index) => {
+          {experiences.map((exp) => {
             const position    = locale === "th" ? (exp.position_th || exp.position_en) : exp.position_en;
             const period      = locale === "th" ? (exp.period_th || exp.period_en) : exp.period_en;
             const description = locale === "th" ? (exp.description_th?.length ? exp.description_th : exp.description_en) : exp.description_en;
 
             return (
-              <motion.div
+              <div
                 key={exp.id}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08, duration: 0.4 }}
                 className="py-8 border-b border-border grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-8"
               >
                 <div className="font-mono text-xs text-muted-foreground/70 sm:pt-1">{period}</div>
@@ -62,7 +57,7 @@ export default function Experience() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useProfile } from "@/lib/useProfile";
@@ -34,11 +33,7 @@ export default function About() {
 
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="space-y-5 text-foreground/80 leading-relaxed"
-          >
+          <div className="space-y-5 text-foreground/80 leading-relaxed">
             {aboutMe
               ? aboutMe.split("\n\n").map((para, i) => <p key={i}>{para}</p>)
               : <p>{t("fallbackBio", { years: String(profile.years_of_experience || 3) })}</p>}
@@ -73,21 +68,17 @@ export default function About() {
             <div className="pt-4">
               <a href="#contact" className="btn-primary inline-block">{t("cta")}</a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="card divide-y divide-border"
-          >
+          <div className="card divide-y divide-border">
             {stats.map((stat) => (
               <div key={stat.label} className="flex items-baseline justify-between px-6 py-4">
                 <span className="text-muted-foreground text-sm">{stat.label}</span>
                 <span className="text-2xl font-display font-bold text-foreground">{stat.value}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

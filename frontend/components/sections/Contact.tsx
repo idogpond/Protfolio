@@ -77,11 +77,7 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-5 gap-12 max-w-5xl mx-auto">
           {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="lg:col-span-2 space-y-6"
-          >
+          <div className="lg:col-span-2 space-y-6">
             <div className="space-y-2">
               <h3 className="text-foreground font-semibold text-xl">{t("connectTitle")}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">{t("description")}</p>
@@ -98,14 +94,10 @@ export default function Contact() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right — Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="lg:col-span-3"
-          >
+          <div className="lg:col-span-3">
             <form onSubmit={handleSubmit} noValidate className="card p-7 space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-foreground/80">
@@ -171,7 +163,7 @@ export default function Contact() {
                 {state === "loading" ? t("form.sending") : state === "success" ? t("form.sent") : t("form.submit")}
               </Button>
             </form>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
