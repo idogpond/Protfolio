@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Education;
 use App\Models\Experience;
+use App\Models\Language;
 use App\Models\Profile;
 use App\Models\Project;
 use App\Models\Skill;
@@ -24,10 +25,10 @@ class ImportCvData extends Command
         'nickname_th'         => 'กิตติกานต์',
         'job_title_en'        => 'Full-Stack Developer',
         'job_title_th'        => 'นักพัฒนา Full-Stack',
-        'bio_en'              => 'Full-Stack Developer with 3+ years of experience specializing in modernizing legacy systems — migrating monolithic Laravel Blade applications into decoupled architectures with React frontends and Laravel REST APIs. Experienced in full backend refactoring, version upgrades, and API redesign to ensure full feature parity. Also built and maintained 10+ production applications in healthcare and travel domains.',
-        'bio_th'              => 'Full-Stack Developer ที่มีประสบการณ์กว่า 3 ปี เชี่ยวชาญการ Modernize Legacy Systems — ย้ายระบบ Laravel Blade แบบ Monolith ไปเป็น Decoupled Architecture ที่มี React Frontend กับ Laravel REST API สร้างและดูแล Production Application มากกว่า 10 ระบบในกลุ่ม Healthcare และ Travel',
-        'about_en'            => "Hi! I'm Kittikarn Janbang, a Full-Stack Developer with 3+ years of experience building web applications on both Frontend and Backend.\n\nI specialize in modernizing legacy systems — migrating monolithic Laravel Blade applications to a decoupled architecture with a React Frontend and Laravel REST API, including full backend refactoring, version upgrades, and API redesign.\n\nI'm proficient in PHP Laravel, .NET Core / C#, React.js, TypeScript, MySQL, and Docker. I have experience building and maintaining 10+ production systems in the Healthcare and Travel domains.",
-        'about_th'            => "สวัสดีครับ! ผมชื่อ Kittikarn Janbang เป็น Full-Stack Developer ที่มีประสบการณ์กว่า 3 ปี ในการพัฒนา Web Application ทั้งฝั่ง Frontend และ Backend\n\nผมเชี่ยวชาญในการ Modernize Legacy Systems — ย้ายระบบ Laravel Blade แบบ Monolith ไปเป็น Decoupled Architecture ที่มี React Frontend กับ Laravel REST API รวมถึงมีประสบการณ์ทำ Full Backend Refactoring, Version Upgrade และ API Redesign\n\nผมถนัด PHP Laravel, .NET Core / C#, React.js, TypeScript, MySQL และ Docker มีประสบการณ์สร้างและดูแล Production Application มากกว่า 10 ระบบในกลุ่ม Healthcare และ Travel",
+        'bio_en'              => "Full-Stack Developer with 3+ years building and maintaining web applications for healthcare and travel businesses. Comfortable owning a feature end-to-end, from the database up to the UI.",
+        'bio_th'              => "Full-Stack Developer ที่มีประสบการณ์กว่า 3 ปี ในการสร้างและดูแลเว็บแอปพลิเคชันให้ธุรกิจ Healthcare และ Travel ถนัดดูแลฟีเจอร์ตั้งแต่ต้นจนจบ ตั้งแต่ฐานข้อมูลไปจนถึง UI",
+        'about_en'            => "Hi! I'm Kittikarn Janbang, a Full-Stack Developer with 3+ years building and maintaining web applications for healthcare and travel businesses.\n\nMost of that time has gone into taking an old Laravel Blade system apart and rebuilding it as a React frontend talking to a Laravel API, while keeping everything clients already depended on working the same as before.\n\nI'm comfortable owning a feature end-to-end, from the database up to the UI. My stack includes PHP Laravel, .NET Core / C#, React.js, Next.js, TypeScript, MySQL, and Docker.",
+        'about_th'            => "สวัสดีครับ! ผมชื่อ Kittikarn Janbang เป็น Full-Stack Developer ที่มีประสบการณ์กว่า 3 ปี ในการสร้างและดูแลเว็บแอปพลิเคชันให้ธุรกิจ Healthcare และ Travel\n\nเวลาส่วนใหญ่ผมใช้ไปกับการรื้อระบบ Laravel Blade เก่าออกแล้วสร้างใหม่เป็น React Frontend ที่คุยกับ Laravel API โดยยังคงทุกอย่างที่ลูกค้าเคยใช้งานอยู่ให้ทำงานเหมือนเดิม\n\nผมถนัดดูแลฟีเจอร์ตั้งแต่ต้นจนจบ ตั้งแต่ฐานข้อมูลไปจนถึง UI สแตกที่ใช้ประจำคือ PHP Laravel, .NET Core / C#, React.js, Next.js, TypeScript, MySQL และ Docker",
         'profile_image'       => '',
         'years_of_experience' => 3,
         'date_of_birth'       => null,
@@ -65,20 +66,18 @@ class ImportCvData extends Command
             'started_at'     => '2022-10-01',
             'ended_at'       => null,
             'description_en' => [
-                'Designed, built, and maintained 10+ production-grade web applications powering Clinic Appointment and Travel-booking systems used by daily clients.',
-                'Owned full-stack development end-to-end: API architecture in PHP Laravel and .NET Core, frontend in React with PrimeReact, and MySQL / SQL Server data layer.',
-                'Implemented secure JWT-based authentication, role-based access control, and environment-based configuration for staging / production parity.',
-                'Optimized database queries and refactored legacy modules, cutting page load and API response times by approximately half.',
-                'Led solo migration of a monolithic Laravel Blade application to a decoupled architecture (React SPA + Laravel REST API), including full backend refactoring and version upgrade.',
-                'Conducted code reviews, regression testing, and manual QA to keep release quality high in a small, fast-moving team.',
+                'Build and maintain 12 web apps for clinic-appointment and travel-booking systems, handling everything from database design up to the UI.',
+                'Migrated a large legacy Laravel Blade app to React solo: evaluated React libraries/packages, then split the old Blade controllers into a standalone API server for the frontend to consume.',
+                "Cut a slow report page's load time from ~30s to ~10s by consolidating 2–3 duplicate queries into one, on a 50-row-per-page table pulling from 10,000+ records.",
+                'Set up JWT authentication and role-based permissions so different staff roles only see what they should.',
+                "Do code reviews and manual/regression testing before releases. It's a small team, so this is what catches most issues before they reach a client.",
             ],
             'description_th' => [
-                'ออกแบบ สร้าง และดูแลเว็บแอปพลิเคชันระดับ Production มากกว่า 10 ระบบ สำหรับระบบนัดหมายคลินิกและจองท่องเที่ยว',
-                'รับผิดชอบการพัฒนา Full-Stack ตั้งแต่ต้นจนจบ: API ด้วย PHP Laravel และ .NET Core, Frontend ด้วย React + PrimeReact และ MySQL / SQL Server',
-                'พัฒนาระบบ Authentication ด้วย JWT, Role-based Access Control และ Environment Config สำหรับ Staging/Production',
-                'ปรับปรุง Query และ Refactor Legacy Module ลดเวลาโหลดหน้าและ Response Time ลงประมาณครึ่งหนึ่ง',
-                'นำทีมย้ายระบบ Laravel Blade แบบ Monolith ไปเป็น Decoupled Architecture (React SPA + Laravel REST API) รวมถึง Backend Refactoring และ Version Upgrade',
-                'ทำ Code Review, Regression Testing และ Manual QA เพื่อรักษาคุณภาพของ Release ในทีมขนาดเล็ก',
+                'สร้างและดูแลเว็บแอป 12 ระบบ สำหรับระบบนัดหมายคลินิกและจองท่องเที่ยว ดูแลตั้งแต่ออกแบบฐานข้อมูลไปจนถึง UI',
+                'ย้ายระบบ Laravel Blade เก่าไปเป็น React คนเดียว: ประเมินไลบรารี/แพ็กเกจ React แล้วแยก Blade controller เดิมออกมาเป็น API server แยกต่างหากให้ frontend เรียกใช้',
+                'ลดเวลาโหลดหน้ารายงานจาก ~30 วินาที เหลือ ~10 วินาที ด้วยการรวม query ที่ซ้ำกัน 2-3 ตัวเป็นตัวเดียว บนตารางที่แสดง 50 แถวต่อหน้าจากข้อมูลกว่า 10,000 รายการ',
+                'ตั้งค่า JWT authentication และสิทธิ์ตาม role ให้พนักงานแต่ละตำแหน่งเห็นเฉพาะส่วนที่ควรเห็น',
+                'ทำ code review และ manual/regression testing ก่อนปล่อยรุ่นใหม่ เป็นทีมเล็ก จุดนี้เลยเป็นตัวจับปัญหาส่วนใหญ่ก่อนถึงมือลูกค้า',
             ],
             'tech'           => ['PHP Laravel', '.NET Core / C#', 'React', 'PrimeReact', 'MySQL', 'SQL Server', 'Docker', 'JWT'],
             'order'          => 1,
@@ -92,14 +91,14 @@ class ImportCvData extends Command
             'started_at'     => '2020-12-01',
             'ended_at'       => '2021-03-31',
             'description_en' => [
-                'Built a responsive frontend in Vue.js integrated with .NET Core APIs backed by Microsoft SQL Server.',
-                'Implemented CRUD modules processing 1,000+ records per month, including form validation, list/detail views, and error handling.',
-                'Collaborated with senior engineers in code reviews and gained exposure to enterprise-grade .NET workflows.',
+                'Developed the frontend in Vue.js for an internal system, wired up to .NET Core APIs and a SQL Server database.',
+                'Built out the CRUD screens (forms, list/detail views, error handling) for a system handling 1,000+ records a month.',
+                'First real exposure to enterprise .NET practices, mostly through code reviews with senior engineers.',
             ],
             'description_th' => [
-                'พัฒนา Frontend ด้วย Vue.js เชื่อมต่อกับ .NET Core API และ Microsoft SQL Server',
-                'สร้าง CRUD Module ที่จัดการข้อมูลมากกว่า 1,000 รายการต่อเดือน รวมถึง Form Validation, List/Detail View และ Error Handling',
-                'ร่วม Code Review กับวิศวกรอาวุโสและเรียนรู้ .NET Workflow ระดับ Enterprise',
+                'พัฒนา Frontend ด้วย Vue.js สำหรับระบบภายใน เชื่อมกับ .NET Core API และฐานข้อมูล SQL Server',
+                'สร้างหน้าจอ CRUD (ฟอร์ม, list/detail view, error handling) สำหรับระบบที่จัดการข้อมูลกว่า 1,000 รายการต่อเดือน',
+                'ได้สัมผัสแนวทางการทำงานแบบ Enterprise .NET จริงเป็นครั้งแรก ส่วนใหญ่ผ่านการทำ code review กับวิศวกรอาวุโส',
             ],
             'tech'           => ['Vue.js', '.NET Core', 'SQL Server'],
             'order'          => 2,
@@ -121,9 +120,18 @@ class ImportCvData extends Command
         ['name' => 'RESTful API',       'icon' => '🔌',  'level' => 90, 'category' => 'backend',  'order' => 10],
         ['name' => 'MySQL',             'icon' => '🐬',  'level' => 85, 'category' => 'backend',  'order' => 11],
         ['name' => 'SQL Server',        'icon' => '🗄️',  'level' => 80, 'category' => 'backend',  'order' => 12],
+        ['name' => 'Next.js',            'icon' => '▲',  'level' => 80, 'category' => 'frontend', 'order' => 15],
+        ['name' => 'HTML5',              'icon' => '🌐', 'level' => 90, 'category' => 'frontend', 'order' => 16],
+        ['name' => 'CSS3 / SCSS / SASS', 'icon' => '🎨', 'level' => 85, 'category' => 'frontend', 'order' => 17],
+        ['name' => 'Bootstrap',          'icon' => '🅱️', 'level' => 70, 'category' => 'frontend', 'order' => 18],
+        ['name' => 'PrimeFlex',          'icon' => '🔷', 'level' => 75, 'category' => 'frontend', 'order' => 19],
         // DevOps
         ['name' => 'Docker',            'icon' => '🐳',  'level' => 75, 'category' => 'devops',   'order' => 13],
         ['name' => 'Git',               'icon' => '🌿',  'level' => 90, 'category' => 'devops',   'order' => 14],
+        ['name' => 'Composer',          'icon' => '📦', 'level' => 80, 'category' => 'devops',   'order' => 20],
+        ['name' => 'npm / yarn',        'icon' => '📦', 'level' => 85, 'category' => 'devops',   'order' => 21],
+        ['name' => 'VS Code',           'icon' => '🧩', 'level' => 90, 'category' => 'devops',   'order' => 22],
+        ['name' => 'Visual Studio',     'icon' => '🧩', 'level' => 75, 'category' => 'devops',   'order' => 23],
     ];
 
     private array $educationsData = [
@@ -144,7 +152,7 @@ class ImportCvData extends Command
     private array $projectsData = [
         [
             'title'       => 'Clinic Appointment System (QuickRes.org)',
-            'description' => 'Multi-country clinic appointment platform with QuickRes.org as the main system and dedicated country-specific deployments across Thailand, Cambodia, Ukraine, and others — serving 30+ clinics in total. Designed booking flow, doctor calendar, and notification logic.',
+            'description' => 'A booking platform live in 13 countries (including Thailand, Cambodia, and Ukraine), serving 50+ clinics. Designed the booking flow, doctor calendar, and notification logic myself.',
             'tech_stack'  => ['Laravel', 'React', 'MySQL'],
             'github_url'  => null,
             'demo_url'    => 'https://quickres.org',
@@ -155,7 +163,7 @@ class ImportCvData extends Command
         [
             'title'       => 'Travel Booking Platform',
             'description' => 'In-development travel management system. Implemented Stripe payment integration and built admin panel for back-office workflows.',
-            'tech_stack'  => ['.NET Core', 'React', 'SQL Server', 'Stripe'],
+            'tech_stack'  => ['.NET Core', 'React', 'Next.js', 'SQL Server', 'Stripe'],
             'github_url'  => null,
             'demo_url'    => null,
             'image_url'   => null,
@@ -174,6 +182,23 @@ class ImportCvData extends Command
         ],
     ];
 
+    private array $languagesData = [
+        [
+            'name_en'         => 'Thai',
+            'name_th'         => 'ไทย',
+            'proficiency_en'  => 'Native',
+            'proficiency_th'  => 'เจ้าของภาษา',
+            'order'           => 1,
+        ],
+        [
+            'name_en'         => 'English',
+            'name_th'         => 'อังกฤษ',
+            'proficiency_en'  => 'Reading/Writing/Listening: Working Proficiency; Speaking: Basic',
+            'proficiency_th'  => 'อ่าน เขียน ฟัง ใช้งานได้ดี / พูด พื้นฐาน',
+            'order'           => 2,
+        ],
+    ];
+
     // ── Command Logic ──────────────────────────────────────────────────────────
 
     public function handle(): int
@@ -184,8 +209,8 @@ class ImportCvData extends Command
         $this->info('═══════════════════════════════════════');
 
         $counts = [
-            'deleted'  => ['profiles' => 0, 'experiences' => 0, 'skills' => 0, 'educations' => 0, 'projects' => 0],
-            'inserted' => ['profiles' => 0, 'experiences' => 0, 'skills' => 0, 'educations' => 0, 'projects' => 0],
+            'deleted'  => ['profiles' => 0, 'experiences' => 0, 'skills' => 0, 'educations' => 0, 'projects' => 0, 'languages' => 0],
+            'inserted' => ['profiles' => 0, 'experiences' => 0, 'skills' => 0, 'educations' => 0, 'projects' => 0, 'languages' => 0],
         ];
 
         try {
@@ -196,6 +221,7 @@ class ImportCvData extends Command
                 $counts['deleted']['skills']      = Skill::query()->delete();
                 $counts['deleted']['educations']  = Education::query()->delete();
                 $counts['deleted']['projects']    = Project::query()->delete();
+                $counts['deleted']['languages']   = Language::query()->delete();
 
                 // ── Insert profile ──────────────────────────────────────────
                 Profile::create($this->profileData);
@@ -235,6 +261,12 @@ class ImportCvData extends Command
                 foreach ($this->projectsData as $project) {
                     Project::create($project);
                     $counts['inserted']['projects']++;
+                }
+
+                // ── Insert languages ────────────────────────────────────────
+                foreach ($this->languagesData as $language) {
+                    Language::create($language);
+                    $counts['inserted']['languages']++;
                 }
             });
         } catch (\Throwable $e) {

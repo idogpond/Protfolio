@@ -12,7 +12,7 @@ class ProjectSeeder extends Seeder
         $projects = [
             [
                 'title'       => 'Clinic Appointment System (QuickRes.org)',
-                'description' => 'Multi-country clinic appointment platform with QuickRes.org as the main system and dedicated country-specific deployments across Thailand, Cambodia, Ukraine, and others — serving 30+ clinics in total. Designed booking flow, doctor calendar, and notification logic.',
+                'description' => 'A booking platform live in 13 countries (including Thailand, Cambodia, and Ukraine), serving 50+ clinics. Designed the booking flow, doctor calendar, and notification logic myself.',
                 'tech_stack'  => ['Laravel', 'React', 'MySQL'],
                 'github_url'  => null,
                 'demo_url'    => 'https://quickres.org',
@@ -23,7 +23,7 @@ class ProjectSeeder extends Seeder
             [
                 'title'       => 'Travel Booking Platform',
                 'description' => 'In-development travel management system. Implemented Stripe payment integration and built admin panel for back-office workflows.',
-                'tech_stack'  => ['.NET Core', 'React', 'SQL Server', 'Stripe'],
+                'tech_stack'  => ['.NET Core', 'React', 'Next.js', 'SQL Server', 'Stripe'],
                 'github_url'  => null,
                 'demo_url'    => null,
                 'image_url'   => null,

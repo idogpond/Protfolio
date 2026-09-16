@@ -23,9 +23,18 @@ class SkillSeeder extends Seeder
             ['name' => 'RESTful API',       'icon' => '🔌',  'level' => 90, 'category' => 'backend',  'order' => 10],
             ['name' => 'MySQL',             'icon' => '🐬',  'level' => 85, 'category' => 'backend',  'order' => 11],
             ['name' => 'SQL Server',        'icon' => '🗄️',  'level' => 80, 'category' => 'backend',  'order' => 12],
+            ['name' => 'Next.js',            'icon' => '▲',  'level' => 80, 'category' => 'frontend', 'order' => 15],
+            ['name' => 'HTML5',              'icon' => '🌐', 'level' => 90, 'category' => 'frontend', 'order' => 16],
+            ['name' => 'CSS3 / SCSS / SASS', 'icon' => '🎨', 'level' => 85, 'category' => 'frontend', 'order' => 17],
+            ['name' => 'Bootstrap',          'icon' => '🅱️', 'level' => 70, 'category' => 'frontend', 'order' => 18],
+            ['name' => 'PrimeFlex',          'icon' => '🔷', 'level' => 75, 'category' => 'frontend', 'order' => 19],
             // DevOps
             ['name' => 'Docker',            'icon' => '🐳',  'level' => 75, 'category' => 'devops',   'order' => 13],
             ['name' => 'Git',               'icon' => '🌿',  'level' => 90, 'category' => 'devops',   'order' => 14],
+            ['name' => 'Composer',          'icon' => '📦', 'level' => 80, 'category' => 'devops',   'order' => 20],
+            ['name' => 'npm / yarn',        'icon' => '📦', 'level' => 85, 'category' => 'devops',   'order' => 21],
+            ['name' => 'VS Code',           'icon' => '🧩', 'level' => 90, 'category' => 'devops',   'order' => 22],
+            ['name' => 'Visual Studio',     'icon' => '🧩', 'level' => 75, 'category' => 'devops',   'order' => 23],
         ];
 
         foreach ($skills as $skill) {
