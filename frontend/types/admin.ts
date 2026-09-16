@@ -67,6 +67,14 @@ export interface EducationFormValues {
   order: number;
 }
 
+export interface LanguageFormValues {
+  name_en: string;
+  name_th: string;
+  proficiency_en: string;
+  proficiency_th: string;
+  order: number;
+}
+
 // Admin profile view: same as the public Profile, but with the raw
 // date_of_birth (for the edit form) instead of the computed public age.
 import type { Profile } from "./index";

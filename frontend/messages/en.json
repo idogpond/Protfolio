@@ -92,7 +92,8 @@
         "contacts": "Contacts",
         "experiences": "Experiences",
         "skills": "Skills",
-        "educations": "Education"
+        "educations": "Education",
+        "languages": "Languages"
       },
       "viewPublicSite": "View Public Site",
       "logout": "Logout",
@@ -356,6 +357,33 @@
       "graduatedLabel": "Graduated (year)",
       "graduatedPlaceholder": "2022",
       "gpaLabel": "GPA"
+    },
+    "languages": {
+      "title": "Languages",
+      "newTitle": "New Language",
+      "editTitle": "Edit Language",
+      "count": "{count} languages",
+      "newLanguage": "+ New Language",
+      "loading": "Loading…",
+      "empty": "No languages yet.",
+      "backToList": "← Back to Languages",
+      "colName": "Language",
+      "colProficiency": "Proficiency",
+      "colActions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleting": "…",
+      "confirmDelete": "Delete this language?",
+      "createLabel": "Create Language",
+      "updateLabel": "Update Language",
+      "serverError": "Something went wrong."
+    },
+    "languageForm": {
+      "nameEnLabel": "Language (EN) *",
+      "nameThLabel": "Language (TH)",
+      "proficiencyEnLabel": "Proficiency (EN) *",
+      "proficiencyThLabel": "Proficiency (TH)",
+      "orderLabel": "Display Order"
     }
   }
 }

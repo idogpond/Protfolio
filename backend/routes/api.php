@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdminContactController;
 use App\Http\Controllers\Api\AdminEducationController;
 use App\Http\Controllers\Api\AdminExperienceController;
+use App\Http\Controllers\Api\AdminLanguageController;
 use App\Http\Controllers\Api\AdminProfileController;
 use App\Http\Controllers\Api\AdminProjectController;
 use App\Http\Controllers\Api\AdminSkillController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\EducationController;
 use App\Http\Controllers\Api\ExperienceController;
+use App\Http\Controllers\Api\LanguageController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\SkillController;
@@ -26,6 +28,7 @@ Route::get('/profile',     [ProfileController::class,    'show']);
 Route::get('/experiences', [ExperienceController::class, 'index']);
 Route::get('/skills',      [SkillController::class,      'index']);
 Route::get('/educations',  [EducationController::class,  'index']);
+Route::get('/languages',   [LanguageController::class,   'index']);
 
 Route::apiResource('projects', ProjectController::class)->only(['index', 'show']);
 Route::post('/contacts', [ContactController::class, 'store'])->middleware('throttle:3,1');
@@ -64,6 +67,8 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('skills', AdminSkillController::class)
         ->only(['index', 'show', 'store', 'update', 'destroy']);
     Route::apiResource('educations', AdminEducationController::class)
+        ->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::apiResource('languages', AdminLanguageController::class)
         ->only(['index', 'show', 'store', 'update', 'destroy']);
 
     // Contacts

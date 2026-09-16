@@ -85,6 +85,16 @@ export interface Education {
   order: number;
 }
 
+// ─── Language ────────────────────────────────────────────────────────────────
+export interface Language {
+  id: number;
+  name_en: string;
+  name_th: string | null;
+  proficiency_en: string;
+  proficiency_th: string | null;
+  order: number;
+}
+
 // ─── Project ─────────────────────────────────────────────────────────────────
 export interface Project {
   id: number;

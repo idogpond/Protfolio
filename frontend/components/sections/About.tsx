@@ -1,13 +1,21 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { useProfile } from "@/lib/useProfile";
+import api from "@/lib/axios";
+import type { Language } from "@/types";
 
 export default function About() {
   const { profile } = useProfile();
   const t = useTranslations("about");
   const locale = useLocale();
+  const [languages, setLanguages] = useState<Language[]>([]);
+
+  useEffect(() => {
+    api.get<{ data: Language[] }>("/languages").then((res) => setLanguages(res.data.data));
+  }, []);
 
   const aboutMe  = locale === "th" ? (profile.about_th || profile.about_en) : profile.about_en;
   const location = locale === "th" ? (profile.location_th || profile.location_en) : profile.location_en;
@@ -70,14 +78,31 @@ export default function About() {
             </div>
           </div>
 
-          {/* Stats */}
-          <div className="card divide-y divide-border">
-            {stats.map((stat) => (
-              <div key={stat.label} className="flex items-baseline justify-between px-6 py-4">
-                <span className="text-muted-foreground text-sm">{stat.label}</span>
-                <span className="text-2xl font-display font-bold text-foreground">{stat.value}</span>
+          {/* Stats + Languages */}
+          <div className="space-y-4">
+            <div className="card divide-y divide-border">
+              {stats.map((stat) => (
+                <div key={stat.label} className="flex items-baseline justify-between px-6 py-4">
+                  <span className="text-muted-foreground text-sm">{stat.label}</span>
+                  <span className="text-2xl font-display font-bold text-foreground">{stat.value}</span>
+                </div>
+              ))}
+            </div>
+
+            {languages.length > 0 && (
+              <div className="card divide-y divide-border">
+                {languages.map((lang) => {
+                  const name = locale === "th" ? (lang.name_th || lang.name_en) : lang.name_en;
+                  const proficiency = locale === "th" ? (lang.proficiency_th || lang.proficiency_en) : lang.proficiency_en;
+                  return (
+                    <div key={lang.id} className="flex items-baseline justify-between gap-4 px-6 py-4">
+                      <span className="text-foreground text-sm font-medium shrink-0">{name}</span>
+                      <span className="text-muted-foreground text-sm text-right">{proficiency}</span>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

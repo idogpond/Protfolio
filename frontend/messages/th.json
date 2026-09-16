@@ -92,7 +92,8 @@
         "contacts": "ข้อความ",
         "experiences": "ประสบการณ์",
         "skills": "ทักษะ",
-        "educations": "การศึกษา"
+        "educations": "การศึกษา",
+        "languages": "ภาษา"
       },
       "viewPublicSite": "ดูเว็บสาธารณะ",
       "logout": "ออกจากระบบ",
@@ -356,6 +357,33 @@
       "graduatedLabel": "ปีที่จบ",
       "graduatedPlaceholder": "2022",
       "gpaLabel": "เกรดเฉลี่ย"
+    },
+    "languages": {
+      "title": "ภาษา",
+      "newTitle": "เพิ่มภาษาใหม่",
+      "editTitle": "แก้ไขภาษา",
+      "count": "{count} ภาษา",
+      "newLanguage": "+ เพิ่มภาษา",
+      "loading": "กำลังโหลด…",
+      "empty": "ยังไม่มีข้อมูลภาษา",
+      "backToList": "← กลับไปหน้าภาษา",
+      "colName": "ภาษา",
+      "colProficiency": "ระดับความสามารถ",
+      "colActions": "การกระทำ",
+      "edit": "แก้ไข",
+      "delete": "ลบ",
+      "deleting": "…",
+      "confirmDelete": "ยืนยันการลบภาษานี้?",
+      "createLabel": "สร้างภาษา",
+      "updateLabel": "อัปเดตภาษา",
+      "serverError": "เกิดข้อผิดพลาด"
+    },
+    "languageForm": {
+      "nameEnLabel": "ชื่อภาษา (EN) *",
+      "nameThLabel": "ชื่อภาษา (TH)",
+      "proficiencyEnLabel": "ระดับความสามารถ (EN) *",
+      "proficiencyThLabel": "ระดับความสามารถ (TH)",
+      "orderLabel": "ลำดับการแสดง"
     }
   }
 }
